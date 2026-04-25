@@ -69,7 +69,7 @@ import { getReportForRole } from "@/data/roleReports";
 const scoreColor = (s: number) => {
   if (s >= 75) return "hsl(var(--foreground))";
   if (s >= 50) return "hsl(var(--primary-glow))";
-  return "rgba(255,255,255,0.45)";
+  return "#555555";
 };
 
 const Dashboard = () => {
@@ -103,7 +103,7 @@ const Dashboard = () => {
   const ringColor = scoreColor(score);
 
   return (
-    <div className="min-h-screen bg-gradient-subtle font-sans text-foreground">
+    <div className="min-h-screen bg-gradient-subtle font-sans text-[#111111]">
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
         <div className="container flex h-16 items-center justify-between gap-3">
@@ -112,7 +112,7 @@ const Dashboard = () => {
             <div className="hidden h-6 w-px bg-border md:block" />
             <div className="hidden min-w-0 md:block">
               <div className="truncate text-sm font-semibold leading-tight">{profile.companyName}</div>
-              <div className="truncate text-xs text-[rgba(255,255,255,0.45)]">
+              <div className="truncate text-xs text-[#555555]">
                 {profile.industry} · {profile.size} · {profile.region}
               </div>
             </div>
@@ -136,14 +136,14 @@ const Dashboard = () => {
               <Badge className="bg-accent text-accent-foreground hover:bg-accent">
                 <Briefcase className="h-3 w-3" /> {roleLabel}
               </Badge>
-              <Badge variant="outline" className="border-border text-[rgba(255,255,255,0.45)]">
+              <Badge variant="outline" className="border-border text-[#555555]">
                 Report · {monthLabel(month)}
               </Badge>
             </div>
-            <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl text-[rgba(255,255,255,0.45)]">
+            <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl text-[#111111]">
               {report.headline}
             </h1>
-            <p className="max-w-2xl text-sm text-[rgba(255,255,255,0.45)]">{report.focus}</p>
+            <p className="max-w-2xl text-sm text-[#555555]">{report.focus}</p>
           </div>
           <div className="flex items-center gap-2">
             <Select value={month} onValueChange={onMonthChange}>
@@ -174,7 +174,7 @@ const Dashboard = () => {
             <div className="grid gap-6 lg:grid-cols-3">
               <Card className="border-border/60 shadow-card lg:col-span-1">
                 <CardContent className="p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.45)]">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-[#555555]">
                     Health Score
                   </p>
                   <div className="relative mx-auto mt-2 h-56 w-full">
@@ -192,7 +192,7 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                     <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center pt-4">
                       <div className="font-display text-5xl font-bold tracking-tight">{score}</div>
-                      <div className="text-xs uppercase tracking-wider text-[rgba(255,255,255,0.45)]">out of 100</div>
+                      <div className="text-xs uppercase tracking-wider text-[#555555]">out of 100</div>
                     </div>
                   </div>
                   <div className="mt-2 text-center">
@@ -240,7 +240,7 @@ const Dashboard = () => {
                   <div className="mb-4 flex items-center justify-between">
                     <div>
                       <h2 className="font-display text-lg font-semibold">Revenue vs. Costs</h2>
-                      <p className="text-xs text-[rgba(255,255,255,0.45)]">Last 12 months · €K</p>
+                      <p className="text-xs text-[#555555]">Last 12 months · €K</p>
                     </div>
                     <div className="flex items-center gap-3 text-xs">
                       <span className="inline-flex items-center gap-1.5">
@@ -255,8 +255,8 @@ const Dashboard = () => {
                     <ResponsiveContainer width="100%" height="100%">
                       <BarChart data={monthlyFinancials} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                        <XAxis dataKey="month" stroke="rgba(255,255,255,0.45)" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="rgba(255,255,255,0.45)" fontSize={12} tickLine={false} axisLine={false} />
+                        <XAxis dataKey="month" stroke="#555555" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="#555555" fontSize={12} tickLine={false} axisLine={false} />
                         <Tooltip
                           contentStyle={{
                             background: "hsl(var(--card))",
@@ -277,14 +277,14 @@ const Dashboard = () => {
                 <CardContent className="p-6">
                   <div className="mb-4">
                     <h2 className="font-display text-lg font-semibold">Profit Trend</h2>
-                    <p className="text-xs text-[rgba(255,255,255,0.45)]">Net monthly · €K</p>
+                    <p className="text-xs text-[#555555]">Net monthly · €K</p>
                   </div>
                   <div className="h-72 w-full">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={profitTrend} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-                        <XAxis dataKey="month" stroke="rgba(255,255,255,0.45)" fontSize={12} tickLine={false} axisLine={false} />
-                        <YAxis stroke="rgba(255,255,255,0.45)" fontSize={12} tickLine={false} axisLine={false} />
+                        <XAxis dataKey="month" stroke="#555555" fontSize={12} tickLine={false} axisLine={false} />
+                        <YAxis stroke="#555555" fontSize={12} tickLine={false} axisLine={false} />
                         <Tooltip
                           contentStyle={{
                             background: "hsl(var(--card))",
@@ -324,7 +324,7 @@ const Dashboard = () => {
                         </Badge>
                       )}
                     </div>
-                    <p className="text-sm text-[rgba(255,255,255,0.45)]">{i.detail}</p>
+                    <p className="text-sm text-[#555555]">{i.detail}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -342,7 +342,7 @@ const Dashboard = () => {
                       <TrendingUp className="h-3 w-3" /> {m.potential}
                     </div>
                     <h3 className="font-display text-base font-semibold leading-snug">{m.title}</h3>
-                    <p className="text-sm text-[rgba(255,255,255,0.45)]">{m.detail}</p>
+                    <p className="text-sm text-[#555555]">{m.detail}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -361,9 +361,9 @@ const Dashboard = () => {
                       <h3 className="font-display text-base font-semibold leading-snug">{r.fix}</h3>
                       <UrgencyBadge urgency={r.urgency} />
                     </div>
-                    <p className="text-sm text-[rgba(255,255,255,0.45)]">{r.why}</p>
+                    <p className="text-sm text-[#555555]">{r.why}</p>
                     <div className="flex items-center justify-between border-t border-border pt-3">
-                      <span className="text-xs uppercase tracking-wider text-[rgba(255,255,255,0.45)]">Savings</span>
+                      <span className="text-xs uppercase tracking-wider text-[#555555]">Savings</span>
                       <span className="font-display text-lg font-bold text-primary">{r.savings}</span>
                     </div>
                   </CardContent>
@@ -386,7 +386,7 @@ const Dashboard = () => {
                     {report.fixes.map((r) => (
                       <TableRow key={r.fix}>
                         <TableCell className="font-medium">{r.fix}</TableCell>
-                        <TableCell className="max-w-md text-sm text-[rgba(255,255,255,0.45)]">{r.why}</TableCell>
+                        <TableCell className="max-w-md text-sm text-[#555555]">{r.why}</TableCell>
                         <TableCell className="text-right font-display text-base font-bold text-primary">
                           {r.savings}
                         </TableCell>
@@ -413,7 +413,7 @@ const Dashboard = () => {
                     </div>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-display text-base font-semibold leading-snug">{a.title}</h3>
-                      <p className="mt-1 text-sm text-[rgba(255,255,255,0.45)]">{a.detail}</p>
+                      <p className="mt-1 text-sm text-[#555555]">{a.detail}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -422,7 +422,7 @@ const Dashboard = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="py-6 text-center text-xs text-[rgba(255,255,255,0.45)]">
+        <div className="py-6 text-center text-xs text-[#555555]">
           Powered by CRAB.AI · Report tailored for {roleLabel} · {monthLabel(month)}
         </div>
       </main>
@@ -445,7 +445,7 @@ const SectionHead = ({
     </div>
     <div>
       <h2 className="font-display text-xl font-bold tracking-tight">{title}</h2>
-      <p className="text-xs text-[rgba(255,255,255,0.45)]">{subtitle}</p>
+      <p className="text-xs text-[#555555]">{subtitle}</p>
     </div>
   </div>
 );
@@ -455,7 +455,7 @@ const UrgencyBadge = ({ urgency }: { urgency: Urgency }) => {
     Critical: "bg-foreground text-background border-transparent",
     High: "bg-primary-glow text-primary-foreground border-transparent",
     Medium: "bg-accent text-accent-foreground border border-border",
-    Low: "bg-transparent text-[rgba(255,255,255,0.45)] border-border",
+    Low: "bg-transparent text-[#555555] border-border",
   };
   return (
     <Badge variant="outline" className={cn("text-[10px] font-semibold uppercase tracking-wider", map[urgency])}>
