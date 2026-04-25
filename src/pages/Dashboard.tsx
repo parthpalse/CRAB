@@ -105,23 +105,23 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-subtle font-sans text-[#111111]">
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur text-white">
         <div className="container flex h-16 items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-4">
             <Logo />
             <div className="hidden h-6 w-px bg-border md:block" />
             <div className="hidden min-w-0 md:block">
               <div className="truncate text-sm font-semibold leading-tight">{profile.companyName}</div>
-              <div className="truncate text-xs text-[#555555]">
+              <div className="truncate text-xs text-[#888888]">
                 {profile.industry} · {profile.size} · {profile.region}
               </div>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button asChild size="sm" variant="outline">
+            <Button asChild size="sm" variant="outline" className="border-white/20 hover:bg-white/10 text-white">
               <Link to="/data"><PlusCircle className="h-4 w-4" /> Add data</Link>
             </Button>
-            <Button size="sm" variant="ghost" className="hidden sm:inline-flex">
+            <Button size="sm" variant="ghost" className="hidden sm:inline-flex text-[#888888] hover:text-white hover:bg-white/10">
               <Download className="h-4 w-4" /> Export
             </Button>
           </div>
@@ -147,7 +147,7 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-2">
             <Select value={month} onValueChange={onMonthChange}>
-              <SelectTrigger className="w-[180px]"><SelectValue /></SelectTrigger>
+              <SelectTrigger className="w-[180px] bg-[#111111] text-white border-[#333333]"><SelectValue /></SelectTrigger>
               <SelectContent>
                 {monthOptions.map((k) => (
                   <SelectItem key={k} value={k}>{monthLabel(k)}</SelectItem>
