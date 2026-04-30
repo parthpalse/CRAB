@@ -10,6 +10,7 @@ import Setup from "./pages/Setup.tsx";
 import AddData from "./pages/AddData.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AntigravityHero from "./components/AntigravityHero.tsx";
 import { Navigate } from "react-router-dom";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/data" element={<AddData />} />
           <Route path="/dashboard" element={<Dashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/photon" element={<AntigravityHero />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
