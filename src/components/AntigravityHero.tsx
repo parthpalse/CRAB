@@ -1,7 +1,40 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { initHeroScene } from './heroScene';
 
+const DICT = {
+  EN: {
+    nav: ['Home', 'About Us', 'Contact Us', 'Login'],
+    bookBtn: 'Book a Consultation',
+    splash: 'KLARSTONE / INITIALIZING',
+    heroOverline: 'Future Conversation Solutions',
+    heroTitle: <>Your 24/7 AI<br />Micro-Consultant<br />for Business Clarity</>,
+    scroll: [
+      { n:'01', label:'Impact', align:'center' as const, title:<>The signal <span style={{color:'rgba(255,255,255,.4)'}}>arrives.</span></>, body:'A single thread becomes a network. Every business is a system of connected decisions — we map the ones quietly costing you margin.' },
+      { n:'02', label:'What we are', align:'left' as const, title:<>An AI advisor that <span style={{color:'rgba(255,255,255,.4)'}}>finds the leaks.</span></>, body:'KLARSTONE is a consultant-grade audit engine for SMBs. It reads your finances, costs, and growth signals, and surfaces the few moves that actually move margin.' },
+      { n:'03', label:'How we operate', align:'right' as const, title:<>Connect. Diagnose. <span style={{color:'rgba(255,255,255,.4)'}}>Fix.</span></>, body:'Three steps. Sixty seconds. A prioritized plan you can hand to your team Monday morning.' },
+      { n:'04', label:'What we find', align:'left' as const, title:<>Money <span style={{color:'rgba(255,255,255,.4)'}}>hiding</span> in plain sight.</>, body:'The same patterns surface across thousands of audits. Most operators are leaking from two or three of these at once.' },
+      { n:'05', label:'Proof', align:'center' as const, title:<>2,400 audits. <span style={{color:'rgba(255,255,255,.4)'}}>€41M recovered.</span></>, body:'Operators across 14 countries use KLARSTONE to find what their P&L is hiding.' },
+    ]
+  },
+  DE: {
+    nav: ['Startseite', 'Über uns', 'Kontakt', 'Login'],
+    bookBtn: 'Beratung buchen',
+    splash: 'KLARSTONE / INITIALISIERT',
+    heroOverline: 'Zukünftige Konversationslösungen',
+    heroTitle: <>Ihr 24/7 KI<br />Mikro-Berater<br />für geschäftliche Klarheit</>,
+    scroll: [
+      { n:'01', label:'Einfluss', align:'center' as const, title:<>Das Signal <span style={{color:'rgba(255,255,255,.4)'}}>kommt an.</span></>, body:'Ein einzelner Faden wird zu einem Netzwerk. Jedes Unternehmen ist ein System verbundener Entscheidungen — wir kartieren diejenigen, die Sie stillschweigend Marge kosten.' },
+      { n:'02', label:'Was wir sind', align:'left' as const, title:<>Ein KI-Berater, der <span style={{color:'rgba(255,255,255,.4)'}}>die Lecks findet.</span></>, body:'KLARSTONE ist eine Audit-Engine auf Beraterniveau für KMUs. Sie liest Ihre Finanzen, Kosten und Wachstumssignale und deckt die wenigen Schritte auf, die tatsächlich Marge bewegen.' },
+      { n:'03', label:'Wie wir arbeiten', align:'right' as const, title:<>Verbinden. Diagnostizieren. <span style={{color:'rgba(255,255,255,.4)'}}>Beheben.</span></>, body:'Drei Schritte. Sechzig Sekunden. Ein priorisierter Plan, den Sie Ihrem Team am Montagmorgen übergeben können.' },
+      { n:'04', label:'Was wir finden', align:'left' as const, title:<>Geld, das sich in aller <span style={{color:'rgba(255,255,255,.4)'}}>Öffentlichkeit versteckt.</span></>, body:'Dieselben Muster tauchen bei Tausenden von Audits auf. Die meisten Betreiber verlieren durch zwei oder drei davon gleichzeitig Marge.' },
+      { n:'05', label:'Beweis', align:'center' as const, title:<>2.400 Audits. <span style={{color:'rgba(255,255,255,.4)'}}>41 Mio. € zurückgewonnen.</span></>, body:'Betreiber aus 14 Ländern nutzen KLARSTONE, um zu finden, was ihre GuV verbirgt.' },
+    ]
+  }
+};
+
 export default function AntigravityHero() {
+  const [lang, setLang] = useState<'EN'|'DE'>('EN');
+  const t = DICT[lang];
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -43,7 +76,7 @@ export default function AntigravityHero() {
 
       {/* Splash */}
       <div id="splash" style={{ position:'fixed',inset:0,zIndex:200,background:'#0A0A0A',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:18,transition:'opacity .8s ease',pointerEvents:'none' }}>
-        <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.3em' }}>KLARSTONE / INITIALIZING</div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.3em' }}>{t.splash}</div>
         <div style={{ width:160,height:1,background:'rgba(255,255,255,.1)',position:'relative',overflow:'hidden' }}>
           <div style={{ position:'absolute',inset:0,width:'40%',background:'#fff',animation:'load 1.2s ease-in-out infinite',boxShadow:'0 0 12px rgba(255,255,255,.4)' }} />
         </div>
@@ -55,9 +88,14 @@ export default function AntigravityHero() {
           KLARSTONE
         </div>
         <div style={{ display:'flex',gap:28,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
-          {['Home', 'About Us', 'Contact Us', 'Login'].map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
+          <div style={{ display:'flex', gap:6, alignItems:'center', background:'rgba(255,255,255,0.05)', padding:'4px 8px', borderRadius:20, marginRight: 8 }}>
+            <span onClick={()=>setLang('EN')} style={{ cursor:'pointer', color:lang==='EN'?'#fff':'inherit', fontWeight:lang==='EN'?700:400, transition:'color .2s' }}>EN</span>
+            <span>/</span>
+            <span onClick={()=>setLang('DE')} style={{ cursor:'pointer', color:lang==='DE'?'#fff':'inherit', fontWeight:lang==='DE'?700:400, transition:'color .2s' }}>DE</span>
+          </div>
+          {t.nav.map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
           <a href="#" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'#fff',color:'#0A0A0A',padding:'9px 16px',borderRadius:8,fontWeight:700,fontSize:13,textDecoration:'none' }}>
-            Book a Consultation
+            {t.bookBtn}
             <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
@@ -79,23 +117,17 @@ export default function AntigravityHero() {
       <section style={{ position:'relative',height:'100vh',width:'100%',overflow:'hidden',background:'transparent',display:'flex',alignItems:'center',paddingLeft:'8vw',pointerEvents:'none' }}>
         <div style={{ maxWidth: 840, pointerEvents:'auto', opacity: revealed && !scrolled ? 1 : 0, transition:'opacity 0.8s ease', zIndex:10 }}>
           <div style={{ color:'#66b2b2', fontSize:14, letterSpacing:'0.02em', marginBottom:16, fontFamily:'Inter, sans-serif' }}>
-            Future Conversation Solutions
+            {t.heroOverline}
           </div>
           <h1 style={{ fontFamily:"'Tachyon', 'Tachyon Regular', sans-serif", fontWeight:400, fontSize:'clamp(48px, 6vw, 92px)', lineHeight:1.05, color:'#fff', letterSpacing:'-0.03em' }}>
-            Your 24/7 AI<br />Micro-Consultant<br />for Business Clarity
+            {t.heroTitle}
           </h1>
         </div>
       </section>
 
       {/* Scroll story */}
       <div style={{ position:'relative',zIndex:8 }}>
-        {[
-          { n:'01', label:'Impact', align:'center', title:<>The signal <span style={{color:'rgba(255,255,255,.4)'}}>arrives.</span></>, body:'A single thread becomes a network. Every business is a system of connected decisions — we map the ones quietly costing you margin.' },
-          { n:'02', label:'What we are', align:'left', title:<>An AI advisor that <span style={{color:'rgba(255,255,255,.4)'}}>finds the leaks.</span></>, body:'KLARSTONE is a consultant-grade audit engine for SMBs. It reads your finances, costs, and growth signals, and surfaces the few moves that actually move margin.' },
-          { n:'03', label:'How we operate', align:'right', title:<>Connect. Diagnose. <span style={{color:'rgba(255,255,255,.4)'}}>Fix.</span></>, body:'Three steps. Sixty seconds. A prioritized plan you can hand to your team Monday morning.' },
-          { n:'04', label:'What we find', align:'left', title:<>Money <span style={{color:'rgba(255,255,255,.4)'}}>hiding</span> in plain sight.</>, body:'The same patterns surface across thousands of audits. Most operators are leaking from two or three of these at once.' },
-          { n:'05', label:'Proof', align:'center', title:<>2,400 audits. <span style={{color:'rgba(255,255,255,.4)'}}>€41M recovered.</span></>, body:'Operators across 14 countries use KLARSTONE to find what their P&L is hiding.' },
-        ].map((sec, idx) => (
+        {t.scroll.map((sec, idx) => (
           <ScrollSection key={idx} {...sec} />
         ))}
       </div>
