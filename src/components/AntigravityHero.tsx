@@ -58,9 +58,9 @@ export default function AntigravityHero() {
           CRAB.AI
         </div>
         <div style={{ display:'flex',gap:28,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
-          {['Method','Pricing','Customers','Login'].map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
+          {['Home', 'About Us', 'Contact Us', 'Login'].map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
           <a href="#" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'#fff',color:'#0A0A0A',padding:'9px 16px',borderRadius:8,fontWeight:700,fontSize:13,textDecoration:'none' }}>
-            Start free audit
+            Book a Consultation
             <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
         </div>
