@@ -43,7 +43,7 @@ export default function AntigravityHero() {
 
       {/* Splash */}
       <div id="splash" style={{ position:'fixed',inset:0,zIndex:200,background:'#0A0A0A',display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:18,transition:'opacity .8s ease',pointerEvents:'none' }}>
-        <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.3em' }}>CRAB.AI / INITIALIZING</div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'rgba(255,255,255,.45)',letterSpacing:'.3em' }}>KLARSTONE / INITIALIZING</div>
         <div style={{ width:160,height:1,background:'rgba(255,255,255,.1)',position:'relative',overflow:'hidden' }}>
           <div style={{ position:'absolute',inset:0,width:'40%',background:'#fff',animation:'load 1.2s ease-in-out infinite',boxShadow:'0 0 12px rgba(255,255,255,.4)' }} />
         </div>
@@ -55,7 +55,7 @@ export default function AntigravityHero() {
           <span style={{ width:22,height:22,border:'1.5px solid #e6e6e6',borderRadius:6,display:'inline-flex',alignItems:'center',justifyContent:'center',boxShadow:'0 0 10px rgba(255,255,255,.18)',position:'relative' }}>
             <span style={{ width:8,height:8,background:'#e6e6e6',borderRadius:2,transform:'rotate(45deg)',boxShadow:'0 0 6px rgba(255,255,255,.35)',display:'block' }} />
           </span>
-          CRAB.AI
+          KLARSTONE
         </div>
         <div style={{ display:'flex',gap:28,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
           {['Home', 'About Us', 'Contact Us', 'Login'].map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
@@ -94,10 +94,10 @@ export default function AntigravityHero() {
       <div style={{ position:'relative',zIndex:8 }}>
         {[
           { n:'01', label:'Impact', align:'center', title:<>The signal <span style={{color:'rgba(255,255,255,.4)'}}>arrives.</span></>, body:'A single thread becomes a network. Every business is a system of connected decisions — we map the ones quietly costing you margin.' },
-          { n:'02', label:'What we are', align:'left', title:<>An AI advisor that <span style={{color:'rgba(255,255,255,.4)'}}>finds the leaks.</span></>, body:'CRAB.AI is a consultant-grade audit engine for SMBs. It reads your finances, costs, and growth signals, and surfaces the few moves that actually move margin.' },
+          { n:'02', label:'What we are', align:'left', title:<>An AI advisor that <span style={{color:'rgba(255,255,255,.4)'}}>finds the leaks.</span></>, body:'KLARSTONE is a consultant-grade audit engine for SMBs. It reads your finances, costs, and growth signals, and surfaces the few moves that actually move margin.' },
           { n:'03', label:'How we operate', align:'right', title:<>Connect. Diagnose. <span style={{color:'rgba(255,255,255,.4)'}}>Fix.</span></>, body:'Three steps. Sixty seconds. A prioritized plan you can hand to your team Monday morning.' },
           { n:'04', label:'What we find', align:'left', title:<>Money <span style={{color:'rgba(255,255,255,.4)'}}>hiding</span> in plain sight.</>, body:'The same patterns surface across thousands of audits. Most operators are leaking from two or three of these at once.' },
-          { n:'05', label:'Proof', align:'center', title:<>2,400 audits. <span style={{color:'rgba(255,255,255,.4)'}}>€41M recovered.</span></>, body:'Operators across 14 countries use CRAB.AI to find what their P&L is hiding.' },
+          { n:'05', label:'Proof', align:'center', title:<>2,400 audits. <span style={{color:'rgba(255,255,255,.4)'}}>€41M recovered.</span></>, body:'Operators across 14 countries use KLARSTONE to find what their P&L is hiding.' },
         ].map((sec, idx) => (
           <ScrollSection key={idx} {...sec} />
         ))}
