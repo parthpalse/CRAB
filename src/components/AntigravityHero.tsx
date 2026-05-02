@@ -52,9 +52,6 @@ export default function AntigravityHero() {
       {/* Nav */}
       <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:40,height:64,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 32px',transition:'backdrop-filter .3s ease,background .3s ease,border-color .3s ease',borderBottom:`1px solid ${scrolled?'rgba(255,255,255,0.08)':'transparent'}`,backdropFilter:scrolled?'blur(14px)':'none',background:scrolled?'rgba(10,10,10,.78)':'transparent' }}>
         <div style={{ display:'flex',alignItems:'center',gap:10,fontFamily:'Orbitron',letterSpacing:'.18em',fontSize:13,fontWeight:700,color:'#e6e6e6' }}>
-          <span style={{ width:22,height:22,border:'1.5px solid #e6e6e6',borderRadius:6,display:'inline-flex',alignItems:'center',justifyContent:'center',boxShadow:'0 0 10px rgba(255,255,255,.18)',position:'relative' }}>
-            <span style={{ width:8,height:8,background:'#e6e6e6',borderRadius:2,transform:'rotate(45deg)',boxShadow:'0 0 6px rgba(255,255,255,.35)',display:'block' }} />
-          </span>
           KLARSTONE
         </div>
         <div style={{ display:'flex',gap:28,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
