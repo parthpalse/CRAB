@@ -83,21 +83,25 @@ export default function AntigravityHero() {
       </div>
 
       {/* Nav */}
-      <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:40,height:64,display:'flex',alignItems:'center',justifyContent:'space-between',padding:'0 32px',transition:'backdrop-filter .3s ease,background .3s ease,border-color .3s ease',borderBottom:`1px solid ${scrolled?'rgba(255,255,255,0.08)':'transparent'}`,backdropFilter:scrolled?'blur(14px)':'none',background:scrolled?'rgba(10,10,10,.78)':'transparent' }}>
-        <div style={{ display:'flex',alignItems:'center',gap:10,fontFamily:'Orbitron',letterSpacing:'.18em',fontSize:13,fontWeight:700,color:'#e6e6e6' }}>
+      <nav style={{ position:'fixed',top:0,left:0,right:0,zIndex:40,height:64,display:'grid',gridTemplateColumns:'1fr auto 1fr',alignItems:'center',padding:'0 32px',transition:'backdrop-filter .3s ease,background .3s ease,border-color .3s ease',borderBottom:`1px solid ${scrolled?'rgba(255,255,255,0.08)':'transparent'}`,backdropFilter:scrolled?'blur(14px)':'none',background:scrolled?'rgba(10,10,10,.78)':'transparent' }}>
+        {/* Left: Brand */}
+        <div style={{ fontFamily:'Orbitron',letterSpacing:'.18em',fontSize:13,fontWeight:700,color:'#e6e6e6' }}>
           KLARSTONE
         </div>
-        <div style={{ display:'flex',gap:28,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
-          <div style={{ display:'flex', gap:6, alignItems:'center', background:'rgba(255,255,255,0.05)', padding:'4px 8px', borderRadius:20, marginRight: 8 }}>
+        
+        {/* Center: Main Links */}
+        <div style={{ display:'flex',gap:36,alignItems:'center',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
+          {t.nav.slice(0,3).map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
+        </div>
+
+        {/* Right: Lang & Login */}
+        <div style={{ display:'flex',gap:24,alignItems:'center',justifyContent:'flex-end',fontSize:13,color:'rgba(255,255,255,0.55)' }}>
+          <div style={{ display:'flex', gap:6, alignItems:'center', background:'rgba(255,255,255,0.05)', padding:'4px 8px', borderRadius:20 }}>
             <span onClick={()=>setLang('EN')} style={{ cursor:'pointer', color:lang==='EN'?'#fff':'inherit', fontWeight:lang==='EN'?700:400, transition:'color .2s' }}>EN</span>
             <span>/</span>
             <span onClick={()=>setLang('DE')} style={{ cursor:'pointer', color:lang==='DE'?'#fff':'inherit', fontWeight:lang==='DE'?700:400, transition:'color .2s' }}>DE</span>
           </div>
-          {t.nav.map(l => <a key={l} href="#" style={{ color:'inherit',textDecoration:'none' }}>{l}</a>)}
-          <a href="#" style={{ display:'inline-flex',alignItems:'center',gap:8,background:'#fff',color:'#0A0A0A',padding:'9px 16px',borderRadius:8,fontWeight:700,fontSize:13,textDecoration:'none' }}>
-            {t.bookBtn}
-            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
+          <a href="#" style={{ color:'inherit',textDecoration:'none' }}>{t.nav[3]}</a>
         </div>
       </nav>
 
@@ -119,9 +123,13 @@ export default function AntigravityHero() {
           <div style={{ color:'#66b2b2', fontSize:14, letterSpacing:'0.02em', marginBottom:16, fontFamily:'Inter, sans-serif' }}>
             {t.heroOverline}
           </div>
-          <h1 style={{ fontFamily:"'Tachyon', 'Tachyon Regular', sans-serif", fontWeight:400, fontSize:'clamp(48px, 6vw, 92px)', lineHeight:1.05, color:'#fff', letterSpacing:'-0.03em' }}>
+          <h1 style={{ fontFamily:"'Tachyon', 'Tachyon Regular', sans-serif", fontWeight:400, fontSize:'clamp(48px, 6vw, 92px)', lineHeight:1.05, color:'#fff', letterSpacing:'-0.03em', marginBottom: 40 }}>
             {t.heroTitle}
           </h1>
+          <a href="#" style={{ display:'inline-flex',alignItems:'center',gap:12,background:'#fff',color:'#0A0A0A',padding:'14px 24px',borderRadius:8,fontWeight:700,fontSize:14,textDecoration:'none' }}>
+            {t.bookBtn}
+            <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
       </section>
 
