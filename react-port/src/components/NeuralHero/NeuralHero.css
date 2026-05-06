@@ -1,0 +1,186 @@
+/* CRAB.AI Neural Hero — scoped styles. All classes prefixed `nh-` to avoid clashing with shadcn/Tailwind. */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+.nh {
+  position: relative;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #fff;
+  background: #0a0a0a;
+  min-height: 600vh;
+  -webkit-font-smoothing: antialiased;
+}
+.nh-bg {
+  position: fixed; inset: 0; z-index: 0;
+  background: radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%);
+  pointer-events: none;
+}
+.nh-fixed { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+.nh-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.nh-vignette {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%),
+    linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%);
+}
+.nh-grain {
+  position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: 0.07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.nh-corner { position: fixed; width: 14px; height: 14px; border: 1px solid rgba(255,255,255,.4); z-index: 5; pointer-events: none; }
+.nh-tl { top: 24px; left: 24px; border-right: none; border-bottom: none; }
+.nh-tr { top: 24px; right: 24px; border-left: none; border-bottom: none; }
+.nh-bl { bottom: 24px; left: 24px; border-right: none; border-top: none; }
+.nh-br { bottom: 24px; right: 24px; border-left: none; border-top: none; }
+
+.nh-impact-ring {
+  position: fixed; left: 50%; top: 50%; width: 0; height: 0; border-radius: 50%;
+  border: 1px solid #fff; transform: translate(-50%,-50%); pointer-events: none; z-index: 6; opacity: 0;
+}
+
+/* Side progress dots */
+.nh-progress {
+  position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 30;
+  display: flex; flex-direction: column; gap: 14px; pointer-events: auto;
+}
+.nh-pdot {
+  width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(255,255,255,.3);
+  background: transparent; cursor: pointer; transition: all .3s ease; position: relative; padding: 0;
+}
+.nh-pdot:hover { border-color: #fff; }
+.nh-pdot.on { background: #fff; border-color: #fff; box-shadow: 0 0 8px rgba(255,255,255,.55); }
+.nh-pdot::after {
+  content: attr(data-label); position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.5); white-space: nowrap; opacity: 0; transition: opacity .25s ease; pointer-events: none;
+}
+.nh-pdot:hover::after { opacity: 1; }
+
+/* Stage (scene 0 — hero) */
+.nh-stage { position: relative; height: 100vh; width: 100%; z-index: 8; display: flex; align-items: center; justify-content: center; }
+.nh-hero-content { position: relative; z-index: 10; max-width: 920px; padding: 0 32px; text-align: center; }
+.nh-hero-inner > * { opacity: 0; transform: translateY(14px); animation: nhRise 1.2s cubic-bezier(.16,1,.3,1) forwards; }
+.nh-hero-inner > *:nth-child(1) { animation-delay: 1.6s; }
+.nh-hero-inner > *:nth-child(2) { animation-delay: 1.8s; }
+.nh-hero-inner > *:nth-child(3) { animation-delay: 2.05s; }
+.nh-hero-inner > *:nth-child(4) { animation-delay: 2.3s; }
+.nh-hero-inner > *:nth-child(5) { animation-delay: 2.5s; }
+@keyframes nhRise { to { opacity: 1; transform: none; } }
+
+.nh-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 7px 14px;
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #e6e6e6;
+  background: rgba(255,255,255,.04); font-weight: 500;
+}
+.nh-pill .nh-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 0 0 rgba(255,255,255,.6); animation: nhPulse 2.4s ease-in-out infinite;
+}
+@keyframes nhPulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(255,255,255,.6);} 50%{ box-shadow: 0 0 0 6px rgba(255,255,255,0);} }
+
+.nh-headline {
+  font-family: 'Orbitron'; font-weight: 700;
+  font-size: clamp(48px, 7.6vw, 112px); line-height: .98; letter-spacing: -.02em;
+  margin: 28px 0 22px; color: #fff;
+}
+.nh-headline .nh-row { display: block; overflow: hidden; }
+.nh-headline .nh-row > span { display: inline-block; }
+.nh-headline .nh-accent { color: rgba(255,255,255,.45); }
+.nh-headline .nh-glyph {
+  display: inline-block; font-family: 'Inter'; font-weight: 300;
+  color: rgba(255,255,255,.5); transform: translateY(-.06em);
+}
+
+.nh-sub { max-width: 640px; margin: 0 auto; color: rgba(255,255,255,.55); font-size: 18px; line-height: 1.55; }
+
+.nh-cta-row { display: flex; gap: 14px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+.nh-btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 10px;
+  font-weight: 600; font-size: 14px; text-decoration: none; border: 1px solid transparent;
+  transition: all .25s ease; cursor: pointer;
+}
+.nh-btn svg { width: 14px; height: 14px; }
+.nh-btn-primary { background: #fff; color: #0a0a0a; box-shadow: 0 6px 32px rgba(255,255,255,.18); }
+.nh-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 48px rgba(255,255,255,.28); }
+.nh-btn-ghost { background: transparent; color: #e6e6e6; border-color: rgba(255,255,255,.18); }
+.nh-btn-ghost:hover { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.35); }
+
+.nh-meta { margin-top: 22px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: rgba(255,255,255,.32); letter-spacing: .18em; }
+.nh-meta .nh-sep { margin: 0 10px; opacity: .4; }
+
+.nh-scroll-cue {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); z-index: 20;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  color: rgba(255,255,255,.35); font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: .18em; text-transform: uppercase; animation: nhRise 1s ease 2.6s forwards; opacity: 0;
+}
+.nh-scroll-cue .nh-line {
+  width: 1px; height: 38px;
+  background: linear-gradient(180deg, rgba(255,255,255,.55), transparent);
+  position: relative; overflow: hidden;
+}
+.nh-scroll-cue .nh-line::after {
+  content: ""; position: absolute; top: -12px; left: 0; width: 1px; height: 14px; background: #fff;
+  animation: nhScroll 2s ease-in-out infinite;
+}
+@keyframes nhScroll { 0%{ top:-12px } 100%{ top: 100% } }
+
+/* Story sections */
+.nh-section {
+  position: relative; min-height: 100vh; display: flex; align-items: center;
+  padding: 0 32px; z-index: 8; pointer-events: none;
+}
+.nh-section .nh-inner {
+  max-width: 560px; pointer-events: auto;
+  opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease;
+}
+.nh-section.in .nh-inner { opacity: 1; transform: none; }
+.nh-section.nh-left { justify-content: flex-start; }
+.nh-section.nh-left .nh-inner { margin-left: max(64px, 6vw); }
+.nh-section.nh-right { justify-content: flex-end; }
+.nh-section.nh-right .nh-inner { margin-right: max(64px, 6vw); }
+.nh-section.nh-center { justify-content: center; }
+.nh-section.nh-center .nh-inner { text-align: center; max-width: 780px; }
+
+.nh-section .nh-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,.45);
+  letter-spacing: .24em; text-transform: uppercase; margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.nh-section .nh-eyebrow .nh-num {
+  display: inline-flex; width: 34px; height: 22px; border: 1px solid rgba(255,255,255,.18);
+  border-radius: 4px; align-items: center; justify-content: center; font-size: 10px; color: #fff;
+}
+.nh-section h2 {
+  font-family: 'Orbitron'; font-weight: 700; font-size: clamp(36px,5.4vw,72px);
+  line-height: 1.04; letter-spacing: -.02em; color: #fff; margin-bottom: 22px;
+}
+.nh-section h2 .nh-accent { color: rgba(255,255,255,.4); }
+.nh-section .nh-lede { font-size: 17px; line-height: 1.55; color: rgba(255,255,255,.62); }
+
+.nh-steps { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 30px; }
+.nh-step {
+  border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 16px 18px;
+  background: rgba(10,10,10,.55); backdrop-filter: blur(8px);
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center;
+}
+.nh-step .nh-k { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,.5); letter-spacing: .2em; }
+.nh-step .nh-t { font-family: 'Orbitron'; font-size: 15px; color: #fff; letter-spacing: .02em; }
+.nh-step .nh-d { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; margin-top: 4px; }
+
+.nh-leak-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 28px; }
+.nh-leak {
+  border: 1px solid rgba(255,255,255,.1); border-radius: 10px; padding: 12px 14px;
+  background: rgba(10,10,10,.55); backdrop-filter: blur(8px);
+  font-size: 12px; display: flex; justify-content: space-between; align-items: center;
+  color: rgba(255,255,255,.7); font-family: 'JetBrains Mono', monospace; letter-spacing: .02em;
+}
+.nh-leak .nh-v { color: #fff; font-weight: 600; }
+
+.nh-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin: 32px auto 0; }
+.nh-stat { text-align: center; }
+.nh-stat .nh-n { font-family: 'Orbitron'; font-size: clamp(40px,5vw,68px); color: #fff; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.nh-stat .nh-l { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(255,255,255,.45); letter-spacing: .2em; text-transform: uppercase; margin-top: 8px; }

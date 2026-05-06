@@ -3,6 +3,7 @@ import { initHeroScene } from './heroScene';
 import MagicBento from './MagicBento';
 import DarkVeil from './DarkVeil';
 import HowItWorks from './HowItWorks';
+import ContactUs from './ContactUs';
 
 const DICT = {
   EN: {
@@ -27,9 +28,13 @@ export default function AntigravityHero() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [hideNav, setHideNav] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      setHideNav(window.scrollY > window.innerHeight * 0.9);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -60,7 +65,7 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 32px', transition: 'backdrop-filter .3s ease,background .3s ease,border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 32px', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
         <div style={{ fontFamily: 'Orbitron', letterSpacing: '.18em', fontSize: 13, fontWeight: 700, color: '#e6e6e6' }}>KLARSTONE</div>
         <div style={{ display: 'flex', gap: 36, alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
           {t.nav.slice(0, 3).map(l => <a key={l} href="#" style={{ color: 'inherit', textDecoration: 'none' }}>{l}</a>)}
@@ -77,7 +82,7 @@ export default function AntigravityHero() {
 
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: 'radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%)', pointerEvents: 'none' }} />
 
-      <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: scrolled ? 0 : 1, transition: 'opacity 0.8s ease' }}>
+      <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: scrolled ? 0 : 1, transition: 'opacity 0.25s ease' }}>
         <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
         <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
@@ -96,10 +101,9 @@ export default function AntigravityHero() {
 
       <HowItWorks />
 
-      <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px' }}>
+      <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <DarkVeil
-            hueShift={37}
             scanlineIntensity={0.47}
             speed={1.5}
             scanlineFrequency={4.5}
@@ -121,6 +125,8 @@ export default function AntigravityHero() {
           />
         </div>
       </div>
+
+      <ContactUs />
     </>
   );
 }

@@ -60,11 +60,23 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
 }
 void main(){
     vec4 col;mainImage(col,gl_FragCoord.xy);
-    col.rgb=hueShiftRGB(col.rgb,uHueShift);
+    // Convert the chaotic CPPN output into a smooth grayscale value
+    float val = dot(col.rgb, vec3(0.299, 0.587, 0.114)); 
+    
+    // Exact colors from the Neural Sphere
+    vec3 cyan = vec3(0.0, 0.8, 1.0);
+    vec3 gold = vec3(1.0, 0.66, 0.0);
+    
+    // Create a custom gradient: Black -> Cyan -> Gold
+    vec3 finalCol = mix(vec3(0.0), cyan, smoothstep(0.0, 0.6, val));
+    finalCol = mix(finalCol, gold, smoothstep(0.7, 1.0, val));
+    
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
-    col.rgb*=1.-(scanline_val*scanline_val)*uScan;
-    col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
-    gl_FragColor=vec4(clamp(col.rgb,0.0,1.0),1.0);
+    finalCol*=1.-(scanline_val*scanline_val)*uScan;
+    finalCol+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
+    
+    // Keep it dim to act as a background
+    gl_FragColor=vec4(clamp(finalCol * 0.4, 0.0, 1.0), 1.0);
 }
 `;
 

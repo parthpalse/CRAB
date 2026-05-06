@@ -10,36 +10,42 @@ const MOBILE_BREAKPOINT = 768;
 const cardData: any[] = [
   {
     type: 'usecase',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '0, 204, 255',
     items: [
       { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behavior.' },
     ]
   },
   {
     type: 'usecase',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '255, 170, 0',
     items: [
       { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward.' },
     ]
   },
   {
     type: 'image',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '0, 204, 255',
   },
   {
     type: 'image',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '255, 170, 0',
   },
   {
     type: 'usecase',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '0, 204, 255',
     items: [
       { title: 'Controlling', desc: 'Track KPIs, costs, margins, and business performance.' },
     ]
   },
   {
     type: 'usecase',
-    color: '#0d1117',
+    color: '#0A0A0A',
+    glowColor: '255, 170, 0',
     items: [
       { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' },
     ]
@@ -277,7 +283,12 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
       <div className="card-grid bento-section" ref={gridRef}>
         {cardData.map((card, index) => {
           const baseClassName = `magic-bento-card${enableBorderGlow ? ' magic-bento-card--border-glow' : ''}`;
-          const cardStyle = { backgroundColor: card.color, '--glow-color': glowColor } as React.CSSProperties;
+          const itemGlowColor = card.glowColor || glowColor;
+          const cardStyle = { 
+            backgroundColor: card.color, 
+            '--glow-color': itemGlowColor,
+            borderColor: `rgba(${itemGlowColor}, 0.18)` 
+          } as React.CSSProperties;
 
           const cardContent = () => {
             if (card.type === 'usecase') {
@@ -285,13 +296,13 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
                 <div style={{ display:'flex', flexDirection:'column', height:'100%', justifyContent:'space-between' }}>
                   {card.headline && (
                     <div>
-                      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:'rgba(0,204,255,0.7)', letterSpacing:'.2em', textTransform:'uppercase', marginBottom:6 }}>{card.headline}</div>
+                      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:`rgba(${itemGlowColor},0.7)`, letterSpacing:'.2em', textTransform:'uppercase', marginBottom:6 }}>{card.headline}</div>
                       <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:15, color:'#fff', fontWeight:600, marginBottom:16 }}>{card.subheadline}</div>
                     </div>
                   )}
                   <div style={{ display:'flex', flexDirection:'column', gap:14, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:'2px solid rgba(0,204,255,0.3)', paddingLeft:12 }}>
+                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:12 }}>
                         <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:12, color:'#fff', fontWeight:600, marginBottom:4, letterSpacing:'0.05em' }}>{item.title}</div>
                         <div style={{ fontSize:11, color:'rgba(255,255,255,0.5)', lineHeight:1.5, fontFamily:'Inter,sans-serif' }}>{item.desc}</div>
                       </div>
@@ -312,7 +323,7 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
 
           if (enableStars && card.type !== 'image') {
             return (
-              <ParticleCard key={index} className={baseClassName} style={cardStyle} disableAnimations={shouldDisableAnimations} particleCount={particleCount} glowColor={glowColor} enableTilt={enableTilt} clickEffect={clickEffect} enableMagnetism={enableMagnetism}>
+              <ParticleCard key={index} className={baseClassName} style={cardStyle} disableAnimations={shouldDisableAnimations} particleCount={particleCount} glowColor={itemGlowColor} enableTilt={enableTilt} clickEffect={clickEffect} enableMagnetism={enableMagnetism}>
                 {cardContent()}
               </ParticleCard>
             );

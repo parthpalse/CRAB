@@ -15,7 +15,7 @@ const Landing = () => {
             <Button variant="ghost" asChild size="sm">
               <Link to="/login">Login</Link>
             </Button>
-            <Button asChild size="sm" className="bg-gradient-primary shadow-elegant">
+            <Button asChild size="sm" className="bg-gradient-primary shadow-eleg  ant">
               <Link to="/signup">Get Started</Link>
             </Button>
           </nav>
