@@ -32,8 +32,8 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const PAD_TOP = 120;
-  const PAD_BOT = 120;
+  const PAD_TOP = Math.max(60, winDim.h * 0.1);
+  const PAD_BOT = Math.max(60, winDim.h * 0.1);
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);

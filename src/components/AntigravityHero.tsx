@@ -257,7 +257,6 @@ function WhatWeDo() {
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 32,
-          whiteSpace: 'nowrap'
         }}>
           AI-powered consulting for growing businesses
         </h2>
