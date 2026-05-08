@@ -61,6 +61,17 @@ export default function ContactUs() {
             onMouseOut={(e) => {
               e.currentTarget.style.boxShadow = 'none';
               e.currentTarget.style.borderColor = 'rgba(0,204,255,0.3)';
+              e.currentTarget.style.background = 'transparent';
+            }}
+            onMouseDown={(e) => {
+              e.currentTarget.style.background = '#00ccff';
+              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(0,204,255,0.6)';
+              e.currentTarget.style.transform = 'scale(0.96)';
+            }}
+            onMouseUp={(e) => {
+              e.currentTarget.style.background = 'transparent';
+              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             Send Message

@@ -448,6 +448,17 @@ function KeyBenefits() {
           onMouseLeave={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none';
             (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(0,204,255,0.3)';
+            (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+          }}
+          onMouseDown={e => {
+            (e.currentTarget as HTMLAnchorElement).style.background = '#00ccff';
+            (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 30px rgba(0,204,255,0.6)';
+            (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.96)';
+          }}
+          onMouseUp={e => {
+            (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+            (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)';
           }}
         >
           Get started
