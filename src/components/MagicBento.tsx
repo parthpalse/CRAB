@@ -21,7 +21,7 @@ const cardData: any[] = [
     color: '#0A0A0A',
     glowColor: '255, 170, 0',
     items: [
-      { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward.' },
+      { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward with informed decisions.' },
     ]
   },
   {
