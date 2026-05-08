@@ -417,7 +417,11 @@ function KeyBenefits() {
           Ask. Understand. Get recommendations. Move forward with clarity.
         </p>
         <a
-          href="#"
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+          }}
           style={{
             display: 'flex',
             justifyContent: 'center',

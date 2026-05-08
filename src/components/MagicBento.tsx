@@ -302,7 +302,7 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
                   )}
                   <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:24, position:'relative', zIndex:1 }}>
+                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:48, position:'relative', zIndex:1 }}>
                         <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: '40px', textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
                         <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '27px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
                       </div>
