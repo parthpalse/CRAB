@@ -1,52 +1,57 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DarkVeil from './DarkVeil';
 
 const steps = [
-  { n: '01', title: 'Ask a Question',       sub: 'Start with your business problem',         text: '"Why are sales declining?"' },
-  { n: '02', title: 'Add Context',          sub: 'Answer a few smart follow-up questions',   text: 'Synthesizing Context.' },
-  { n: '03', title: 'AI Analyzes',          sub: 'Data + context → clear diagnosis',         text: 'Identifying Root Causes.' },
-  { n: '04', title: 'Get Recommendations',  sub: 'What to do. What to avoid.',               text: 'Actionable Insights.' },
-  { n: '05', title: 'View Dashboard',       sub: 'Key insights, KPIs, and trends',           text: 'Live Intelligence.' },
-  { n: '06', title: 'Download Report',      sub: 'Consulting-style strategy report',         text: 'Your Plan. Ready.' },
+  { n: '01', title: 'Ask a Question',      sub: 'Start with your business problem',       text: '"Why are sales declining?"' },
+  { n: '02', title: 'Add Context',         sub: 'Answer a few smart follow-up questions', text: 'Synthesizing Context.' },
+  { n: '03', title: 'AI Analyzes',         sub: 'Data + context → clear diagnosis',       text: 'Identifying Root Causes.' },
+  { n: '04', title: 'Get Recommendations', sub: 'What to do. What to avoid.',             text: 'Actionable Insights.' },
+  { n: '05', title: 'View Dashboard',      sub: 'Key insights, KPIs, and trends',         text: 'Live Intelligence.' },
+  { n: '06', title: 'Download Report',     sub: 'Consulting-style strategy report',       text: 'Your Plan. Ready.' },
 ];
 
 export default function HowItWorks() {
-  const sectionRef    = useRef<HTMLDivElement>(null);
-  const drawnPathRef  = useRef<SVGPathElement | null>(null);
-  const cometRef      = useRef<SVGCircleElement | null>(null);
-  const cometGlowRef  = useRef<SVGCircleElement | null>(null);
+  const sectionRef   = useRef<HTMLDivElement>(null);
+  const drawnPathRef = useRef<SVGPathElement | null>(null);
+  const cometRef     = useRef<SVGCircleElement | null>(null);
+  const cometGlowRef = useRef<SVGCircleElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [winDim, setWinDim]     = useState({ w: 1200, h: 800 });
+  const [isMobile, setIsMobile] = useState(false);
 
-  /* ── window size ── */
   useEffect(() => {
-    const onResize = () => setWinDim({ w: window.innerWidth, h: window.innerHeight });
+    const onResize = () => {
+      setWinDim({ w: window.innerWidth, h: window.innerHeight });
+      setIsMobile(window.innerWidth < 768);
+    };
     onResize();
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  /* ── node coordinates (zigzag left / right) ── */
+  // ── node coordinates ──
   const PAD_TOP = 120;
   const PAD_BOT = 120;
-  const NX = (i: number) => winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
-  const NY = (i: number) => PAD_TOP + (i / (steps.length - 1)) * (winDim.h - PAD_TOP - PAD_BOT);
+  const NX = (i: number) => {
+    if (isMobile) return winDim.w * 0.5;
+    return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
+  };
+  const NY = (i: number) =>
+    PAD_TOP + (i / (steps.length - 1)) * (winDim.h - PAD_TOP - PAD_BOT);
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
-  /* ── bezier path through nodes ── */
+  // ── bezier path ──
   const PATH_D = NODES.reduce((acc, [x, y], i) => {
     if (i === 0) return `M ${x},${y}`;
     const [prevX, prevY] = NODES[i - 1];
-    const midX = (prevX + x) / 2;
+    const midX = isMobile ? x : (prevX + x) / 2;
     return `${acc} C ${midX},${prevY} ${midX},${y} ${x},${y}`;
   }, '');
 
-  /* ── active step (progressive reveal) ── */
   const activeIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length));
 
-  /* ── pinned scroll trigger ── */
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const st = ScrollTrigger.create({
@@ -60,14 +65,12 @@ export default function HowItWorks() {
     return () => st.kill();
   }, []);
 
-  /* ── draw path + move comet ── */
   useEffect(() => {
     const path = drawnPathRef.current;
     if (!path) return;
     const len = path.getTotalLength();
     path.style.strokeDasharray = String(len);
     path.style.strokeDashoffset = String(len * (1 - progress));
-
     const point = path.getPointAtLength(len * progress);
     const visible = progress > 0.005 && progress < 0.995 ? '1' : '0';
     if (cometRef.current) {
@@ -82,7 +85,6 @@ export default function HowItWorks() {
     }
   }, [progress, winDim]);
 
-  /* ── comet pulse (independent of scroll) ── */
   useEffect(() => {
     if (!cometGlowRef.current) return;
     const tween = gsap.to(cometGlowRef.current, {
@@ -101,10 +103,9 @@ export default function HowItWorks() {
       style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: '100vh', overflow: 'hidden', zIndex: 5 }}
     >
       <DarkVeil />
-
       <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
 
-        {/* ── SVG layer (z-index 1, behind text) ── */}
+        {/* SVG layer */}
         <svg
           width={winDim.w}
           height={winDim.h}
@@ -124,11 +125,7 @@ export default function HowItWorks() {
               <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
             </filter>
           </defs>
-
-          {/* ghost path */}
           <path d={PATH_D} stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-
-          {/* drawn gradient path */}
           <path
             ref={drawnPathRef}
             d={PATH_D}
@@ -139,69 +136,104 @@ export default function HowItWorks() {
             strokeLinejoin="round"
             filter="url(#nhPathGlow)"
           />
-
-          {/* comet glow halo (pulsing) */}
           <circle ref={cometGlowRef} r="14" fill="rgba(0,204,255,0.35)" filter="url(#nhCometGlow)" opacity="0" />
-          {/* comet core */}
           <circle ref={cometRef}     r="6"  fill="#ffffff"              filter="url(#nhCometGlow)" opacity="0" />
         </svg>
 
-        {/* ── Text panels (z-index 2, above SVG) ── */}
+        {/* Text panels */}
         <div style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none' }}>
           {steps.map((step, i) => {
-            const isLeft   = i % 2 === 0;
-            const nodeY_Vh = (NY(i) / winDim.h) * 100;
+            const isLeft    = !isMobile && i % 2 === 0;
+            const nodeY_Vh  = (NY(i) / winDim.h) * 100;
             const isReached = i <= activeIndex;
 
+            // Desktop: alternate left/right aligned to node
+            // Mobile: centered below each node
+            const desktopStyle = {
+              position: 'absolute' as const,
+              top: `${nodeY_Vh}vh`,
+              transform: 'translateY(-50%)',
+              left:  isLeft ? '11vw' : 'auto',
+              right: isLeft ? 'auto' : '11vw',
+              width: '35vw',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: isLeft ? 'flex-start' : 'flex-end',
+              opacity: isReached ? 1 : 0,
+              transition: 'opacity 0.45s ease',
+              pointerEvents: 'auto' as const,
+            };
+
+            const mobileStyle = {
+              position: 'absolute' as const,
+              top: `${nodeY_Vh}vh`,
+              left: '50%',
+              transform: 'translate(-50%, 16px)',
+              width: '80vw',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              opacity: isReached ? 1 : 0,
+              transition: 'opacity 0.45s ease',
+              pointerEvents: 'auto' as const,
+            };
+
             return (
-              <div
-                key={i}
-                style={{
-                  position: 'absolute',
-                  top: `${nodeY_Vh}vh`,
-                  transform: 'translateY(-50%)',
-                  left:  isLeft ? '8vw' : 'auto',
-                  right: isLeft ? 'auto' : '8vw',
-                  width: 'max-content',
-                  maxWidth: '45vw',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: isLeft ? 'flex-start' : 'flex-end',
-                  opacity: isReached ? 1 : 0,
-                  transition: 'opacity 0.45s ease',
-                  pointerEvents: 'auto',
-                }}
-              >
-                <div style={{ textAlign: isLeft ? 'left' : 'right' }}>
-                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: 'rgba(0,204,255,0.6)', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: 12 }}>
+              <div key={i} style={isMobile ? mobileStyle : desktopStyle}>
+                <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right') }}>
+                  <div style={{
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 400,
+                    fontSize: '11px',
+                    color: 'rgba(0,204,255,0.6)',
+                    letterSpacing: '0.3em',
+                    textTransform: 'uppercase',
+                    marginBottom: 10,
+                  }}>
                     {step.n}
                   </div>
-                  <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase', marginBottom: 16 }}>
+                  <h2 style={{
+                    fontFamily: "'Satoshi', sans-serif",
+                    fontWeight: 700,
+                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : 'clamp(32px, 4.5vw, 60px)',
+                    color: '#fff',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.05,
+                    textTransform: 'uppercase',
+                    marginBottom: isMobile ? 6 : 16,
+                  }}>
                     {step.title}
                   </h2>
-                  <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.2vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, marginBottom: 20 }}>
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 300,
+                    fontSize: isMobile ? '12px' : 'clamp(15px, 1.2vw, 18px)',
+                    color: 'rgba(255,255,255,0.55)',
+                    lineHeight: 1.8,
+                    marginBottom: isMobile ? 6 : 20,
+                  }}>
                     {step.sub}
                   </p>
                   <div style={{
                     fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: '13px',
+                    fontSize: isMobile ? '11px' : '13px',
                     color: 'rgba(0,204,255,0.8)',
                     letterSpacing: '0.04em',
-                    borderLeft: isLeft ? '2px solid rgba(0,204,255,0.3)' : 'none',
-                    borderRight: isLeft ? 'none' : '2px solid rgba(0,204,255,0.3)',
-                    paddingLeft: isLeft ? '14px' : '0',
-                    paddingRight: isLeft ? '0' : '14px',
-                    marginTop: 8
+                    borderLeft: isMobile ? 'none' : (isLeft ? '2px solid rgba(0,204,255,0.3)' : 'none'),
+                    borderRight: isMobile ? 'none' : (isLeft ? 'none' : '2px solid rgba(0,204,255,0.3)'),
+                    borderBottom: isMobile ? '1px solid rgba(0,204,255,0.3)' : 'none',
+                    paddingLeft: isMobile ? '0' : (isLeft ? '14px' : '0'),
+                    paddingRight: isMobile ? '0' : (isLeft ? '0' : '14px'),
+                    paddingBottom: isMobile ? '6px' : '0',
+                    marginTop: 8,
                   }}>
                     {step.text}
                   </div>
-
                 </div>
               </div>
             );
           })}
         </div>
-
       </div>
     </section>
   );
