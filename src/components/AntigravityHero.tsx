@@ -281,7 +281,7 @@ function WhatWeDo() {
           It helps you move from scattered data and uncertainty to structured insights and action.
         </p>
       </div>
-    </div>
+    </section>
   );
 }
 
