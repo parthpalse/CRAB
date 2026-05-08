@@ -275,14 +275,14 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ width: '100%', padding: '0 2vw', marginBottom: '1.5rem', userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.7)', letterSpacing:'.2em', textTransform:'uppercase', marginBottom:8 }}>Use Cases</div>
-        <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:20, color:'#fff', fontWeight:600, letterSpacing:'0.02em' }}>Where KLARSTONE helps</div>
+      <div style={{ width: '100%', padding: '0 8vw', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>Use Cases</div>
+        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' }}>Where KLARSTONE helps</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
       <div className="card-grid bento-section" ref={gridRef}>
         {cardData.map((card, index) => {
-          const baseClassName = `magic-bento-card${enableBorderGlow ? ' magic-bento-card--border-glow' : ''}`;
+          const baseClassName = `magic-bento-card${enableBorderGlow && card.type !== 'image' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
           const cardStyle = { 
             backgroundColor: card.color, 
@@ -296,15 +296,15 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
                 <div style={{ display:'flex', flexDirection:'column', height:'100%', justifyContent:'space-between' }}>
                   {card.headline && (
                     <div>
-                      <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10, color:`rgba(${itemGlowColor},0.7)`, letterSpacing:'.2em', textTransform:'uppercase', marginBottom:6 }}>{card.headline}</div>
-                      <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:15, color:'#fff', fontWeight:600, marginBottom:16 }}>{card.subheadline}</div>
+                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: `rgba(${itemGlowColor},0.7)`, letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: 12 }}>{card.headline}</div>
+                      <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: '18px', textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#fff', marginBottom: 16 }}>{card.subheadline}</h2>
                     </div>
                   )}
-                  <div style={{ display:'flex', flexDirection:'column', gap:14, flex:1, justifyContent:'center' }}>
+                  <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:12 }}>
-                        <div style={{ fontFamily:"'Orbitron',sans-serif", fontSize:12, color:'#fff', fontWeight:600, marginBottom:4, letterSpacing:'0.05em' }}>{item.title}</div>
-                        <div style={{ fontSize:11, color:'rgba(255,255,255,0.5)', lineHeight:1.5, fontFamily:'Inter,sans-serif' }}>{item.desc}</div>
+                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:24, position:'relative', zIndex:1 }}>
+                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: '40px', textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '27px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
                       </div>
                     ))}
                   </div>
