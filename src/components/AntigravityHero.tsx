@@ -440,6 +440,7 @@ function KeyBenefits() {
           marginBottom: 24,
           maxWidth: '800px',
           textWrap: 'balance' as any,
+          textTransform: 'uppercase' as const,
         }}>
           Turn business questions into clear action
         </h2>
@@ -477,7 +478,9 @@ function KeyBenefits() {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
-            width: '100%'
+            width: 'auto',
+            display: 'inline-flex',
+            minWidth: '200px',
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
