@@ -25,6 +25,7 @@ export default function HowItWorks() {
     const onResize = () => {
       setWinDim({ w: window.innerWidth, h: window.innerHeight });
       setIsMobile(window.innerWidth < 768);
+      ScrollTrigger.refresh();
     };
     onResize();
     window.addEventListener('resize', onResize);
@@ -107,8 +108,10 @@ export default function HowItWorks() {
 
         {/* SVG layer */}
         <svg
-          width={winDim.w}
-          height={winDim.h}
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${winDim.w} ${winDim.h}`}
+          preserveAspectRatio="none"
           style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
         >
           <defs>
@@ -153,9 +156,9 @@ export default function HowItWorks() {
               position: 'absolute' as const,
               top: `${nodeY_Vh}vh`,
               transform: 'translateY(-50%)',
-              left:  isLeft ? '11vw' : 'auto',
-              right: isLeft ? 'auto' : '11vw',
-              width: '35vw',
+              left:  isLeft ? '8vw' : 'auto',
+              right: isLeft ? 'auto' : '8vw',
+              width: '38vw',
               display: 'flex',
               alignItems: 'center',
               justifyContent: isLeft ? 'flex-start' : 'flex-end',

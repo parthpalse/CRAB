@@ -236,7 +236,7 @@ function WhatWeDo() {
         padding: '120px 8vw',
       }}
     >
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
         <div ref={labelRef} style={{
           fontFamily: "'JetBrains Mono', monospace",
           fontWeight: 400,
@@ -251,12 +251,13 @@ function WhatWeDo() {
         <h2 ref={headRef} style={{
           fontFamily: "'Satoshi', sans-serif",
           fontWeight: 550,
-          fontSize: 'clamp(32px, 4.5vw, 60px)',
+          fontSize: 'clamp(28px, 3.8vw, 60px)',
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 32,
+          overflowWrap: 'break-word' as const,
         }}>
           AI-powered consulting for growing businesses
         </h2>
@@ -266,6 +267,7 @@ function WhatWeDo() {
           fontSize: 'clamp(15px, 1.2vw, 18px)',
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
+          maxWidth: '700px',
           marginBottom: 16,
         }}>
           KLARSTONE acts as a micro-consultant for your company. It works with your business data, asks smart follow-up questions, and gives clear recommendations on what to do next.
@@ -276,6 +278,7 @@ function WhatWeDo() {
           fontSize: 'clamp(15px, 1.2vw, 18px)',
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
+          maxWidth: '700px',
         }}>
           It helps you move from scattered data and uncertainty to structured insights and action.
         </p>
@@ -350,12 +353,11 @@ function KeyBenefits() {
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 80,
-          whiteSpace: 'nowrap'
         }}>
           Consulting intelligence, delivered instantly
         </h2>
         
-        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '48px 100px' }}>
+        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', gap: 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)' }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
               borderLeft: '2px solid rgba(0,204,255,0.3)', 
@@ -367,7 +369,7 @@ function KeyBenefits() {
               <p style={{ 
                 fontFamily: "'Inter', sans-serif", 
                 fontWeight: 300, 
-                fontSize: '18px', 
+                fontSize: 'clamp(14px, 1.2vw, 18px)', 
                 color: 'rgba(255,255,255,0.7)', 
                 lineHeight: 1.4 
               }}>
@@ -399,8 +401,7 @@ function KeyBenefits() {
           color: '#fff', 
           letterSpacing: '-0.02em', 
           lineHeight: 1.1, 
-          marginBottom: 24,
-          whiteSpace: 'nowrap'
+          marginBottom: 24
         }}>
           Turn business questions into clear action
         </h2>

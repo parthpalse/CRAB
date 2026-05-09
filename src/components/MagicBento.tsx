@@ -282,7 +282,7 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
       <div className="card-grid bento-section" ref={gridRef}>
         {cardData.map((card, index) => {
-          const baseClassName = `magic-bento-card${enableBorderGlow && card.type !== 'image' ? ' magic-bento-card--border-glow' : ''}`;
+          const baseClassName = `magic-bento-card${card.type === 'image' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
           const cardStyle = { 
             backgroundColor: card.color, 
@@ -302,9 +302,9 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
                   )}
                   <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:48, position:'relative', zIndex:1 }}>
-                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: '40px', textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
-                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: '27px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
+                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
+                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: 'clamp(20px, 2.2vw, 32px)', textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 'clamp(13px, 1.5vw, 24px)', color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
                       </div>
                     ))}
                   </div>
