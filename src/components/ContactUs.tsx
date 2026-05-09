@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useScale, scaled } from '../hooks/useScale';
 
 export default function ContactUs() {
+  const scale = useScale();
   const [submitted, setSubmitted] = React.useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -10,7 +12,7 @@ export default function ContactUs() {
   };
 
   return (
-    <section id="contact" style={{ position: 'relative', width: '100%', padding: '120px 8vw 120px 8vw', boxSizing: 'border-box' as const, background: '#0A0A0A', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+    <section id="contact" style={{ position: 'relative', width: '100%', paddingTop: '120px', paddingBottom: '120px', paddingLeft: scaled(109, scale), paddingRight: scaled(109, scale), boxSizing: 'border-box' as const, background: '#0A0A0A', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
       <div style={{ width: '100%', position: 'relative', zIndex: 2 }}>
         <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase', marginBottom: 16, textAlign: 'left' }}>Contact Us</h2>
         <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.2vw, 18px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, textAlign: 'left', marginBottom: 48 }}>Ready to unlock your business potential? Get in touch.</p>
