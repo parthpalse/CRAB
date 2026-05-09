@@ -418,6 +418,7 @@ function KeyBenefits() {
     </div>
   );
 }function Footer() {
+  const scale = useScale();
   return (
     <footer style={{ 
       position: 'relative', 
@@ -427,7 +428,11 @@ function KeyBenefits() {
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'flex-start', 
-      padding: '120px 8vw 60px'
+      paddingTop: '120px',
+      paddingBottom: '60px',
+      paddingLeft: scaled(109, scale),
+      paddingRight: scaled(109, scale),
+      boxSizing: 'border-box' as const,
     }}>
       <div style={{ textAlign: 'left', marginBottom: 80, width: '100%' }}>
         <h2 style={{ 
