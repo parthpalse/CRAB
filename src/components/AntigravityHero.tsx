@@ -109,7 +109,7 @@ export default function AntigravityHero() {
           }}>{t.heroTitle}</div>
           <h1 style={{ 
             color: '#fff', 
-            fontSize: scaled(88.79, scale), 
+            fontSize: 'clamp(36px, 4.8vw, 66px)', 
             letterSpacing: '-0.03em', 
             marginBottom: 32, 
             fontFamily: "'JetBrains Mono', monospace", 
