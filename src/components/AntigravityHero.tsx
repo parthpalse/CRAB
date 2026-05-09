@@ -35,6 +35,14 @@ export default function AntigravityHero() {
   const [scrolled, setScrolled] = useState(false);
   const [hideNav, setHideNav] = useState(false);
   const scale = useScale();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -71,14 +79,14 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', padding: '0 2vw', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: isMobile ? '1fr auto' : '1fr auto 1fr', alignItems: 'center', padding: '0 2vw', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
         <div style={{ fontFamily: 'Orbitron', letterSpacing: '.18em', fontSize: 10, fontWeight: 700, color: '#e6e6e6', display: 'flex', alignItems: 'baseline' }}>KLARSTONE</div>
-        <div style={{ display: 'flex', gap: '48px', alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300, letterSpacing: '0.03em' }}>
+        <div style={{ display: isMobile ? 'none' : 'flex', gap: '48px', alignItems: 'center', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300, letterSpacing: '0.03em' }}>
           <a href="#home" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[0]}</a>
           <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[1]}</a>
           <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[2]}</a>
         </div>
-        <div style={{ display: 'flex', gap: 32, alignItems: 'center', justifyContent: 'flex-end', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300 }}>
+        <div style={{ display: 'flex', gap: isMobile ? 12 : 32, alignItems: 'center', justifyContent: 'flex-end', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300 }}>
           <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[3]}</a>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 11, letterSpacing: '0.05em' }}>
             <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? '#fff' : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
@@ -96,7 +104,7 @@ export default function AntigravityHero() {
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
       </div>
 
-      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', paddingLeft: scaled(109, scale), pointerEvents: 'none' }}>
+      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', paddingLeft: isMobile ? '24px' : scaled(109, scale), pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10 }}>
           <div style={{ 
             fontFamily: "'Satoshi', sans-serif", 
@@ -202,6 +210,15 @@ export default function AntigravityHero() {
 
 function WhatWeDo() {
   const scale = useScale();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const ref = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLHeadingElement>(null);
@@ -236,7 +253,7 @@ function WhatWeDo() {
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        padding: `${scaled(120, scale)} ${scaled(109, scale)}`,
+        padding: isMobile ? '60px 24px' : `${scaled(120, scale)} ${scaled(109, scale)}`,
       }}
     >
       <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
@@ -254,7 +271,7 @@ function WhatWeDo() {
         <h2 ref={headRef} style={{
           fontFamily: "'Satoshi', sans-serif",
           fontWeight: 550,
-          fontSize: scaled(51, scale),
+          fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : scaled(51, scale),
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
@@ -267,7 +284,7 @@ function WhatWeDo() {
         <p ref={p1Ref} style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: scaled(16, scale),
+          fontSize: isMobile ? '15px' : scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
           maxWidth: '700px',
@@ -278,7 +295,7 @@ function WhatWeDo() {
         <p ref={p2Ref} style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: scaled(16, scale),
+          fontSize: isMobile ? '15px' : scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
           maxWidth: '700px',
