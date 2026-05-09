@@ -308,6 +308,13 @@ function WhatWeDo() {
 }
 
 function KeyBenefits() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
   const ref = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLHeadingElement>(null);
@@ -377,7 +384,7 @@ function KeyBenefits() {
           Consulting intelligence, delivered instantly
         </h2>
         
-        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', gap: 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)' }}>
+        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)' }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
               borderLeft: '2px solid rgba(0,204,255,0.3)', 

@@ -103,7 +103,7 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: isMobile ? '160vh' : '100vh', overflow: 'hidden', zIndex: 5 }}
+      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: isMobile ? '140vh' : '100vh', overflow: 'hidden', zIndex: 5 }}
     >
       <DarkVeil />
       <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
