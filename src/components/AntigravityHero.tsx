@@ -359,7 +359,8 @@ function KeyBenefits() {
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        padding: '120px 8vw',
+        padding: '120px 8vw 120px 8vw',
+        boxSizing: 'border-box' as const,
       }}
     >
       <div style={{ width: '100%' }}>
