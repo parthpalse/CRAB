@@ -35,8 +35,8 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const PAD_TOP = Math.max(80, winDim.h * 0.12);
-  const PAD_BOT = isMobile ? Math.max(160, winDim.h * 0.22) : Math.max(80, winDim.h * 0.12);
+  const PAD_TOP = isMobile ? Math.max(120, winDim.h * 0.15) : Math.max(80, winDim.h * 0.12);
+  const PAD_BOT = isMobile ? Math.max(200, winDim.h * 0.25) : Math.max(80, winDim.h * 0.12);
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -103,7 +103,7 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: isMobile ? '120vh' : '100vh', overflow: 'hidden', zIndex: 5 }}
+      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: isMobile ? '160vh' : '100vh', overflow: 'hidden', zIndex: 5 }}
     >
       <DarkVeil />
       <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
@@ -173,7 +173,7 @@ export default function HowItWorks() {
               position: 'absolute' as const,
               top: `${nodeY_Vh}vh`,
               left: '50%',
-              transform: 'translate(-50%, 16px)',
+              transform: 'translate(-50%, -50%)',
               width: '80vw',
               display: 'flex',
               alignItems: 'center',
