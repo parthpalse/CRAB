@@ -308,6 +308,7 @@ function WhatWeDo() {
 }
 
 function KeyBenefits() {
+  const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -359,7 +360,10 @@ function KeyBenefits() {
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        padding: '120px 8vw 120px 8vw',
+        paddingTop: '120px',
+        paddingBottom: '120px',
+        paddingLeft: scaled(109, scale),
+        paddingRight: scaled(109, scale),
         boxSizing: 'border-box' as const,
       }}
     >
