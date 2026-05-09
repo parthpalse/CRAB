@@ -385,7 +385,7 @@ function KeyBenefits() {
           Consulting intelligence, delivered instantly
         </h2>
         
-        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))', gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)' }}>
+        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)', overflow: 'hidden' }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
               borderLeft: '2px solid rgba(0,204,255,0.3)', 
