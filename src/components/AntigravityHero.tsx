@@ -178,7 +178,7 @@ export default function AntigravityHero() {
             warpAmount={1.7}
           />
         </div>
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: '0 8vw' }}>
           <MagicBento
             textAutoHide={true}
             enableStars={true}

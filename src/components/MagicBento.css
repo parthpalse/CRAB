@@ -8,10 +8,10 @@
 .card-grid {
   display: grid;
   gap: 0.5em;
-  padding: 0 8vw;
+  padding: 0;
   width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   font-size: 16px;
   grid-template-columns: repeat(3, 1fr);
 }
