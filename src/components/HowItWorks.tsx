@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DarkVeil from './DarkVeil';
+import { useScale, scaled } from '../hooks/useScale';
 
 const steps = [
   { n: '01', title: 'Ask a Question',      sub: 'Start with your business problem',       text: '"Why are sales declining?"' },
@@ -20,6 +21,7 @@ export default function HowItWorks() {
   const [progress, setProgress] = useState(0);
   const [winDim, setWinDim]     = useState({ w: 1200, h: 800 });
   const [isMobile, setIsMobile] = useState(false);
+  const scale = useScale();
 
   useEffect(() => {
     const onResize = () => {
@@ -156,9 +158,9 @@ export default function HowItWorks() {
               position: 'absolute' as const,
               top: `${nodeY_Vh}vh`,
               transform: 'translateY(-50%)',
-              left:  isLeft ? '8vw' : 'auto',
-              right: isLeft ? 'auto' : '8vw',
-              width: '32vw',
+              left:  isLeft ? scaled(109, scale) : 'auto',
+              right: isLeft ? 'auto' : scaled(109, scale),
+              width: scaled(437, scale),
               display: 'flex',
               alignItems: 'center',
               justifyContent: isLeft ? 'flex-start' : 'flex-end',
@@ -198,7 +200,7 @@ export default function HowItWorks() {
                   <h2 style={{
                     fontFamily: "'Satoshi', sans-serif",
                     fontWeight: 700,
-                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : 'clamp(20px, 2.4vw, 38px)',
+                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : scaled(32.78, scale),
                     color: '#fff',
                     letterSpacing: '-0.02em',
                     lineHeight: 1.05,
@@ -210,7 +212,7 @@ export default function HowItWorks() {
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
                     fontWeight: 300,
-                    fontSize: isMobile ? '12px' : 'clamp(15px, 1.2vw, 18px)',
+                    fontSize: isMobile ? '12px' : scaled(16, scale),
                     color: 'rgba(255,255,255,0.55)',
                     lineHeight: 1.8,
                     marginBottom: isMobile ? 6 : 20,
@@ -219,7 +221,7 @@ export default function HowItWorks() {
                   </p>
                   <div style={{
                     fontFamily: "'JetBrains Mono', monospace",
-                    fontSize: isMobile ? '11px' : '13px',
+                    fontSize: isMobile ? '11px' : scaled(13, scale),
                     color: 'rgba(0,204,255,0.8)',
                     letterSpacing: '0.04em',
                     borderLeft: isMobile ? 'none' : (isLeft ? '2px solid rgba(0,204,255,0.3)' : 'none'),

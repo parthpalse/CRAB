@@ -6,6 +6,7 @@ import HowItWorks from './HowItWorks';
 import ContactUs from './ContactUs';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useScale, scaled } from '../hooks/useScale';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,6 +34,7 @@ export default function AntigravityHero() {
   const [revealed, setRevealed] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hideNav, setHideNav] = useState(false);
+  const scale = useScale();
 
   useEffect(() => {
     const onScroll = () => {
@@ -94,12 +96,12 @@ export default function AntigravityHero() {
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
       </div>
 
-      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', paddingLeft: '8vw', pointerEvents: 'none' }}>
+      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', paddingLeft: scaled(109, scale), pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10 }}>
           <div style={{ 
             fontFamily: "'Satoshi', sans-serif", 
             fontWeight: 500, 
-            fontSize: '22px', 
+            fontSize: scaled(22, scale), 
             textTransform: 'uppercase', 
             letterSpacing: '0.1em', 
             color: 'rgba(0,204,255,0.9)', 
@@ -107,7 +109,7 @@ export default function AntigravityHero() {
           }}>{t.heroTitle}</div>
           <h1 style={{ 
             color: '#fff', 
-            fontSize: 'clamp(40px, 6.5vw, 90px)', 
+            fontSize: scaled(88.79, scale), 
             letterSpacing: '-0.03em', 
             marginBottom: 32, 
             fontFamily: "'JetBrains Mono', monospace", 
@@ -127,7 +129,7 @@ export default function AntigravityHero() {
               borderRadius: 8,
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
-              fontSize: '14px',
+              fontSize: scaled(14, scale),
               textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.25)',
               cursor: 'pointer',
@@ -199,6 +201,7 @@ export default function AntigravityHero() {
 }
 
 function WhatWeDo() {
+  const scale = useScale();
   const ref = useRef<HTMLDivElement>(null);
   const labelRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLHeadingElement>(null);
@@ -233,7 +236,7 @@ function WhatWeDo() {
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        padding: '120px 8vw',
+        padding: `${scaled(120, scale)} ${scaled(109, scale)}`,
       }}
     >
       <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
@@ -251,7 +254,7 @@ function WhatWeDo() {
         <h2 ref={headRef} style={{
           fontFamily: "'Satoshi', sans-serif",
           fontWeight: 550,
-          fontSize: 'clamp(28px, 3.8vw, 60px)',
+          fontSize: scaled(51, scale),
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
@@ -264,7 +267,7 @@ function WhatWeDo() {
         <p ref={p1Ref} style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: 'clamp(15px, 1.2vw, 18px)',
+          fontSize: scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
           maxWidth: '700px',
@@ -275,7 +278,7 @@ function WhatWeDo() {
         <p ref={p2Ref} style={{
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
-          fontSize: 'clamp(15px, 1.2vw, 18px)',
+          fontSize: scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
           maxWidth: '700px',
