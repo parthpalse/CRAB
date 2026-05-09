@@ -177,7 +177,7 @@ export default function AntigravityHero() {
       <HowItWorks />
       <KeyBenefits />
 
-      <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A' }}>
+      <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <DarkVeil
             scanlineIntensity={0.47}
@@ -321,7 +321,10 @@ function KeyBenefits() {
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const els = [labelRef.current, headRef.current, listRef.current];
+    const els = [labelRef.current, headRef.current];
+    if (listRef.current) {
+      gsap.set(listRef.current, { opacity: 1, y: 0 });
+    }
     els.forEach(el => {
       if (!el) return;
       gsap.set(el, { opacity: 0, y: 36 });
