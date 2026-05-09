@@ -14,7 +14,7 @@ export function useScale() {
       }
       const scaleX = window.innerWidth / BASE_W;
       const scaleY = window.innerHeight / BASE_H;
-      setScale(Math.min(scaleX, scaleY));
+      setScale(Math.min(1, scaleX, scaleY));
     };
     calculate();
     window.addEventListener('resize', calculate);

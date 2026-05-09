@@ -299,14 +299,14 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
                   {card.headline && (
                     <div>
                       <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: `rgba(${itemGlowColor},0.7)`, letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: 12 }}>{card.headline}</div>
-                      <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(18, scale), textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#fff', marginBottom: 16 }}>{card.subheadline}</h2>
+                      <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(16, scale), textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#fff', marginBottom: 16 }}>{card.subheadline}</h2>
                     </div>
                   )}
                   <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
                       <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
-                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(30, scale), textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
-                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: scaled(20, scale), color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
+                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
+                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: scaled(15, scale), color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
                       </div>
                     ))}
                   </div>
