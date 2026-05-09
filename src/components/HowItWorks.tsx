@@ -198,7 +198,7 @@ export default function HowItWorks() {
                   <h2 style={{
                     fontFamily: "'Satoshi', sans-serif",
                     fontWeight: 700,
-                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : 'clamp(24px, 3vw, 44px)',
+                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : 'clamp(20px, 2.4vw, 38px)',
                     color: '#fff',
                     letterSpacing: '-0.02em',
                     lineHeight: 1.05,
