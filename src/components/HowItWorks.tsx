@@ -33,8 +33,8 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const PAD_TOP = Math.max(60, winDim.h * 0.1);
-  const PAD_BOT = Math.max(60, winDim.h * 0.1);
+  const PAD_TOP = Math.max(80, winDim.h * 0.12);
+  const PAD_BOT = Math.max(80, winDim.h * 0.12);
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -158,7 +158,7 @@ export default function HowItWorks() {
               transform: 'translateY(-50%)',
               left:  isLeft ? '8vw' : 'auto',
               right: isLeft ? 'auto' : '8vw',
-              width: '38vw',
+              width: '32vw',
               display: 'flex',
               alignItems: 'center',
               justifyContent: isLeft ? 'flex-start' : 'flex-end',
@@ -183,7 +183,7 @@ export default function HowItWorks() {
 
             return (
               <div key={i} style={isMobile ? mobileStyle : desktopStyle}>
-                <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right') }}>
+                <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right'), maxWidth: '420px' }}>
                   <div style={{
                     fontFamily: "'JetBrains Mono', monospace",
                     fontWeight: 400,
