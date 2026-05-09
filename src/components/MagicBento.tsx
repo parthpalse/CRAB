@@ -277,7 +277,7 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ width: '100%', padding: '0 8vw', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
+      <div style={{ width: '100%', padding: '0', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
         <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>Use Cases</div>
         <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' }}>Where KLARSTONE helps</div>
       </div>
