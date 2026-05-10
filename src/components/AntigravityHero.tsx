@@ -149,27 +149,21 @@ export default function AntigravityHero() {
           <a
             href="#"
             style={{
-              display: 'flex',
-              justifyContent: 'center',
+              display: 'inline-flex',
               alignItems: 'center',
-              gap: 12,
+              gap: 10,
               background: 'transparent',
               color: '#fff',
-              padding: '16px',
+              padding: '14px 28px',
               borderRadius: 8,
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
-              fontSize: '16px',
+              fontSize: scaled(14, scale),
               textDecoration: 'none',
-              border: '1px solid rgba(0,204,255,0.4)',
+              border: '1px solid rgba(255,255,255,0.25)',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               letterSpacing: '0.02em',
-              width: '100%',
-              maxWidth: isMobile ? 'none' : '800px',
-              boxSizing: 'border-box' as const,
-              display: 'flex',
-              justifyContent: 'center',
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
@@ -491,7 +485,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
       paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
       boxSizing: 'border-box' as const,
     }}>
-      <div style={{ textAlign: 'left', marginBottom: 80, width: '100%' }}>
+      <div style={{ textAlign: 'left', marginBottom: 80, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <h2 style={{ 
           fontFamily: "'Satoshi', sans-serif", 
           fontWeight: 550, 
@@ -523,13 +517,13 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
           }}
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             justifyContent: 'center',
             alignItems: 'center',
-            gap: 12,
+            gap: 10,
             background: 'transparent',
             color: '#fff',
-            padding: '16px',
+            padding: '14px 28px',
             borderRadius: 8,
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
@@ -539,10 +533,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
-            width: '100%',
-            maxWidth: isMobile ? 'none' : '800px',
-            alignSelf: 'flex-start',
-            boxSizing: 'border-box' as const,
+            alignSelf: 'center',
             marginTop: 12,
           }}
           onMouseEnter={e => {
