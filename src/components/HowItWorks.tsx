@@ -35,15 +35,17 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const CONTENT_H = winDim.h;
-  const PAD_TOP = isMobile ? 80 : 60;
-  const PAD_BOT = isMobile ? 80 : 60;
+  // Use 88% of viewport to give breathing room at top and bottom
+  const USABLE_H = winDim.h * 0.88;
+  const OFFSET_Y = winDim.h * 0.06; // 6% top offset to center the block
+  const PAD_TOP = isMobile ? 60 : 50;
+  const PAD_BOT = isMobile ? 60 : 50;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
   };
   const NY = (i: number) =>
-    PAD_TOP + (i / (steps.length - 1)) * (CONTENT_H - PAD_TOP - PAD_BOT);
+    OFFSET_Y + PAD_TOP + (i / (steps.length - 1)) * (USABLE_H - PAD_TOP - PAD_BOT);
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
   // ── bezier path ──
@@ -54,7 +56,7 @@ export default function HowItWorks() {
     return `${acc} C ${midX},${prevY} ${midX},${y} ${x},${y}`;
   }, '');
 
-  const activeIndex = Math.min(steps.length - 1, Math.floor(progress * steps.length));
+  const activeIndex = steps.length - 1; // all steps always visible
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -116,7 +118,7 @@ export default function HowItWorks() {
           <svg
             width="100%"
             height="100%"
-            viewBox={`0 0 ${winDim.w} ${CONTENT_H}`}
+            viewBox={`0 0 ${winDim.w} ${winDim.h}`}
           preserveAspectRatio="none"
           style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
         >
