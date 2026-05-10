@@ -35,9 +35,9 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const CONTENT_H = isMobile ? Math.max(winDim.h, 1000) : Math.max(winDim.h, 850);
-  const PAD_TOP = isMobile ? 120 : 100;
-  const PAD_BOT = isMobile ? 120 : 100;
+  const CONTENT_H = winDim.h;
+  const PAD_TOP = isMobile ? 80 : 60;
+  const PAD_BOT = isMobile ? 80 : 60;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -110,7 +110,7 @@ export default function HowItWorks() {
         <DarkVeil />
       </div>
 
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflowY: 'auto', overflowX: 'hidden', pointerEvents: 'auto' }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
         <div style={{ position: 'relative', width: '100%', height: `${CONTENT_H}px` }}>
           {/* SVG layer */}
           <svg
