@@ -149,21 +149,25 @@ export default function AntigravityHero() {
           <a
             href="#"
             style={{
-              display: 'inline-flex',
+              display: 'flex',
+              justifyContent: 'center',
               alignItems: 'center',
-              gap: 10,
+              gap: 12,
               background: 'transparent',
               color: '#fff',
-              padding: '14px 28px',
+              padding: '16px',
               borderRadius: 8,
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
-              fontSize: scaled(14, scale),
+              fontSize: '16px',
               textDecoration: 'none',
-              border: '1px solid rgba(255,255,255,0.25)',
+              border: '1px solid rgba(0,204,255,0.4)',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
               letterSpacing: '0.02em',
+              width: '100%',
+              maxWidth: isMobile ? 'none' : '400px',
+              boxSizing: 'border-box' as const,
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
@@ -534,6 +538,8 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
+            maxWidth: isMobile ? 'none' : '400px',
+            alignSelf: isMobile ? 'stretch' : 'flex-start',
             boxSizing: 'border-box' as const,
             marginTop: 12,
           }}

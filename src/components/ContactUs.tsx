@@ -167,15 +167,24 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             <button
               type="submit"
               style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 background: 'transparent',
                 border: '1px solid rgba(0,204,255,0.4)',
                 borderRadius: 8,
                 padding: '16px',
                 color: '#fff',
                 fontFamily: "'Inter', sans-serif",
-                fontSize: 16,
+                fontWeight: 300,
+                fontSize: '16px',
+                letterSpacing: '0.02em',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                width: '100%',
+                maxWidth: isMobile ? 'none' : '400px',
+                alignSelf: isMobile ? 'stretch' : 'center',
+                boxSizing: 'border-box' as const,
                 marginTop: 12
               }}
               onMouseEnter={e => {
