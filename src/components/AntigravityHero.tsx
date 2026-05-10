@@ -70,15 +70,60 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: isMobile ? 'auto 1fr auto' : '1fr auto 1fr', alignItems: 'center', padding: isMobile ? '0 20px' : isTablet ? '0 32px' : '0 2vw', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
-        <div style={{ fontFamily: isMobile ? "'JetBrains Mono', monospace" : isTablet ? "'JetBrains Mono', monospace" : 'Orbitron', letterSpacing: '.18em', fontSize: 10, fontWeight: 700, color: '#e6e6e6', display: 'flex', alignItems: 'baseline' }}>KLARSTONE</div>
-        <div style={{ display: 'flex', gap: isMobile ? '12px' : isTablet ? '24px' : '48px', alignItems: 'center', fontSize: isMobile ? 11 : isTablet ? 12 : 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300, letterSpacing: '0.03em' }}>
+      <nav style={{ 
+        position: 'fixed', 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        zIndex: 40, 
+        height: 64, 
+        display: 'grid', 
+        gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
+        alignItems: 'center', 
+        padding: isMobile ? '0 20px' : isTablet ? '0 32px' : '0 2vw', 
+        transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', 
+        transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', 
+        borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, 
+        backdropFilter: scrolled ? 'blur(14px)' : 'none', 
+        background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' 
+      }}>
+        <div style={{ 
+          fontFamily: isMobile ? "'JetBrains Mono', monospace" : isTablet ? "'JetBrains Mono', monospace" : 'Orbitron', 
+          letterSpacing: '.18em', 
+          fontSize: 10, 
+          fontWeight: 700, 
+          color: '#e6e6e6', 
+          display: isMobile ? 'none' : 'flex', 
+          alignItems: 'baseline' 
+        }}>
+          KLARSTONE
+        </div>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+          gap: isMobile ? '16px' : isTablet ? '24px' : '48px', 
+          alignItems: 'center', 
+          fontSize: isMobile ? 10 : isTablet ? 12 : 13, 
+          color: 'rgba(255,255,255,0.5)', 
+          fontFamily: 'Inter, sans-serif', 
+          fontWeight: 300, 
+          letterSpacing: '0.03em' 
+        }}>
           <a href="#home" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[0]}</a>
           <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[1]}</a>
           <a href="#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[2]}</a>
           <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[3]}</a>
         </div>
-        <div style={{ display: 'flex', gap: isMobile ? 12 : 32, alignItems: 'center', justifyContent: 'flex-end', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300 }}>
+        <div style={{ 
+          display: isMobile ? 'none' : 'flex', 
+          gap: isMobile ? 12 : 32, 
+          alignItems: 'center', 
+          justifyContent: 'flex-end', 
+          fontSize: 13, 
+          color: 'rgba(255,255,255,0.5)', 
+          fontFamily: 'Inter, sans-serif', 
+          fontWeight: 300 
+        }}>
           <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[4]}</a>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 11, letterSpacing: '0.05em' }}>
             <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? '#fff' : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
