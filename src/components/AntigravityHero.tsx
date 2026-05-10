@@ -517,7 +517,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
           }}
           style={{
-            display: 'inline-flex',
+            display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: 10,
@@ -533,7 +533,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
-            alignSelf: 'center',
+            width: '100%',
             marginTop: 12,
           }}
           onMouseEnter={e => {
