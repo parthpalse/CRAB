@@ -129,12 +129,12 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
               <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
             </filter>
           </defs>
-          <path d={PATH_D} stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={PATH_D} stroke={isMobile ? "rgba(255,255,255,0.15)" : "rgba(255,255,255,0.06)"} strokeWidth={isMobile ? "2" : "1.5"} fill="none" strokeLinecap="round" strokeLinejoin="round" />
           <path
             ref={drawnPathRef}
             d={PATH_D}
             stroke="url(#nhPathGrad)"
-            strokeWidth="3"
+            strokeWidth={isMobile ? "5" : "3"}
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
