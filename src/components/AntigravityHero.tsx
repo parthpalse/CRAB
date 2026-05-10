@@ -529,7 +529,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             fontWeight: 300,
             fontSize: '16px',
             textDecoration: 'none',
-            border: '1px solid rgba(0,204,255,0.3)',
+            border: '1px solid rgba(0,204,255,0.4)',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
