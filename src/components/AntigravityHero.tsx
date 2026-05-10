@@ -142,8 +142,8 @@ export default function AntigravityHero() {
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
       </div>
 
-      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
-        <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10 }}>
+      <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
+        <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10, textAlign: 'center' }}>
           <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
           <h1 style={{ color: '#fff', fontSize: 'clamp(36px, 4.8vw, 66px)', letterSpacing: '-0.03em', marginBottom: 32, fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, lineHeight: 1.05, textWrap: 'balance' as any }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
           <a
@@ -167,6 +167,7 @@ export default function AntigravityHero() {
               letterSpacing: '0.02em',
               width: '100%',
               maxWidth: isMobile ? 'none' : '800px',
+              margin: '0 auto',
               boxSizing: 'border-box' as const,
             }}
             onMouseEnter={e => {
@@ -489,7 +490,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
       paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
       boxSizing: 'border-box' as const,
     }}>
-      <div style={{ textAlign: 'left', marginBottom: 80, width: '100%' }}>
+      <div style={{ textAlign: 'center', marginBottom: 80, width: '100%' }}>
         <h2 style={{ 
           fontFamily: "'Satoshi', sans-serif", 
           fontWeight: 550, 
@@ -539,9 +540,9 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             letterSpacing: '0.02em',
             width: '100%',
             maxWidth: isMobile ? 'none' : '800px',
-            alignSelf: isMobile ? 'stretch' : 'flex-start',
+            alignSelf: isMobile ? 'stretch' : 'center',
+            margin: '12px auto 0',
             boxSizing: 'border-box' as const,
-            marginTop: 12,
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
