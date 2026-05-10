@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useScale, scaled } from '../hooks/useScale';
+import { supabase } from '../lib/supabase';
 
 export default function ContactUs() {
   const scale = useScale();
   const [submitted, setSubmitted] = React.useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    const { error } = await supabase.from('form').insert([{ name, email, message }]);
+    if (error) {
+      console.error(error);
+    } else {
+      setSubmitted(true);
+      setName('');
+      setEmail('');
+      setMessage('');
+      setTimeout(() => setSubmitted(false), 5000);
+    }
   };
 
   return (
@@ -26,21 +38,21 @@ export default function ContactUs() {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
             <label style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: 'rgba(0,204,255,0.6)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Name</label>
-            <input type="text" style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300 }} placeholder="John Doe" />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300 }} placeholder="John Doe" />
           </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
             <label style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: 'rgba(0,204,255,0.6)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Email</label>
-            <input type="email" style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300 }} placeholder="john@company.com" />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300 }} placeholder="john@company.com" />
           </div>
           
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
             <label style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: 'rgba(0,204,255,0.6)', letterSpacing: '0.3em', textTransform: 'uppercase' }}>Message</label>
-            <textarea rows={5} style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300, resize: 'vertical' }} placeholder="How can we help you?" />
+            <textarea rows={5} value={message} onChange={(e) => setMessage(e.target.value)} required style={{ width: '100%', background: '#0A0A0A', border: '1px solid rgba(255,255,255,0.12)', padding: '20px', color: '#fff', borderRadius: 8, outline: 'none', fontFamily: "'Inter', sans-serif", fontWeight: 300, resize: 'vertical' }} placeholder="How can we help you?" />
           </div>
           
           <button 
-            type="button" 
+            type="submit" 
             style={{ 
               width: '100%',
               background: 'transparent', 
