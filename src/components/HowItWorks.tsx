@@ -49,7 +49,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     return `${acc} C ${midX},${prevY} ${midX},${y} ${x},${y}`;
   }, '');
 
-  const activeIndex = steps.length - 1; // all steps always visible
+  const activeIndex = Math.floor(progress * (steps.length - 1));
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
