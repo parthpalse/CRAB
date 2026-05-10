@@ -61,7 +61,7 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
         zIndex: 10,
       }}
     >
-      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div style={{ marginBottom: 48, textAlign: 'center' }}>
           <h2 style={{
             fontFamily: "'Satoshi', sans-serif",
@@ -147,7 +147,6 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
               flexDirection: 'column', 
               gap: 8,
               width: '100%',
-              maxWidth: isMobile ? 'none' : '800px',
               margin: '0 auto'
             }}>
               <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{t.message}</label>
@@ -189,7 +188,6 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 width: '100%',
-                maxWidth: isMobile ? 'none' : '800px',
                 alignSelf: isMobile ? 'stretch' : 'center',
                 boxSizing: 'border-box' as const,
                 marginTop: 12
