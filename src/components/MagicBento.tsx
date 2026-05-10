@@ -2,56 +2,12 @@ import { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
 import './MagicBento.css';
 import { useScale, scaled } from '../hooks/useScale';
+import { DICT } from '../lib/translations';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '0, 204, 255';
 const MOBILE_BREAKPOINT = 768;
-
-const cardData: any[] = [
-  {
-    type: 'usecase',
-    color: '#0A0A0A',
-    glowColor: '0, 204, 255',
-    items: [
-      { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behavior.' },
-    ]
-  },
-  {
-    type: 'usecase',
-    color: '#0A0A0A',
-    glowColor: '255, 170, 0',
-    items: [
-      { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward with informed decisions.' },
-    ]
-  },
-  {
-    type: 'image',
-    color: '#0A0A0A',
-    glowColor: '0, 204, 255',
-  },
-  {
-    type: 'image',
-    color: '#0A0A0A',
-    glowColor: '255, 170, 0',
-  },
-  {
-    type: 'usecase',
-    color: '#0A0A0A',
-    glowColor: '0, 204, 255',
-    items: [
-      { title: 'Controlling', desc: 'Track KPIs, costs, margins, and business performance.' },
-    ]
-  },
-  {
-    type: 'usecase',
-    color: '#0A0A0A',
-    glowColor: '255, 170, 0',
-    items: [
-      { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' },
-    ]
-  },
-];
 
 const createParticleElement = (x: number, y: number, color = DEFAULT_GLOW_COLOR) => {
   const el = document.createElement('div');
@@ -101,62 +57,72 @@ const ParticleCard = ({ children, className = '', disableAnimations = false, sty
   const clearAllParticles = useCallback(() => {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
-    magnetismAnimationRef.current?.kill();
-    particlesRef.current.forEach(particle => {
-      gsap.to(particle, { scale: 0, opacity: 0, duration: 0.3, ease: 'back.in(1.7)', onComplete: () => particle.parentNode?.removeChild(particle) });
-    });
+    particlesRef.current.forEach(p => p.parentNode?.removeChild(p));
     particlesRef.current = [];
   }, []);
 
   const animateParticles = useCallback(() => {
-    if (!cardRef.current || !isHoveredRef.current) return;
-    if (!particlesInitialized.current) initializeParticles();
-    memoizedParticles.current.forEach((particle, index) => {
-      const timeoutId = setTimeout(() => {
-        if (!isHoveredRef.current || !cardRef.current) return;
-        const clone = particle.cloneNode(true) as HTMLElement;
-        cardRef.current.appendChild(clone);
-        particlesRef.current.push(clone);
-        gsap.fromTo(clone, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(1.7)' });
-        gsap.to(clone, { x: (Math.random() - 0.5) * 100, y: (Math.random() - 0.5) * 100, rotation: Math.random() * 360, duration: 2 + Math.random() * 2, ease: 'none', repeat: -1, yoyo: true });
-        gsap.to(clone, { opacity: 0.3, duration: 1.5, ease: 'power2.inOut', repeat: -1, yoyo: true });
-      }, index * 100);
-      timeoutsRef.current.push(timeoutId);
+    if (!isHoveredRef.current || !cardRef.current) return;
+    const { width, height } = cardRef.current.getBoundingClientRect();
+    const p = memoizedParticles.current[Math.floor(Math.random() * memoizedParticles.current.length)].cloneNode(true) as HTMLElement;
+    cardRef.current.appendChild(p);
+    particlesRef.current.push(p);
+
+    const tx = (Math.random() - 0.5) * 120, ty = (Math.random() - 0.5) * 120;
+    gsap.to(p, {
+      x: tx, y: ty, opacity: 0, scale: 0, duration: 1.5 + Math.random(), ease: 'power2.out',
+      onComplete: () => {
+        p.parentNode?.removeChild(p);
+        particlesRef.current = particlesRef.current.filter(item => item !== p);
+      }
     });
-  }, [initializeParticles]);
+
+    const nextDelay = 150 + Math.random() * 300;
+    const timeout = setTimeout(animateParticles, nextDelay);
+    timeoutsRef.current.push(timeout);
+  }, []);
 
   useEffect(() => {
-    if (disableAnimations || !cardRef.current) return;
     const element = cardRef.current;
+    if (!element || disableAnimations) return;
 
     const handleMouseEnter = () => {
       isHoveredRef.current = true;
+      initializeParticles();
       animateParticles();
-      if (enableTilt) gsap.to(element, { rotateX: 5, rotateY: 5, duration: 0.3, ease: 'power2.out', transformPerspective: 1000 });
     };
     const handleMouseLeave = () => {
       isHoveredRef.current = false;
       clearAllParticles();
-      if (enableTilt) gsap.to(element, { rotateX: 0, rotateY: 0, duration: 0.3, ease: 'power2.out' });
-      if (enableMagnetism) gsap.to(element, { x: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+      if (magnetismAnimationRef.current) magnetismAnimationRef.current.kill();
+      gsap.to(element, { x: 0, y: 0, rotationX: 0, rotationY: 0, duration: 0.6, ease: 'power2.out' });
     };
     const handleMouseMove = (e: MouseEvent) => {
-      if (!enableTilt && !enableMagnetism) return;
       const rect = element.getBoundingClientRect();
       const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      const centerX = rect.width / 2, centerY = rect.height / 2;
-      if (enableTilt) gsap.to(element, { rotateX: ((y - centerY) / centerY) * -10, rotateY: ((x - centerX) / centerX) * 10, duration: 0.1, ease: 'power2.out', transformPerspective: 1000 });
-      if (enableMagnetism) magnetismAnimationRef.current = gsap.to(element, { x: (x - centerX) * 0.05, y: (y - centerY) * 0.05, duration: 0.3, ease: 'power2.out' });
+      if (enableTilt) {
+        const xc = rect.width / 2, yc = rect.height / 2;
+        const dx = x - xc, dy = y - yc;
+        gsap.to(element, { rotationY: dx / 15, rotationX: -dy / 15, duration: 0.4, ease: 'power2.out' });
+      }
+      if (enableMagnetism) {
+        const mx = (x - rect.width / 2) * 0.15, my = (y - rect.height / 2) * 0.15;
+        if (magnetismAnimationRef.current) magnetismAnimationRef.current.kill();
+        magnetismAnimationRef.current = gsap.to(element, { x: mx, y: my, duration: 0.4, ease: 'power2.out' });
+      }
     };
     const handleClick = (e: MouseEvent) => {
       if (!clickEffect) return;
       const rect = element.getBoundingClientRect();
       const x = e.clientX - rect.left, y = e.clientY - rect.top;
-      const maxDistance = Math.max(Math.hypot(x, y), Math.hypot(x - rect.width, y), Math.hypot(x, y - rect.height), Math.hypot(x - rect.width, y - rect.height));
-      const ripple = document.createElement('div');
-      ripple.style.cssText = `position:absolute;width:${maxDistance * 2}px;height:${maxDistance * 2}px;border-radius:50%;background:radial-gradient(circle,rgba(${glowColor},0.4) 0%,rgba(${glowColor},0.2) 30%,transparent 70%);left:${x - maxDistance}px;top:${y - maxDistance}px;pointer-events:none;z-index:1000;`;
-      element.appendChild(ripple);
-      gsap.fromTo(ripple, { scale: 0, opacity: 1 }, { scale: 1, opacity: 0, duration: 0.8, ease: 'power2.out', onComplete: () => ripple.remove() });
+      for (let i = 0; i < 8; i++) {
+        const p = createParticleElement(x, y, glowColor);
+        element.appendChild(p);
+        gsap.to(p, {
+          x: (Math.random() - 0.5) * 200, y: (Math.random() - 0.5) * 200, opacity: 0, scale: 0, duration: 0.8 + Math.random(), ease: 'power2.out',
+          onComplete: () => p.parentNode?.removeChild(p)
+        });
+      }
     };
 
     element.addEventListener('mouseenter', handleMouseEnter);
@@ -267,19 +233,79 @@ interface MagicBentoProps {
   glowColor?: string;
   clickEffect?: boolean;
   enableMagnetism?: boolean;
+  lang: 'EN' | 'DE';
 }
 
-const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight = true, enableBorderGlow = true, disableAnimations = false, spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS, particleCount = DEFAULT_PARTICLE_COUNT, enableTilt = false, glowColor = DEFAULT_GLOW_COLOR, clickEffect = true, enableMagnetism = true }: MagicBentoProps) => {
+export default function MagicBento({
+  textAutoHide = true,
+  enableStars = true,
+  enableSpotlight = true,
+  enableBorderGlow = true,
+  disableAnimations = false,
+  spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
+  particleCount = DEFAULT_PARTICLE_COUNT,
+  enableTilt = false,
+  glowColor = DEFAULT_GLOW_COLOR,
+  clickEffect = true,
+  enableMagnetism = true,
+  lang
+}: MagicBentoProps) {
   const gridRef = useRef<HTMLDivElement>(null);
   const isMobile = useMobileDetection();
   const scale = useScale();
   const shouldDisableAnimations = disableAnimations || isMobile;
+  const t = DICT[lang].magicBento;
+
+  const cardData: any[] = [
+    {
+      type: 'usecase',
+      color: '#0A0A0A',
+      glowColor: '0, 204, 255',
+      items: [
+        { title: t.sales.title, desc: t.sales.desc },
+      ]
+    },
+    {
+      type: 'usecase',
+      color: '#0A0A0A',
+      glowColor: '255, 170, 0',
+      items: [
+        { title: t.strategy.title, desc: t.strategy.desc },
+      ]
+    },
+    {
+      type: 'image',
+      color: '#0A0A0A',
+      glowColor: '0, 204, 255',
+    },
+    {
+      type: 'image',
+      color: '#0A0A0A',
+      glowColor: '255, 170, 0',
+    },
+    {
+      type: 'usecase',
+      color: '#0A0A0A',
+      glowColor: '0, 204, 255',
+      items: [
+        { title: t.controlling.title, desc: t.controlling.desc },
+      ]
+    },
+    {
+      type: 'usecase',
+      color: '#0A0A0A',
+      glowColor: '255, 170, 0',
+      items: [
+        { title: t.operations.title, desc: t.operations.desc },
+      ]
+    },
+  ];
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>Use Cases</div>
-        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' }}>Where KLARSTONE helps</div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>{t.label}</div>
+        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' }}>{t.title}</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
       <div className="card-grid bento-section" ref={gridRef}>
@@ -296,12 +322,6 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
             if (card.type === 'usecase') {
               return (
                 <div style={{ display:'flex', flexDirection:'column', height:'100%', justifyContent:'space-between' }}>
-                  {card.headline && (
-                    <div>
-                      <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 400, fontSize: '11px', color: `rgba(${itemGlowColor},0.7)`, letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: 12 }}>{card.headline}</div>
-                      <h2 style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(16, scale), textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#fff', marginBottom: 16 }}>{card.subheadline}</h2>
-                    </div>
-                  )}
                   <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
                       <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
@@ -316,7 +336,7 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
             if (card.type === 'image') {
               return (
                 <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                  <div style={{ color:'rgba(255,255,255,0.08)', fontFamily:"'JetBrains Mono',monospace", fontSize:10, letterSpacing:'.2em', textTransform:'uppercase' }}>Image coming soon</div>
+                  <div style={{ color:'rgba(255,255,255,0.08)', fontFamily:"'JetBrains Mono',monospace", fontSize:10, letterSpacing:'.2em', textTransform:'uppercase' }}>{t.imagePlaceholder}</div>
                 </div>
               );
             }
@@ -340,6 +360,4 @@ const MagicBento = ({ textAutoHide = true, enableStars = true, enableSpotlight =
       </div>
     </div>
   );
-};
-
-export default MagicBento;
+}

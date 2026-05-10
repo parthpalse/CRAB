@@ -7,25 +7,11 @@ import ContactUs from './ContactUs';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScale, scaled } from '../hooks/useScale';
+import { DICT } from '../lib/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const DICT = {
-  EN: {
-    nav: ['Home', 'About Us', 'Contact Us', 'Login'],
-    bookBtn: 'Start Consultation',
-    splash: 'KLARSTONE / INITIALIZING',
-    heroOverline: <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</>,
-    heroTitle: <>KLARSTONE</>,
-  },
-  DE: {
-    nav: ['Startseite', 'Über uns', 'Kontakt', 'Login'],
-    bookBtn: 'Beratung starten',
-    splash: 'KLARSTONE / INITIALISIERT',
-    heroOverline: <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>,
-    heroTitle: <>KLARSTONE</>,
-  }
-};
+
 
 export default function AntigravityHero() {
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
@@ -124,7 +110,7 @@ export default function AntigravityHero() {
             fontWeight: 500, 
             lineHeight: 1.05, 
             textWrap: 'balance' as any 
-          }}>{t.heroOverline}</h1>
+          }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
           <a
             href="#"
             style={{
@@ -173,9 +159,9 @@ export default function AntigravityHero() {
         </div>
       </section>
 
-      <WhatWeDo />
-      <HowItWorks />
-      <KeyBenefits />
+      <WhatWeDo lang={lang} />
+      <HowItWorks lang={lang} />
+      <KeyBenefits lang={lang} />
 
       <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -188,6 +174,7 @@ export default function AntigravityHero() {
         </div>
         <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: `0 ${scaled(109, scale)}`, boxSizing: 'border-box' }}>
           <MagicBento
+            lang={lang}
             textAutoHide={true}
             enableStars={true}
             enableSpotlight={true}
@@ -202,13 +189,14 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <ContactUs />
-      <Footer />
+      <ContactUs lang={lang} />
+      <Footer lang={lang} />
     </>
   );
 }
 
-function WhatWeDo() {
+function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
+  const t = DICT[lang].whatWeDo;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -266,7 +254,7 @@ function WhatWeDo() {
           textTransform: 'uppercase' as const,
           marginBottom: 20,
         }}>
-          What We Do
+          {t.label}
         </div>
         <h2 ref={headRef} style={{
           fontFamily: "'Satoshi', sans-serif",
@@ -279,7 +267,7 @@ function WhatWeDo() {
           marginBottom: 32,
           overflowWrap: 'break-word' as const,
         }}>
-          AI-powered consulting for growing businesses
+          {t.title}
         </h2>
         <p ref={p1Ref} style={{
           fontFamily: "'Inter', sans-serif",
@@ -290,7 +278,7 @@ function WhatWeDo() {
           maxWidth: '700px',
           marginBottom: 16,
         }}>
-          KLARSTONE acts as a micro-consultant for your company. It works with your business data, asks smart follow-up questions, and gives clear recommendations on what to do next.
+          {t.p1}
         </p>
         <p ref={p2Ref} style={{
           fontFamily: "'Inter', sans-serif",
@@ -300,14 +288,15 @@ function WhatWeDo() {
           lineHeight: 1.8,
           maxWidth: '700px',
         }}>
-          It helps you move from scattered data and uncertainty to structured insights and action.
+          {t.p2}
         </p>
       </div>
     </section>
   );
 }
 
-function KeyBenefits() {
+function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
+  const t = DICT[lang].keyBenefits;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -343,14 +332,7 @@ function KeyBenefits() {
     });
   }, []);
 
-  const benefits = [
-    '24/7 AI micro-consultant',
-    'Data-backed business recommendations',
-    'Smart follow-up questions for better context',
-    'Interactive dashboards',
-    'Downloadable consulting reports',
-    'Built for fast, practical decision-making'
-  ];
+  const benefits = t.items;
 
   return (
     <div
@@ -377,7 +359,7 @@ function KeyBenefits() {
           textTransform: 'uppercase' as const,
           marginBottom: 20,
         }}>
-          Key Benefits
+          {t.label}
         </div>
         <h2 ref={headRef} style={{
           fontFamily: "'Satoshi', sans-serif",
@@ -390,7 +372,7 @@ function KeyBenefits() {
           marginBottom: 80,
           maxWidth: '900px',
         }}>
-          Consulting intelligence, delivered instantly
+          {t.title}
         </h2>
         
         <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)', overflow: 'hidden' }}>
@@ -417,7 +399,8 @@ function KeyBenefits() {
       </div>
     </div>
   );
-}function Footer() {
+}function Footer({ lang }: { lang: 'EN' | 'DE' }) {
+  const t = DICT[lang].footer;
   const scale = useScale();
   return (
     <footer style={{ 
@@ -447,7 +430,7 @@ function KeyBenefits() {
           textWrap: 'balance' as any,
           textTransform: 'uppercase' as const,
         }}>
-          Turn business questions into clear action
+          {t.title}
         </h2>
         <p style={{ 
           fontFamily: "'Inter', sans-serif", 
@@ -458,7 +441,7 @@ function KeyBenefits() {
           lineHeight: 1.6,
           maxWidth: 700
         }}>
-          Ask. Understand. Get recommendations. Move forward with clarity.
+          {t.sub}
         </p>
         <a
           href="#home"
@@ -506,7 +489,7 @@ function KeyBenefits() {
             (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(1)';
           }}
         >
-          Get started
+          {t.cta}
           <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
       </div>
@@ -535,7 +518,7 @@ function KeyBenefits() {
           color: 'rgba(255,255,255,0.3)',
           letterSpacing: '0.02em'
         }}>
-          © 2024 KLARSTONE. Intelligence for modern business.
+          {t.copyright}
         </div>
       </div>
     </footer>

@@ -3,17 +3,10 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import DarkVeil from './DarkVeil';
 import { useScale, scaled } from '../hooks/useScale';
+import { DICT } from '../lib/translations';
 
-const steps = [
-  { n: '01', title: 'Ask a Question',      sub: 'Start with your business problem',       text: '"Why are sales declining?"' },
-  { n: '02', title: 'Add Context',         sub: 'Answer a few smart follow-up questions', text: 'Synthesizing Context.' },
-  { n: '03', title: 'AI Analyzes',         sub: 'Data + context → clear diagnosis',       text: 'Identifying Root Causes.' },
-  { n: '04', title: 'Get Recommendations', sub: 'What to do. What to avoid.',             text: 'Actionable Insights.' },
-  { n: '05', title: 'View Dashboard',      sub: 'Key insights, KPIs, and trends',         text: 'Live Intelligence.' },
-  { n: '06', title: 'Download Report',     sub: 'Consulting-style strategy report',       text: 'Your Plan. Ready.' },
-];
-
-export default function HowItWorks() {
+export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
+  const steps = DICT[lang].howItWorks.steps;
   const sectionRef   = useRef<HTMLDivElement>(null);
   const drawnPathRef = useRef<SVGPathElement | null>(null);
   const cometRef     = useRef<SVGCircleElement | null>(null);
