@@ -1,3 +1,4 @@
+/* src/components/MagicBento.css */
 :root {
   --cyan-primary: rgba(0, 204, 255, 1);
   --cyan-glow: rgba(0, 204, 255, 0.2);
@@ -92,16 +93,28 @@
 @media (max-width: 767px) {
   .card-grid {
     grid-template-columns: 1fr;
-    padding: 0 5vw;
+    padding: 0;
+    gap: 12px;
   }
   .magic-bento-card {
-    min-height: 180px;
+    min-height: 160px;
+    padding: clamp(1em, 4vw, 1.5em);
+  }
+  .magic-bento-card--image {
+    min-height: 200px;
   }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .magic-bento-card {
+    min-height: 180px;
+  }
+  .magic-bento-card--image {
+    min-height: 220px;
   }
 }
 

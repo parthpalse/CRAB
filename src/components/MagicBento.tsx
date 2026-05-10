@@ -1,3 +1,4 @@
+// src/components/MagicBento.tsx
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
 import './MagicBento.css';
@@ -212,13 +213,18 @@ const GlobalSpotlight = ({ gridRef, disableAnimations = false, enabled = true, s
 
 const useMobileDetection = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const check = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
   }, []);
-  return isMobile;
+  return { isMobile, isTablet };
 };
 
 interface MagicBentoProps {
@@ -251,72 +257,36 @@ export default function MagicBento({
   lang
 }: MagicBentoProps) {
   const gridRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMobileDetection();
+  const { isMobile, isTablet } = useMobileDetection();
   const scale = useScale();
   const shouldDisableAnimations = disableAnimations || isMobile;
   const t = DICT[lang].magicBento;
 
   const cardData: any[] = [
-    {
-      type: 'usecase',
-      color: '#0A0A0A',
-      glowColor: '0, 204, 255',
-      items: [
-        { title: t.sales.title, desc: t.sales.desc },
-      ]
-    },
-    {
-      type: 'usecase',
-      color: '#0A0A0A',
-      glowColor: '255, 170, 0',
-      items: [
-        { title: t.strategy.title, desc: t.strategy.desc },
-      ]
-    },
-    {
-      type: 'image',
-      color: '#0A0A0A',
-      glowColor: '0, 204, 255',
-    },
-    {
-      type: 'image',
-      color: '#0A0A0A',
-      glowColor: '255, 170, 0',
-    },
-    {
-      type: 'usecase',
-      color: '#0A0A0A',
-      glowColor: '0, 204, 255',
-      items: [
-        { title: t.controlling.title, desc: t.controlling.desc },
-      ]
-    },
-    {
-      type: 'usecase',
-      color: '#0A0A0A',
-      glowColor: '255, 170, 0',
-      items: [
-        { title: t.operations.title, desc: t.operations.desc },
-      ]
-    },
+    { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.sales.title, desc: t.sales.desc }] },
+    { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.strategy.title, desc: t.strategy.desc }] },
+    { type: 'image', color: '#0A0A0A', glowColor: '0, 204, 255' },
+    { type: 'image', color: '#0A0A0A', glowColor: '255, 170, 0' },
+    { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.controlling.title, desc: t.controlling.desc }] },
+    { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.operations.title, desc: t.operations.desc }] },
   ];
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
         <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>{t.label}</div>
-        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : 'clamp(32px, 4.5vw, 60px)', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' }}>{t.title}</div>
+        <div style={{ 
+          fontFamily: "'Satoshi', sans-serif", fontWeight: 550, 
+          fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(32px, 4.5vw, 60px)', 
+          color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' 
+        }}>{t.title}</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
       <div className="card-grid bento-section" ref={gridRef}>
         {cardData.map((card, index) => {
           const baseClassName = `magic-bento-card${card.type === 'image' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
-          const cardStyle = { 
-            backgroundColor: card.color, 
-            '--glow-color': itemGlowColor,
-            borderColor: `rgba(${itemGlowColor}, 0.18)` 
-          } as React.CSSProperties;
+          const cardStyle = { backgroundColor: card.color, '--glow-color': itemGlowColor, borderColor: `rgba(${itemGlowColor}, 0.18)` } as React.CSSProperties;
 
           const cardContent = () => {
             if (card.type === 'usecase') {
@@ -325,8 +295,16 @@ export default function MagicBento({
                   <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
                       <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
-                        <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 700, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 }}>{item.title}</div>
-                        <div style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: scaled(15, scale), color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 }}>{item.desc}</div>
+                        <div style={{ 
+                          fontFamily: "'Satoshi', sans-serif", fontWeight: 700, 
+                          fontSize: isMobile ? 'clamp(16px, 4vw, 20px)' : isTablet ? 'clamp(18px, 2.5vw, 22px)' : scaled(22, scale), 
+                          textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 
+                        }}>{item.title}</div>
+                        <div style={{ 
+                          fontFamily: "'Inter', sans-serif", fontWeight: 300, 
+                          fontSize: isMobile ? '13px' : isTablet ? '14px' : scaled(15, scale), 
+                          color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 
+                        }}>{item.desc}</div>
                       </div>
                     ))}
                   </div>

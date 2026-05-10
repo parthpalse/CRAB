@@ -1,8 +1,9 @@
+// src/lib/translations.ts
 import React from 'react';
 
 export const DICT = {
   EN: {
-    nav: ['Home', 'About Us', 'Contact Us', 'Login'],
+    nav: ['Home', 'About Us', 'Services', 'Contact Us', 'Login'],
     bookBtn: 'Start Consultation',
     splash: 'KLARSTONE / INITIALIZING',
     heroOverline: 'DECISION INTELLIGENCE FOR MODERN BUSINESS',
@@ -36,7 +37,7 @@ export const DICT = {
       ]
     },
     magicBento: {
-      label: 'Use Cases',
+      label: 'Services',
       title: 'Where KLARSTONE helps',
       imagePlaceholder: 'Image coming soon',
       sales: { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behavior.' },
@@ -62,7 +63,7 @@ export const DICT = {
     }
   },
   DE: {
-    nav: ['Startseite', 'Über uns', 'Kontakt', 'Login'],
+    nav: ['Startseite', 'Über uns', 'Services', 'Kontakt', 'Login'],
     bookBtn: 'Beratung starten',
     splash: 'KLARSTONE / INITIALISIERUNG',
     heroOverline: 'ENTSCHEIDUNGSINTELLIGENZ FÜR MODERNE UNTERNEHMEN',
@@ -96,7 +97,7 @@ export const DICT = {
       ]
     },
     magicBento: {
-      label: 'Anwendungsfälle',
+      label: 'Services',
       title: 'Wo KLARSTONE hilft',
       imagePlaceholder: 'Bild folgt in Kürze',
       sales: { title: 'Vertrieb', desc: 'Verstehen Sie rückläufige Umsätze, schwache Konversionsraten, Kanalprobleme und Kundenverhalten.' },

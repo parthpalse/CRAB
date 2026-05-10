@@ -1,3 +1,4 @@
+// src/components/AntigravityHero.tsx
 import React, { useEffect, useRef, useState } from 'react';
 import { initHeroScene } from './heroScene';
 import MagicBento from './MagicBento';
@@ -11,8 +12,6 @@ import { DICT } from '../lib/translations';
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
 export default function AntigravityHero() {
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
   const t = DICT[lang];
@@ -22,9 +21,14 @@ export default function AntigravityHero() {
   const [hideNav, setHideNav] = useState(false);
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -42,7 +46,7 @@ export default function AntigravityHero() {
   useEffect(() => {
     if (!canvasRef.current) return;
     const cleanup = initHeroScene(canvasRef.current, () => setRevealed(true));
-    // Safety fallback: reveal after 2s if scene initialization hangs
+    // Safety fallback: reveal after 2.5s if scene initialization hangs
     const timer = setTimeout(() => setRevealed(true), 2500);
     return () => { cleanup(); clearTimeout(timer); };
   }, []);
@@ -58,6 +62,7 @@ export default function AntigravityHero() {
         @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(280%)}}
       `}</style>
 
+      {/* Splash Screen */}
       <div id="splash" style={{ position: 'fixed', inset: 0, zIndex: 200, background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 18, transition: 'opacity .8s ease', pointerEvents: 'none', opacity: revealed ? 0 : 1 }}>
         <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10, color: 'rgba(255,255,255,.45)', letterSpacing: '.3em' }}>{t.splash}</div>
         <div style={{ width: 160, height: 1, background: 'rgba(255,255,255,.1)', position: 'relative', overflow: 'hidden' }}>
@@ -65,15 +70,16 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: isMobile ? 'auto 1fr auto' : '1fr auto 1fr', alignItems: 'center', padding: isMobile ? '0 12px' : '0 2vw', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
-        <div style={{ fontFamily: 'Orbitron', letterSpacing: '.18em', fontSize: 10, fontWeight: 700, color: '#e6e6e6', display: 'flex', alignItems: 'baseline' }}>KLARSTONE</div>
-        <div style={{ display: 'flex', gap: isMobile ? '12px' : '48px', alignItems: 'center', fontSize: isMobile ? 10 : 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300, letterSpacing: '0.03em' }}>
+      <nav style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 40, height: 64, display: 'grid', gridTemplateColumns: isMobile ? 'auto 1fr auto' : '1fr auto 1fr', alignItems: 'center', padding: isMobile ? '0 20px' : isTablet ? '0 32px' : '0 2vw', transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, backdropFilter: scrolled ? 'blur(14px)' : 'none', background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' }}>
+        <div style={{ fontFamily: isMobile ? "'JetBrains Mono', monospace" : isTablet ? "'JetBrains Mono', monospace" : 'Orbitron', letterSpacing: '.18em', fontSize: 10, fontWeight: 700, color: '#e6e6e6', display: 'flex', alignItems: 'baseline' }}>KLARSTONE</div>
+        <div style={{ display: 'flex', gap: isMobile ? '12px' : isTablet ? '24px' : '48px', alignItems: 'center', fontSize: isMobile ? 11 : isTablet ? 12 : 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300, letterSpacing: '0.03em' }}>
           <a href="#home" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[0]}</a>
           <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[1]}</a>
-          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[2]}</a>
+          <a href="#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[2]}</a>
+          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[3]}</a>
         </div>
         <div style={{ display: 'flex', gap: isMobile ? 12 : 32, alignItems: 'center', justifyContent: 'flex-end', fontSize: 13, color: 'rgba(255,255,255,0.5)', fontFamily: 'Inter, sans-serif', fontWeight: 300 }}>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[3]}</a>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[4]}</a>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: 11, letterSpacing: '0.05em' }}>
             <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? '#fff' : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
             <span style={{ opacity: 0.2 }}>|</span>
@@ -92,25 +98,8 @@ export default function AntigravityHero() {
 
       <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10 }}>
-          <div style={{ 
-            fontFamily: "'Satoshi', sans-serif", 
-            fontWeight: 500, 
-            fontSize: scaled(22, scale), 
-            textTransform: 'uppercase', 
-            letterSpacing: '0.1em', 
-            color: 'rgba(0,204,255,0.9)', 
-            marginBottom: 20 
-          }}>{t.heroTitle}</div>
-          <h1 style={{ 
-            color: '#fff', 
-            fontSize: 'clamp(36px, 4.8vw, 66px)', 
-            letterSpacing: '-0.03em', 
-            marginBottom: 32, 
-            fontFamily: "'JetBrains Mono', monospace", 
-            fontWeight: 500, 
-            lineHeight: 1.05, 
-            textWrap: 'balance' as any 
-          }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
+          <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
+          <h1 style={{ color: '#fff', fontSize: 'clamp(36px, 4.8vw, 66px)', letterSpacing: '-0.03em', marginBottom: 32, fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, lineHeight: 1.05, textWrap: 'balance' as any }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
           <a
             href="#"
             style={{
@@ -163,7 +152,7 @@ export default function AntigravityHero() {
       <HowItWorks lang={lang} />
       <KeyBenefits lang={lang} />
 
-      <div style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A', overflow: 'hidden' }}>
+      <div id="services" style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
           <DarkVeil
             scanlineIntensity={0.47}
@@ -172,7 +161,10 @@ export default function AntigravityHero() {
             warpAmount={1.7}
           />
         </div>
-        <div style={{ position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', padding: `0 ${scaled(109, scale)}`, boxSizing: 'border-box' }}>
+        <div style={{ 
+          position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', 
+          padding: isMobile ? '0 20px' : isTablet ? '0 48px' : `0 ${scaled(109, scale)}`, boxSizing: 'border-box' 
+        }}>
           <MagicBento
             lang={lang}
             textAutoHide={true}
@@ -199,9 +191,14 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
   const t = DICT[lang].whatWeDo;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
@@ -241,7 +238,7 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        padding: isMobile ? '60px 24px' : `${scaled(120, scale)} ${scaled(109, scale)}`,
+        padding: isMobile ? '60px 24px' : isTablet ? '80px 48px' : `${scaled(120, scale)} ${scaled(109, scale)}`,
       }}
     >
       <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
@@ -265,7 +262,6 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 32,
-          overflowWrap: 'break-word' as const,
         }}>
           {t.title}
         </h2>
@@ -299,13 +295,19 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
   const t = DICT[lang].keyBenefits;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
-  const ref = useRef<HTMLDivElement>(null);
+
   const labelRef = useRef<HTMLDivElement>(null);
   const headRef = useRef<HTMLHeadingElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
@@ -336,16 +338,15 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
 
   return (
     <div
-      ref={ref}
       style={{
         position: 'relative',
         zIndex: 8,
         background: '#0A0A0A',
         width: '100%',
-        paddingTop: '120px',
-        paddingBottom: '120px',
-        paddingLeft: scaled(109, scale),
-        paddingRight: scaled(109, scale),
+        paddingTop: isMobile ? '60px' : isTablet ? '80px' : '120px',
+        paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '120px',
+        paddingLeft: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
+        paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
         boxSizing: 'border-box' as const,
       }}
     >
@@ -370,12 +371,17 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 80,
-          whiteSpace: 'nowrap',
+          whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
         }}>
           {t.title}
         </h2>
         
-        <div ref={listRef} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)', overflow: 'hidden' }}>
+        <div ref={listRef} style={{ 
+          display: 'grid', 
+          gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)', 
+          gap: isMobile ? '16px' : 'clamp(24px, 3vw, 48px) clamp(32px, 5vw, 100px)', 
+          overflow: 'hidden' 
+        }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
               borderLeft: '2px solid rgba(0,204,255,0.3)', 
@@ -399,9 +405,25 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
       </div>
     </div>
   );
-}function Footer({ lang }: { lang: 'EN' | 'DE' }) {
+}
+
+function Footer({ lang }: { lang: 'EN' | 'DE' }) {
   const t = DICT[lang].footer;
   const scale = useScale();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
+
+  useEffect(() => {
+    const check = () => {
+      const w = window.innerWidth;
+      setIsMobile(w < 768);
+      setIsTablet(w >= 768 && w < 1024);
+    };
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   return (
     <footer style={{ 
       position: 'relative', 
@@ -411,22 +433,22 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
       display: 'flex', 
       flexDirection: 'column', 
       alignItems: 'flex-start', 
-      paddingTop: '120px',
+      paddingTop: isMobile ? '80px' : isTablet ? '100px' : '120px',
       paddingBottom: '60px',
-      paddingLeft: scaled(109, scale),
-      paddingRight: scaled(109, scale),
+      paddingLeft: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
+      paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
       boxSizing: 'border-box' as const,
     }}>
       <div style={{ textAlign: 'left', marginBottom: 80, width: '100%' }}>
         <h2 style={{ 
           fontFamily: "'Satoshi', sans-serif", 
           fontWeight: 550, 
-          fontSize: 'clamp(28px, 3.5vw, 56px)', 
+          fontSize: isMobile ? 'clamp(24px, 6vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(28px, 3.5vw, 56px)', 
           color: '#fff', 
           letterSpacing: '-0.02em', 
           lineHeight: 1.1, 
           marginBottom: 24,
-          whiteSpace: 'nowrap',
+          whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
           textTransform: 'uppercase' as const,
         }}>
           {t.title}
@@ -466,7 +488,6 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
-            display: 'flex',
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
