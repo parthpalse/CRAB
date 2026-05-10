@@ -225,10 +225,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                     letterSpacing: '0.04em',
                     borderLeft: isMobile ? 'none' : (isLeft ? '2px solid rgba(0,204,255,0.3)' : 'none'),
                     borderRight: isMobile ? 'none' : (isLeft ? 'none' : '2px solid rgba(0,204,255,0.3)'),
-                    borderBottom: isMobile ? '1px solid rgba(0,204,255,0.3)' : 'none',
+                    borderBottom: isMobile ? '2px solid rgba(0,204,255,0.5)' : 'none',
                     paddingLeft: isMobile ? '0' : (isLeft ? '14px' : '0'),
                     paddingRight: isMobile ? '0' : (isLeft ? '0' : '14px'),
-                    paddingBottom: isMobile ? '6px' : '0',
+                    paddingBottom: isMobile ? '8px' : '0',
                     marginTop: 8,
                   }}>
                     {step.text}

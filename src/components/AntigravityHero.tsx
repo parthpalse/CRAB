@@ -523,7 +523,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             gap: 12,
             background: 'transparent',
             color: '#fff',
-            padding: '20px',
+            padding: '16px 32px',
             borderRadius: 8,
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
@@ -533,7 +533,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
-            width: '100%',
+            width: 'auto',
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';

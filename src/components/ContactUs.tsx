@@ -35,6 +35,12 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
       
       if (error) throw error;
       
+      await fetch('https://formsubmit.co/ajax/Crab.ai2026@gmail.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ name, email, message })
+      });
+      
       setSubmitted(true);
       setName('');
       setEmail('');
