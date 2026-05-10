@@ -89,7 +89,7 @@ export default function AntigravityHero() {
         background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' 
       }}>
         <div style={{ 
-          fontFamily: isMobile ? "'JetBrains Mono', monospace" : isTablet ? "'JetBrains Mono', monospace" : 'Orbitron', 
+          fontFamily: "'JetBrains Mono', monospace", 
           letterSpacing: isMobile ? '.12em' : '.18em', 
           fontSize: isMobile ? 8 : 10, 
           fontWeight: 700, 
@@ -430,7 +430,7 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
         }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
-              borderLeft: '2px solid rgba(0,204,255,0.3)', 
+              borderLeft: isMobile ? '2px solid rgba(0,204,255,0.6)' : '2px solid rgba(0,204,255,0.3)', 
               paddingLeft: 20,
               display: 'flex',
               alignItems: 'flex-start',
@@ -570,7 +570,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
         alignItems: 'center'
       }}>
         <div style={{ 
-          fontFamily: 'Orbitron', 
+          fontFamily: "'JetBrains Mono', monospace", 
           letterSpacing: '.18em', 
           fontSize: 10, 
           fontWeight: 700, 
