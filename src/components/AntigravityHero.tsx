@@ -147,7 +147,7 @@ export default function AntigravityHero() {
           <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
           <h1 style={{ color: '#fff', fontSize: 'clamp(36px, 4.8vw, 66px)', letterSpacing: '-0.03em', marginBottom: 32, fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, lineHeight: 1.05, textWrap: 'balance' as any }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
           <a
-            href="#"
+            href="#contact"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
