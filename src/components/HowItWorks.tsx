@@ -113,7 +113,7 @@ export default function HowItWorks() {
       </div>
 
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
-        <div style={{ position: 'relative', width: '100%', height: `${CONTENT_H}px` }}>
+        <div style={{ position: 'relative', width: '100%', height: `${winDim.h}px` }}>
           {/* SVG layer */}
           <svg
             width="100%"
