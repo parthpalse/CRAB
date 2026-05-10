@@ -35,15 +35,15 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const TOTAL_H = Math.max(winDim.h * 1.5, steps.length * (isMobile ? 240 : 380));
-  const PAD_TOP = isMobile ? 120 : winDim.h * 0.3;
-  const PAD_BOT = isMobile ? 120 : winDim.h * 0.3;
+  const CONTENT_H = isMobile ? Math.max(winDim.h, 1000) : Math.max(winDim.h, 850);
+  const PAD_TOP = isMobile ? 120 : 100;
+  const PAD_BOT = isMobile ? 120 : 100;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
   };
   const NY = (i: number) =>
-    PAD_TOP + (i / (steps.length - 1)) * (TOTAL_H - PAD_TOP - PAD_BOT);
+    PAD_TOP + (i / (steps.length - 1)) * (CONTENT_H - PAD_TOP - PAD_BOT);
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
   // ── bezier path ──
@@ -60,9 +60,10 @@ export default function HowItWorks() {
     gsap.registerPlugin(ScrollTrigger);
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: 'top 70%',
-      end: 'bottom 90%',
-      scrub: 1,
+      start: 'top top',
+      end: '+=400%',
+      pin: true,
+      scrub: true,
       onUpdate: self => setProgress(self.progress),
     });
     return () => st.kill();
@@ -103,18 +104,19 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: `${TOTAL_H}px`, zIndex: 5 }}
+      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: '100vh', zIndex: 5 }}
     >
-      <div style={{ position: 'sticky', top: 0, width: '100%', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <DarkVeil />
       </div>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
 
-        {/* SVG layer */}
-        <svg
-          width="100%"
-          height="100%"
-          viewBox={`0 0 ${winDim.w} ${TOTAL_H}`}
+      <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflowY: 'auto', overflowX: 'hidden', pointerEvents: 'auto' }}>
+        <div style={{ position: 'relative', width: '100%', height: `${CONTENT_H}px` }}>
+          {/* SVG layer */}
+          <svg
+            width="100%"
+            height="100%"
+            viewBox={`0 0 ${winDim.w} ${CONTENT_H}`}
           preserveAspectRatio="none"
           style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
         >
@@ -240,6 +242,7 @@ export default function HowItWorks() {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </section>
