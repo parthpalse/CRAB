@@ -13,7 +13,8 @@ export default function ContactUs() {
     e.preventDefault();
     const { error } = await supabase.from('form').insert([{ name, email, message }]);
     if (error) {
-      console.error(error);
+      console.error('Supabase Error:', error);
+      alert('Failed to send message: ' + error.message);
     } else {
       setSubmitted(true);
       setName('');
