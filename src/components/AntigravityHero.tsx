@@ -166,7 +166,7 @@ export default function AntigravityHero() {
               transition: 'all 0.3s ease',
               letterSpacing: '0.02em',
               width: '100%',
-              maxWidth: isMobile ? 'none' : '400px',
+              maxWidth: isMobile ? 'none' : '800px',
               boxSizing: 'border-box' as const,
             }}
             onMouseEnter={e => {
@@ -538,7 +538,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
-            maxWidth: isMobile ? 'none' : '400px',
+            maxWidth: isMobile ? 'none' : '800px',
             alignSelf: isMobile ? 'stretch' : 'flex-start',
             boxSizing: 'border-box' as const,
             marginTop: 12,
