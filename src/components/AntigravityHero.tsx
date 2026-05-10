@@ -534,6 +534,8 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
+            boxSizing: 'border-box' as const,
+            marginTop: 12,
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
