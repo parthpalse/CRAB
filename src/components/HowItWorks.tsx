@@ -35,14 +35,15 @@ export default function HowItWorks() {
   }, []);
 
   // ── node coordinates ──
-  const PAD_TOP = isMobile ? Math.max(120, winDim.h * 0.15) : Math.max(80, winDim.h * 0.12);
-  const PAD_BOT = isMobile ? Math.max(200, winDim.h * 0.25) : Math.max(80, winDim.h * 0.12);
+  const TOTAL_H = Math.max(winDim.h * 1.5, steps.length * (isMobile ? 240 : 380));
+  const PAD_TOP = isMobile ? 120 : winDim.h * 0.3;
+  const PAD_BOT = isMobile ? 120 : winDim.h * 0.3;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
   };
   const NY = (i: number) =>
-    PAD_TOP + (i / (steps.length - 1)) * (winDim.h - PAD_TOP - PAD_BOT);
+    PAD_TOP + (i / (steps.length - 1)) * (TOTAL_H - PAD_TOP - PAD_BOT);
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
   // ── bezier path ──
@@ -59,10 +60,9 @@ export default function HowItWorks() {
     gsap.registerPlugin(ScrollTrigger);
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: 'top top',
-      end: '+=500%',
-      pin: true,
-      scrub: true,
+      start: 'top 70%',
+      end: 'bottom 90%',
+      scrub: 1,
       onUpdate: self => setProgress(self.progress),
     });
     return () => st.kill();
@@ -103,16 +103,18 @@ export default function HowItWorks() {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: isMobile ? '140vh' : '100vh', overflow: 'hidden', zIndex: 5 }}
+      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: `${TOTAL_H}px`, zIndex: 5 }}
     >
-      <DarkVeil />
-      <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+      <div style={{ position: 'sticky', top: 0, width: '100%', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
+        <DarkVeil />
+      </div>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
 
         {/* SVG layer */}
         <svg
           width="100%"
           height="100%"
-          viewBox={`0 0 ${winDim.w} ${winDim.h}`}
+          viewBox={`0 0 ${winDim.w} ${TOTAL_H}`}
           preserveAspectRatio="none"
           style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
         >
@@ -149,14 +151,14 @@ export default function HowItWorks() {
         <div style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none' }}>
           {steps.map((step, i) => {
             const isLeft    = !isMobile && i % 2 === 0;
-            const nodeY_Vh  = (NY(i) / winDim.h) * 100;
+            const nodeY_Px  = NY(i);
             const isReached = i <= activeIndex;
 
             // Desktop: alternate left/right aligned to node
             // Mobile: centered below each node
             const desktopStyle = {
               position: 'absolute' as const,
-              top: `${nodeY_Vh}vh`,
+              top: `${nodeY_Px}px`,
               transform: 'translateY(-50%)',
               left:  isLeft ? scaled(109, scale) : 'auto',
               right: isLeft ? 'auto' : scaled(109, scale),
@@ -171,7 +173,7 @@ export default function HowItWorks() {
 
             const mobileStyle = {
               position: 'absolute' as const,
-              top: `${nodeY_Vh}vh`,
+              top: `${nodeY_Px}px`,
               left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '80vw',
