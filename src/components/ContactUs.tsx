@@ -142,7 +142,14 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
                 />
               </div>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <div style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 8,
+              width: '100%',
+              maxWidth: isMobile ? 'none' : '400px',
+              margin: '0 auto'
+            }}>
               <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{t.message}</label>
               <textarea
                 value={message}
