@@ -144,7 +144,7 @@ export default function AntigravityHero() {
 
       <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10, textAlign: 'left' }}>
-          <div style={{ fontFamily: "'Satoshi', sans-serif", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
+          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
           <h1 style={{ color: '#fff', fontSize: 'clamp(36px, 4.8vw, 66px)', letterSpacing: '-0.03em', marginBottom: 32, fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, lineHeight: 1.05, textWrap: 'balance' as any }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
           <a
             href="#"
