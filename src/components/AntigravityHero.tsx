@@ -370,7 +370,7 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
           lineHeight: 1.05,
           textTransform: 'uppercase' as const,
           marginBottom: 80,
-          maxWidth: '900px',
+          whiteSpace: 'nowrap',
         }}>
           {t.title}
         </h2>
@@ -426,8 +426,7 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
           letterSpacing: '-0.02em', 
           lineHeight: 1.1, 
           marginBottom: 24,
-          maxWidth: '800px',
-          textWrap: 'balance' as any,
+          whiteSpace: 'nowrap',
           textTransform: 'uppercase' as const,
         }}>
           {t.title}
