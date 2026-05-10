@@ -478,7 +478,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
       zIndex: 10, 
       display: 'flex', 
       flexDirection: 'column', 
-      alignItems: 'flex-start', 
+      alignItems: 'stretch', 
       paddingTop: isMobile ? '80px' : isTablet ? '100px' : '120px',
       paddingBottom: '60px',
       paddingLeft: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
