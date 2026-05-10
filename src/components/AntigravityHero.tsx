@@ -517,7 +517,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
           }}
           style={{
-            display: 'flex',
+            display: 'inline-flex',
             justifyContent: 'center',
             alignItems: 'center',
             gap: 12,
@@ -533,7 +533,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
-            width: 'auto',
+            width: 'fit-content',
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
