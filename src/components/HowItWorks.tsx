@@ -29,8 +29,8 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
 
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
-  const USABLE_H = winDim.h * 0.82;
-  const OFFSET_Y = winDim.h * 0.09;
+  const USABLE_H = winDim.h * 0.78;
+  const OFFSET_Y = winDim.h * 0.11;
   const PAD_TOP = isMobile ? 60 : 70;
   const PAD_BOT = isMobile ? 60 : 70;
   const NX = (i: number) => {
@@ -58,6 +58,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
       start: 'top top',
       end: '+=400%',
       pin: true,
+      pinSpacing: true,
       scrub: true,
       onUpdate: self => setProgress(self.progress),
     });
