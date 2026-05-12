@@ -58,7 +58,7 @@ const ParticleCard = ({ children, className = '', disableAnimations = false, sty
   const clearAllParticles = useCallback(() => {
     timeoutsRef.current.forEach(clearTimeout);
     timeoutsRef.current = [];
-    particlesRef.current.forEach(p => p.parentNode?.removeChild(p));
+    particlesRef.current.forEach(p => { if (p.parentNode) p.parentNode.removeChild(p); });
     particlesRef.current = [];
   }, []);
 

@@ -12,7 +12,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   const cometRef     = useRef<SVGCircleElement | null>(null);
   const cometGlowRef = useRef<SVGCircleElement | null>(null);
   const [progress, setProgress] = useState(0);
-  const [winDim, setWinDim]     = useState({ w: 1200, h: 800 });
+  const [winDim, setWinDim]     = useState({ 
+    w: typeof window !== 'undefined' ? window.innerWidth : 1366, 
+    h: typeof window !== 'undefined' ? window.innerHeight : 768 
+  });
   const [isMobile, setIsMobile] = useState(false);
   const scale = useScale();
 
