@@ -29,10 +29,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
 
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
-  const USABLE_H = winDim.h * 0.78;
-  const OFFSET_Y = winDim.h * 0.11;
-  const PAD_TOP = isMobile ? 60 : 70;
-  const PAD_BOT = isMobile ? 60 : 70;
+  const USABLE_H = winDim.h * 0.76;
+  const OFFSET_Y = winDim.h * 0.15;
+  const PAD_TOP = isMobile ? 60 : 80;
+  const PAD_BOT = isMobile ? 60 : 100;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -56,11 +56,9 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=500%',
+      end: '+=400%',
       pin: true,
-      pinSpacing: true,
       scrub: true,
-      anticipatePin: 1,
       onUpdate: self => setProgress(self.progress),
     });
     return () => st.kill();
