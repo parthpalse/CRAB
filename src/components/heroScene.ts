@@ -310,10 +310,6 @@ export function initHeroScene(canvas: HTMLCanvasElement, onReveal: () => void) {
 
   animate();
 
-  // hide splash
-  setTimeout(() => { const s = document.getElementById('splash'); if (s) s.style.opacity = '0'; }, 240);
-  setTimeout(() => { const s = document.getElementById('splash'); if (s) s.remove(); }, 1200);
-
   return () => {
     cancelAnimationFrame(rafId);
     window.removeEventListener('mousemove', onMouseMove);

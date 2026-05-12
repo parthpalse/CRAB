@@ -44,11 +44,22 @@ export default function AntigravityHero() {
   }, []);
 
   useEffect(() => {
-    if (!canvasRef.current) return;
-    const cleanup = initHeroScene(canvasRef.current, () => setRevealed(true));
-    // Safety fallback: reveal after 2.5s if scene initialization hangs
+    // Safety fallback: reveal after 2.5s if scene initialization hangs or crashes
     const timer = setTimeout(() => setRevealed(true), 2500);
-    return () => { cleanup(); clearTimeout(timer); };
+
+    if (canvasRef.current) {
+      try {
+        const cleanup = initHeroScene(canvasRef.current, () => setRevealed(true));
+        return () => { 
+          if (cleanup) cleanup(); 
+          clearTimeout(timer); 
+        };
+      } catch (err) {
+        console.error("Hero scene failed:", err);
+        setRevealed(true);
+      }
+    }
+    return () => clearTimeout(timer);
   }, []);
 
   return (
