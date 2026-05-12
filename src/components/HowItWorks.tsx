@@ -56,10 +56,11 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     const st = ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top top',
-      end: '+=400%',
+      end: '+=500%',
       pin: true,
       pinSpacing: true,
       scrub: true,
+      anticipatePin: 1,
       onUpdate: self => setProgress(self.progress),
     });
     return () => st.kill();
