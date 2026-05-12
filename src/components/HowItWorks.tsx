@@ -29,10 +29,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
 
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
-  const USABLE_H = winDim.h * 0.78;
-  const OFFSET_Y = winDim.h * 0.11;
-  const PAD_TOP = isMobile ? 60 : 80;
-  const PAD_BOT = isMobile ? 60 : 80;
+  const USABLE_H = winDim.h * 0.88;
+  const OFFSET_Y = winDim.h * 0.06;
+  const PAD_TOP = isMobile ? 60 : 50;
+  const PAD_BOT = isMobile ? 60 : 50;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
