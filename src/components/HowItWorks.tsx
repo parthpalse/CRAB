@@ -12,7 +12,6 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   const cometRef     = useRef<SVGCircleElement | null>(null);
   const cometGlowRef = useRef<SVGCircleElement | null>(null);
   const [progress, setProgress] = useState(0);
-  const [sectionHeight, setSectionHeight] = useState(800);
   const [winDim, setWinDim]     = useState({ w: 1200, h: 800 });
   const [isMobile, setIsMobile] = useState(false);
   const scale = useScale();
@@ -21,9 +20,6 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     const onResize = () => {
       setWinDim({ w: window.innerWidth, h: window.innerHeight });
       setIsMobile(window.innerWidth < 768);
-      if (sectionRef.current) {
-        setSectionHeight(sectionRef.current.clientHeight);
-      }
       ScrollTrigger.refresh();
     };
     onResize();
@@ -42,8 +38,8 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
   // Standard vertical spacing
-  const USABLE_H = sectionHeight * 0.90;
-  const OFFSET_Y = sectionHeight * 0.05;
+  const USABLE_H = winDim.h * 0.90;
+  const OFFSET_Y = winDim.h * 0.08;
   const PAD_TOP = isMobile ? 40 : 60;
   const PAD_BOT = isMobile ? 40 : scaled(30, scale);
   const NX = (i: number) => {
@@ -95,7 +91,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
       cometGlowRef.current.setAttribute('cy', String(point.y));
       cometGlowRef.current.setAttribute('opacity', visible);
     }
-  }, [progress, winDim, sectionHeight]);
+  }, [progress, winDim]);
 
   useEffect(() => {
     if (!cometGlowRef.current) return;
@@ -119,12 +115,12 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
       </div>
 
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
-        <div style={{ position: 'relative', width: '100%', height: `${sectionHeight}px` }}>
+        <div style={{ position: 'relative', width: '100%', height: `${winDim.h}px` }}>
           {/* SVG layer */}
           <svg
             width="100%"
             height="100%"
-            viewBox={`0 0 ${winDim.w} ${sectionHeight}`}
+            viewBox={`0 0 ${winDim.w} ${winDim.h}`}
             preserveAspectRatio="none"
             style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
           >
