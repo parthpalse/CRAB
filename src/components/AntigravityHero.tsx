@@ -54,6 +54,7 @@ export default function AntigravityHero() {
   return (
     <>
       <style>{`
+        @import url('https://use.typekit.net/jho4afd.css');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         :root{--bg:#0A0A0A;--fg:#fff;--muted:rgba(255,255,255,0.55);--dim:rgba(255,255,255,0.32);--line:rgba(255,255,255,0.08);--line-2:rgba(255,255,255,0.16)}
         *{box-sizing:border-box;margin:0;padding:0}
@@ -64,7 +65,7 @@ export default function AntigravityHero() {
 
       {/* Splash Screen */}
       <div id="splash" style={{ position: 'fixed', inset: 0, zIndex: 200, background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 18, transition: 'opacity .8s ease', pointerEvents: 'none', opacity: revealed ? 0 : 1 }}>
-        <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 10, color: 'rgba(255,255,255,.45)', letterSpacing: '.3em' }}>{t.splash}</div>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 10, color: 'rgba(255,255,255,.45)', letterSpacing: '.3em' }}>{t.splash}</div>
         <div style={{ width: 160, height: 1, background: 'rgba(255,255,255,.1)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, width: '40%', background: '#fff', animation: 'load 1.2s ease-in-out infinite', boxShadow: '0 0 12px rgba(255,255,255,.4)' }} />
         </div>
@@ -89,10 +90,10 @@ export default function AntigravityHero() {
         background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' 
       }}>
         <div style={{ 
-          fontFamily: "'JetBrains Mono', monospace", 
+          fontFamily: "'EB Garamond', serif", 
           letterSpacing: isMobile ? '.12em' : '.18em', 
           fontSize: isMobile ? 8 : 10, 
-          fontWeight: 700, 
+          fontWeight: 400, 
           color: '#e6e6e6', 
           display: 'flex', 
           alignItems: 'baseline' 
@@ -144,8 +145,8 @@ export default function AntigravityHero() {
 
       <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10, textAlign: 'left' }}>
-          <div style={{ fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, fontSize: scaled(22, scale), textTransform: 'uppercase', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
-          <h1 style={{ color: '#fff', fontSize: 'clamp(36px, 4.8vw, 66px)', letterSpacing: '-0.03em', marginBottom: 32, fontFamily: "'JetBrains Mono', monospace", fontWeight: 550, lineHeight: 1.05, textWrap: 'balance' as any }}>{lang === 'EN' ? <>DECISION INTELLIGENCE<br />FOR MODERN BUSINESS</> : <>ENTSCHEIDUNGSINTELLIGENZ<br />FÜR MODERNE UNTERNEHMEN</>}</h1>
+          <div style={{ fontFamily: "'EB Garamond', serif", fontWeight: 400, fontSize: scaled(22, scale), textTransform: 'none', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
+          <h1 style={{ color: '#fff', fontSize: isMobile ? 'clamp(36px, 4.8vw, 66px)' : isTablet ? 'clamp(52px, 6vw, 80px)' : scaled(115, scale), letterSpacing: '-0.02em', marginBottom: 32, fontFamily: "'EB Garamond', serif", fontWeight: 400, lineHeight: 1.1, textWrap: 'balance' as any }}>{lang === 'EN' ? <>Decision intelligence<br />for modern business</> : <span style={{ fontSize: isMobile ? 'clamp(22px, 5.5vw, 36px)' : 'inherit' }}>Entscheidungsintelligenz<br />für moderne Unternehmen</span>}</h1>
           <a
             href="#contact"
             style={{
@@ -289,9 +290,9 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
     >
       <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
         <div ref={labelRef} style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "'EB Garamond', serif",
           fontWeight: 400,
-          fontSize: '11px',
+          fontSize: '16px',
           color: 'rgba(0,204,255,0.6)',
           letterSpacing: '0.3em',
           textTransform: 'uppercase' as const,
@@ -300,13 +301,13 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           {t.label}
         </div>
         <h2 ref={headRef} style={{
-          fontFamily: "'Satoshi', sans-serif",
-          fontWeight: 550,
+          fontFamily: "'EB Garamond', serif",
+          fontWeight: 600,
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : scaled(51, scale),
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
-          textTransform: 'uppercase' as const,
+          textTransform: 'none' as const,
           marginBottom: 32,
         }}>
           {t.title}
@@ -317,7 +318,6 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontSize: isMobile ? '15px' : scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
-          maxWidth: '700px',
           marginBottom: 16,
         }}>
           {t.p1}
@@ -328,7 +328,6 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontSize: isMobile ? '15px' : scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
-          maxWidth: '700px',
         }}>
           {t.p2}
         </p>
@@ -398,9 +397,9 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
     >
       <div style={{ width: '100%' }}>
         <div ref={labelRef} style={{
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "'EB Garamond', serif",
           fontWeight: 400,
-          fontSize: '11px',
+          fontSize: '16px',
           color: 'rgba(0,204,255,0.6)',
           letterSpacing: '0.3em',
           textTransform: 'uppercase' as const,
@@ -409,13 +408,13 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
           {t.label}
         </div>
         <h2 ref={headRef} style={{
-          fontFamily: "'Satoshi', sans-serif",
-          fontWeight: 550,
+          fontFamily: "'EB Garamond', serif",
+          fontWeight: 600,
           fontSize: 'clamp(28px, 3.2vw, 52px)',
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
-          textTransform: 'uppercase' as const,
+          textTransform: 'none' as const,
           marginBottom: 80,
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
         }}>
@@ -487,15 +486,15 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
     }}>
       <div style={{ textAlign: 'left', marginBottom: 80, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <h2 style={{ 
-          fontFamily: "'Satoshi', sans-serif", 
-          fontWeight: 550, 
+          fontFamily: "'EB Garamond', serif", 
+          fontWeight: 600, 
           fontSize: isMobile ? 'clamp(24px, 6vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(28px, 3.5vw, 56px)', 
           color: '#fff', 
           letterSpacing: '-0.02em', 
           lineHeight: 1.1, 
           marginBottom: 24,
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
-          textTransform: 'uppercase' as const,
+          textTransform: 'none' as const,
         }}>
           {t.title}
         </h2>
@@ -571,7 +570,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
         alignItems: 'center'
       }}>
         <div style={{ 
-          fontFamily: "'JetBrains Mono', monospace", 
+          fontFamily: "'EB Garamond', serif", 
           letterSpacing: '.18em', 
           fontSize: 10, 
           fontWeight: 700, 

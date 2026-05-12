@@ -186,9 +186,9 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
               <div key={i} style={isMobile ? mobileStyle : desktopStyle}>
                 <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right'), maxWidth: '420px' }}>
                   <div style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'EB Garamond', serif",
                     fontWeight: 400,
-                    fontSize: '11px',
+                    fontSize: '16px',
                     color: 'rgba(0,204,255,0.6)',
                     letterSpacing: '0.3em',
                     textTransform: 'uppercase',
@@ -197,7 +197,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                     {step.n}
                   </div>
                   <h2 style={{
-                    fontFamily: "'Satoshi', sans-serif",
+                    fontFamily: "'EB Garamond', serif",
                     fontWeight: 700,
                     fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : scaled(32.78, scale),
                     color: '#fff',
@@ -219,7 +219,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                     {step.sub}
                   </p>
                   <div style={{
-                    fontFamily: "'JetBrains Mono', monospace",
+                    fontFamily: "'Inter', sans-serif",
                     fontSize: isMobile ? '11px' : scaled(13, scale),
                     color: 'rgba(0,204,255,0.8)',
                     letterSpacing: '0.04em',

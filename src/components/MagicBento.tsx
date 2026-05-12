@@ -274,11 +274,11 @@ export default function MagicBento({
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:11, color:'rgba(0,204,255,0.6)', letterSpacing:'.3em', textTransform:'uppercase', marginBottom:20 }}>{t.label}</div>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, color: 'rgba(0,204,255,0.6)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: 20 }}>{t.label}</div>
         <div style={{ 
-          fontFamily: "'Satoshi', sans-serif", fontWeight: 550, 
+          fontFamily: "'EB Garamond', serif", fontWeight: 700, 
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(32px, 4.5vw, 60px)', 
-          color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'uppercase' 
+          color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'none' 
         }}>{t.title}</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
@@ -296,9 +296,9 @@ export default function MagicBento({
                     {card.items?.map((item: any, i: number) => (
                       <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
                         <div style={{ 
-                          fontFamily: "'Satoshi', sans-serif", fontWeight: 700, 
-                          fontSize: isMobile ? 'clamp(16px, 4vw, 20px)' : isTablet ? 'clamp(18px, 2.5vw, 22px)' : scaled(22, scale), 
-                          textTransform: 'uppercase', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 
+                          fontFamily: "'EB Garamond', serif", fontWeight: 700, 
+                          fontSize: isMobile ? 'clamp(19px, 4vw, 23px)' : isTablet ? 'clamp(21px, 2.5vw, 25px)' : scaled(25, scale), 
+                          textTransform: 'none', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 
                         }}>{item.title}</div>
                         <div style={{ 
                           fontFamily: "'Inter', sans-serif", fontWeight: 300, 

@@ -9,23 +9,23 @@ export const DICT = {
     heroOverline: 'DECISION INTELLIGENCE FOR MODERN BUSINESS',
     heroTitle: 'KLARSTONE',
     whatWeDo: {
-      label: 'What We Do',
+      label: 'What we do',
       title: 'AI-powered consulting for growing businesses',
       p1: 'KLARSTONE acts as a micro-consultant for your company. It works with your business data, asks smart follow-up questions, and gives clear recommendations on what to do next.',
       p2: 'It helps you move from scattered data and uncertainty to structured insights and action.'
     },
     howItWorks: {
       steps: [
-        { n: '01', title: 'Ask a Question', sub: 'Start with your business problem', text: '"Why are sales declining?"' },
-        { n: '02', title: 'Add Context', sub: 'Answer a few smart follow-up questions', text: 'Synthesizing Context.' },
-        { n: '03', title: 'AI Analyzes', sub: 'Data + context → clear diagnosis', text: 'Identifying Root Causes.' },
-        { n: '04', title: 'Get Recommendations', sub: 'What to do. What to avoid.', text: 'Actionable Insights.' },
-        { n: '05', title: 'View Dashboard', sub: 'Key insights, KPIs, and trends', text: 'Live Intelligence.' },
-        { n: '06', title: 'Download Report', sub: 'Consulting-style strategy report', text: 'Your Plan. Ready.' },
+        { n: '01', title: 'Ask a question', sub: 'Start with your business problem', text: '"Why are sales declining?"' },
+        { n: '02', title: 'Add context', sub: 'Answer a few smart follow-up questions', text: 'Synthesizing context.' },
+        { n: '03', title: 'AI analyzes', sub: 'Data + context → clear diagnosis', text: 'Identifying root causes.' },
+        { n: '04', title: 'Get recommendations', sub: 'What to do. What to avoid.', text: 'Actionable insights.' },
+        { n: '05', title: 'View dashboard', sub: 'Key insights, KPIs, and trends', text: 'Live intelligence.' },
+        { n: '06', title: 'Download report', sub: 'Consulting-style strategy report', text: 'Your plan. Ready.' },
       ]
     },
     keyBenefits: {
-      label: 'Key Benefits',
+      label: 'Key benefits',
       title: 'Consulting intelligence, delivered instantly',
       items: [
         '24/7 AI micro-consultant',
@@ -38,7 +38,7 @@ export const DICT = {
     },
     magicBento: {
       label: 'Services',
-      title: 'Where KLARSTONE helps',
+      title: 'Where Klarstone helps',
       imagePlaceholder: 'Image coming soon',
       sales: { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behavior.' },
       strategy: { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward with informed decisions.' },
@@ -46,13 +46,13 @@ export const DICT = {
       operations: { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' }
     },
     contact: {
-      title: 'Contact Us',
-      subtitle: 'Ready to unlock your business potential? Get in touch.',
+      title: 'Contact us',
+      subtitle: 'Turn business questions into clear action',
       name: 'Name',
       email: 'Email',
       message: 'Message',
-      send: 'Send Message',
-      successTitle: 'Message Sent!',
+      send: 'Send message',
+      successTitle: 'Message sent!',
       successText: 'Thank you for reaching out. Our team will get back to you shortly.'
     },
     footer: {

@@ -64,12 +64,12 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
       <div style={{ width: '100%' }}>
         <div style={{ marginBottom: 48, textAlign: 'center' }}>
           <h2 style={{
-            fontFamily: "'Satoshi', sans-serif",
-            fontWeight: 550,
+            fontFamily: "'EB Garamond', serif",
+            fontWeight: 700,
             fontSize: 'clamp(32px, 4vw, 48px)',
             color: '#fff',
             marginBottom: 16,
-            textTransform: 'uppercase' as const,
+            textTransform: 'none' as const,
             letterSpacing: '-0.02em'
           }}>
             {t.title}
@@ -93,14 +93,14 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             textAlign: 'center',
             background: 'rgba(0,204,255,0.05)'
           }}>
-            <h3 style={{ color: '#00ccff', marginBottom: 12, fontFamily: "'Satoshi', sans-serif" }}>{t.successTitle}</h3>
+            <h3 style={{ color: '#00ccff', marginBottom: 12, fontFamily: "'Inter', sans-serif" }}>{t.successTitle}</h3>
             <p style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'Inter', sans-serif" }}>{t.successText}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr', gap: 24 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{t.name}</label>
+                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.name}</label>
                 <input
                   type="text"
                   value={name}
@@ -121,7 +121,7 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
                 />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{t.email}</label>
+                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.email}</label>
                 <input
                   type="email"
                   value={email}
@@ -149,7 +149,7 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
               width: '100%',
               margin: '0 auto'
             }}>
-              <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>{t.message}</label>
+              <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.message}</label>
               <textarea
                 value={message}
                 onChange={e => setMessage(e.target.value)}
