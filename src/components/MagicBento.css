@@ -8,13 +8,14 @@
 
 .card-grid {
   display: grid;
-  gap: 0.5em;
-  padding: 0;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  align-items: stretch;
+  gap: var(--card-gap, 24px);
   width: 100%;
   max-width: 100%;
   margin: 0;
   font-size: 16px;
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .magic-bento-card {
@@ -23,8 +24,6 @@
   justify-content: space-between;
   position: relative;
   width: 100%;
-  padding: clamp(1em, 1.5vw, 1.5em);
-  border-radius: 20px;
   border: 1px solid var(--border-color);
   background: var(--background-dark);
   font-weight: 300;
@@ -34,7 +33,6 @@
   --glow-y: 50%;
   --glow-intensity: 0;
   --glow-radius: 200px;
-  min-height: 200px;
 }
 
 .magic-bento-card--image {
@@ -97,11 +95,8 @@
     gap: 12px;
   }
   .magic-bento-card {
-    min-height: 160px;
-    padding: clamp(1em, 4vw, 1.5em);
   }
   .magic-bento-card--image {
-    min-height: 200px;
   }
 }
 

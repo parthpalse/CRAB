@@ -273,32 +273,38 @@ export default function MagicBento({
 
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ width: '100%', padding: '0', marginBottom: '4rem', userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 16, color: 'rgba(0,204,255,0.6)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: 20 }}>{t.label}</div>
+      <div style={{ width: '100%', padding: '0', marginBottom: scaled(64, scale), userSelect: 'none', zIndex: 10 }}>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: 'rgba(0,204,255,0.6)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale) }}>{t.label}</div>
         <div style={{ 
           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
-          fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(32px, 4.5vw, 60px)', 
+          fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : scaled(52, scale), 
           color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'none' 
         }}>{t.title}</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
-      <div className="card-grid bento-section" ref={gridRef}>
+      <div className="card-grid bento-section" ref={gridRef} style={{ '--card-gap': scaled(24, scale) } as React.CSSProperties}>
         {cardData.map((card, index) => {
           const baseClassName = `magic-bento-card${card.type === 'image' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
-          const cardStyle = { backgroundColor: card.color, '--glow-color': itemGlowColor, borderColor: `rgba(${itemGlowColor}, 0.18)` } as React.CSSProperties;
+          const cardStyle = { 
+            backgroundColor: card.color, 
+            '--glow-color': itemGlowColor, 
+            borderColor: `rgba(${itemGlowColor}, 0.18)`,
+            borderRadius: scaled(24, scale),
+            padding: scaled(27, scale)
+          } as React.CSSProperties;
 
           const cardContent = () => {
             if (card.type === 'usecase') {
               return (
                 <div style={{ display:'flex', flexDirection:'column', height:'100%', justifyContent:'space-between' }}>
-                  <div style={{ display:'flex', flexDirection:'column', gap:24, flex:1, justifyContent:'center' }}>
+                  <div style={{ display:'flex', flexDirection:'column', gap: scaled(24, scale), flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft:'clamp(16px, 2vw, 48px)', position:'relative', zIndex:1 }}>
+                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft: scaled(27, scale), position:'relative', zIndex:1 }}>
                         <div style={{ 
                           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
-                          fontSize: isMobile ? 'clamp(19px, 4vw, 23px)' : isTablet ? 'clamp(21px, 2.5vw, 25px)' : scaled(25, scale), 
-                          textTransform: 'none', letterSpacing: '0.02em', color: '#fff', marginBottom: 12, position:'relative', zIndex:1 
+                          fontSize: isMobile ? 'clamp(19px, 4vw, 23px)' : isTablet ? 'clamp(21px, 2.5vw, 25px)' : scaled(24, scale), 
+                          textTransform: 'none', letterSpacing: '0.02em', color: '#fff', marginBottom: scaled(12, scale), position:'relative', zIndex:1 
                         }}>{item.title}</div>
                         <div style={{ 
                           fontFamily: "'Inter', sans-serif", fontWeight: 300, 

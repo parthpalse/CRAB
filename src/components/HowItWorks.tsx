@@ -29,10 +29,11 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
 
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
-  const USABLE_H = winDim.h * 0.76;
-  const OFFSET_Y = winDim.h * 0.15;
-  const PAD_TOP = isMobile ? 60 : 80;
-  const PAD_BOT = isMobile ? 60 : 100;
+  // Standard vertical spacing
+  const USABLE_H = winDim.h * 0.82;
+  const OFFSET_Y = winDim.h * 0.08;
+  const PAD_TOP = isMobile ? 40 : 60;
+  const PAD_BOT = isMobile ? 40 : 60;
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -129,12 +130,12 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
               <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
             </filter>
           </defs>
-          <path d={PATH_D} stroke="rgba(255,255,255,0)" strokeWidth={isMobile ? "2" : "1.5"} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={PATH_D} stroke="rgba(255,255,255,0)" strokeWidth={isMobile ? "2" : scaled(1.5, scale)} fill="none" strokeLinecap="round" strokeLinejoin="round" />
           <path
             ref={drawnPathRef}
             d={PATH_D}
             stroke="url(#nhPathGrad)"
-            strokeWidth={isMobile ? "5" : "3"}
+            strokeWidth={isMobile ? "5" : scaled(3, scale)}
             fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -157,9 +158,9 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
               position: 'absolute' as const,
               top: `${nodeY_Px}px`,
               transform: 'translateY(-50%)',
-              left:  isLeft ? scaled(109, scale) : 'auto',
-              right: isLeft ? 'auto' : scaled(109, scale),
-              width: scaled(437, scale),
+              left:  isLeft ? scaled(90, scale) : 'auto',
+              right: isLeft ? 'auto' : scaled(90, scale),
+              width: scaled(420, scale),
               display: 'flex',
               alignItems: 'center',
               justifyContent: isLeft ? 'flex-start' : 'flex-end',
@@ -187,49 +188,50 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                 <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right'), maxWidth: '420px' }}>
                   <div style={{
                     fontFamily: "'EB Garamond', serif",
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    color: 'rgba(0,204,255,0.6)',
-                    letterSpacing: '0.3em',
+                    fontWeight: 700,
+                    fontSize: scaled(18, scale),
+                    color: '#00ccff',
+                    letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    marginBottom: 10,
+                    marginBottom: scaled(4, scale),
                   }}>
                     {step.n}
                   </div>
-                  <h2 style={{
+                   <h2 style={{
                     fontFamily: "'EB Garamond', serif",
-                    fontWeight: 700,
-                    fontSize: isMobile ? 'clamp(20px, 5vw, 32px)' : scaled(32.78, scale),
+                    fontWeight: 800,
+                    fontSize: isMobile ? 'clamp(22px, 5.5vw, 30px)' : scaled(28, scale),
                     color: '#fff',
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.05,
+                    letterSpacing: '-0.01em',
+                    lineHeight: 1.0,
                     textTransform: 'uppercase',
-                    marginBottom: isMobile ? 6 : 16,
+                    marginBottom: isMobile ? 4 : scaled(10, scale),
                   }}>
                     {step.title}
                   </h2>
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
                     fontWeight: 300,
-                    fontSize: isMobile ? '12px' : scaled(16, scale),
+                    fontSize: isMobile ? '11px' : scaled(13, scale),
                     color: 'rgba(255,255,255,0.55)',
-                    lineHeight: 1.8,
-                    marginBottom: isMobile ? 6 : 20,
+                    lineHeight: 1.5,
+                    marginBottom: isMobile ? 4 : scaled(10, scale),
                   }}>
                     {step.sub}
                   </p>
                   <div style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontSize: isMobile ? '11px' : scaled(13, scale),
-                    color: 'rgba(0,204,255,0.8)',
-                    letterSpacing: '0.04em',
-                    borderLeft: isMobile ? 'none' : (isLeft ? '2px solid rgba(0,204,255,0.3)' : 'none'),
-                    borderRight: isMobile ? 'none' : (isLeft ? 'none' : '2px solid rgba(0,204,255,0.3)'),
-                    borderBottom: isMobile ? '2px solid rgba(0,204,255,0.5)' : 'none',
-                    paddingLeft: isMobile ? '0' : (isLeft ? '14px' : '0'),
-                    paddingRight: isMobile ? '0' : (isLeft ? '0' : '14px'),
+                    fontFamily: "'EB Garamond', serif",
+                    fontSize: isMobile ? '12px' : scaled(14, scale),
+                    color: 'rgba(0,204,255,1)',
+                    fontWeight: 600,
+                    letterSpacing: '0.02em',
+                    borderLeft: isMobile ? 'none' : (isLeft ? '3px solid #00ccff' : 'none'),
+                    borderRight: isMobile ? 'none' : (isLeft ? 'none' : '3px solid #00ccff'),
+                    borderBottom: isMobile ? '3px solid #00ccff' : 'none',
+                    paddingLeft: isMobile ? '0' : (isLeft ? scaled(16, scale) : '0'),
+                    paddingRight: isMobile ? '0' : (isLeft ? '0' : scaled(16, scale)),
                     paddingBottom: isMobile ? '8px' : '0',
-                    marginTop: 8,
+                    marginTop: scaled(12, scale),
                   }}>
                     {step.text}
                   </div>

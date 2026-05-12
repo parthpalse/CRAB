@@ -77,7 +77,7 @@ export default function AntigravityHero() {
         left: 0, 
         right: 0, 
         zIndex: 40, 
-        height: 64, 
+        height: scaled(64, scale), 
         display: 'grid', 
         gridTemplateColumns: isMobile ? 'auto auto auto' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
         columnGap: isMobile ? '8px' : '0px',
@@ -318,7 +318,7 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontSize: isMobile ? '15px' : scaled(16, scale),
           color: 'rgba(255,255,255,0.55)',
           lineHeight: 1.8,
-          marginBottom: 16,
+          marginBottom: scaled(16, scale),
         }}>
           {t.p1}
         </p>
@@ -399,23 +399,23 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
         <div ref={labelRef} style={{
           fontFamily: "'EB Garamond', serif",
           fontWeight: 400,
-          fontSize: '16px',
+          fontSize: scaled(16, scale),
           color: 'rgba(0,204,255,0.6)',
           letterSpacing: '0.3em',
           textTransform: 'uppercase' as const,
-          marginBottom: 20,
+          marginBottom: scaled(20, scale),
         }}>
           {t.label}
         </div>
         <h2 ref={headRef} style={{
           fontFamily: "'EB Garamond', serif",
           fontWeight: 600,
-          fontSize: 'clamp(28px, 3.2vw, 52px)',
+          fontSize: isMobile ? 'clamp(28px, 3.2vw, 42px)' : scaled(52, scale),
           color: '#fff',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
           textTransform: 'none' as const,
-          marginBottom: 80,
+          marginBottom: scaled(60, scale),
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
         }}>
           {t.title}
@@ -526,14 +526,14 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             borderRadius: 8,
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
-            fontSize: '16px',
+            fontSize: scaled(16, scale),
             textDecoration: 'none',
             border: '1px solid rgba(0,204,255,0.4)',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
-            marginTop: 12,
+            marginTop: scaled(12, scale),
           }}
           onMouseEnter={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
