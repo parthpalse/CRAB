@@ -30,10 +30,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   // ── node coordinates ──
   // Use 88% of viewport to give breathing room at top and bottom
   // Standard vertical spacing
-  const USABLE_H = winDim.h * 0.82;
+  const USABLE_H = winDim.h * 0.90;
   const OFFSET_Y = winDim.h * 0.08;
   const PAD_TOP = isMobile ? 40 : 60;
-  const PAD_BOT = isMobile ? 40 : 60;
+  const PAD_BOT = isMobile ? 40 : scaled(30, scale);
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
@@ -100,7 +100,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: '100vh', zIndex: 5 }}
+      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: '100dvh', zIndex: 5 }}
     >
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         <DarkVeil />
