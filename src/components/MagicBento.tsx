@@ -73,7 +73,7 @@ const ParticleCard = ({ children, className = '', disableAnimations = false, sty
     gsap.to(p, {
       x: tx, y: ty, opacity: 0, scale: 0, duration: 1.5 + Math.random(), ease: 'power2.out',
       onComplete: () => {
-        p.parentNode?.removeChild(p);
+        if (p.parentNode) p.parentNode.removeChild(p);
         particlesRef.current = particlesRef.current.filter(item => item !== p);
       }
     });
@@ -121,7 +121,7 @@ const ParticleCard = ({ children, className = '', disableAnimations = false, sty
         element.appendChild(p);
         gsap.to(p, {
           x: (Math.random() - 0.5) * 200, y: (Math.random() - 0.5) * 200, opacity: 0, scale: 0, duration: 0.8 + Math.random(), ease: 'power2.out',
-          onComplete: () => p.parentNode?.removeChild(p)
+          onComplete: () => { if (p.parentNode) p.parentNode.removeChild(p); }
         });
       }
     };

@@ -75,7 +75,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
 
   useEffect(() => {
     const path = drawnPathRef.current;
-    if (!path) return;
+    if (!path || !path.getAttribute('d') || path.getTotalLength() === 0) return;
     const len = path.getTotalLength();
     path.style.strokeDasharray = String(len);
     path.style.strokeDashoffset = String(len * (1 - progress));
