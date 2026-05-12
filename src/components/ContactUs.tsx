@@ -173,35 +173,50 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             <button
               type="submit"
               style={{
-                display: 'flex',
+                display: 'inline-flex',
                 justifyContent: 'center',
                 alignItems: 'center',
+                gap: 10,
                 background: 'transparent',
-                border: '1px solid rgba(0,204,255,0.4)',
-                borderRadius: 8,
-                padding: '16px',
                 color: '#fff',
+                padding: '14px 28px',
+                borderRadius: 8,
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: 300,
-                fontSize: '16px',
-                letterSpacing: '0.02em',
+                fontSize: scaled(14, scale),
+                textDecoration: 'none',
+                border: '1px solid rgba(255,255,255,0.25)',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
+                letterSpacing: '0.02em',
                 width: '100%',
-                alignSelf: isMobile ? 'stretch' : 'center',
-                boxSizing: 'border-box' as const,
-                marginTop: 12
+                marginTop: scaled(12, scale),
               }}
               onMouseEnter={e => {
-                e.currentTarget.style.background = 'rgba(0,204,255,0.1)';
-                e.currentTarget.style.boxShadow = '0 0 20px rgba(0,204,255,0.2)';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
+                (e.currentTarget as HTMLButtonElement).style.borderColor = '#00ccff';
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.boxShadow = 'none';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
+                (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.25)';
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
+              }}
+              onMouseDown={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = '#00ccff';
+                (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 30px rgba(0,204,255,0.6)';
+                (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.96)';
+              }}
+              onMouseUp={e => {
+                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
+                (e.currentTarget as HTMLButtonElement).style.transform = 'scale(1)';
               }}
             >
               {t.send}
+              <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </button>
           </form>
         )}
