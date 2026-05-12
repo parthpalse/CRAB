@@ -539,7 +539,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             fontWeight: 300,
             fontSize: scaled(16, scale),
             textDecoration: 'none',
-            border: '1px solid rgba(0,204,255,0.4)',
+            border: '1px solid rgba(255,255,255,0.25)',
             cursor: 'pointer',
             transition: 'all 0.3s ease',
             letterSpacing: '0.02em',
@@ -547,13 +547,16 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             marginTop: scaled(12, scale),
           }}
           onMouseEnter={e => {
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 25px rgba(0,204,255,0.5)';
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
             (e.currentTarget as HTMLAnchorElement).style.borderColor = '#00ccff';
+            (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+            (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
           }}
           onMouseLeave={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none';
-            (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(0,204,255,0.3)';
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.25)';
             (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
+            (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
           }}
           onMouseDown={e => {
             (e.currentTarget as HTMLAnchorElement).style.background = '#00ccff';
