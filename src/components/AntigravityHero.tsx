@@ -94,7 +94,7 @@ export default function AntigravityHero() {
         columnGap: isMobile ? '8px' : '0px',
         alignItems: 'center', 
         padding: isMobile ? '0 6px' : isTablet ? '0 32px' : '0 2vw', 
-        transform: (!isMobile && !isTablet && hideNav) ? 'translateY(-100%)' : 'translateY(0)', 
+        transform: 'translateY(0)', 
         transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', 
         borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, 
         backdropFilter: scrolled ? 'blur(14px)' : 'none', 
