@@ -44,7 +44,7 @@ const Landing = () => {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
               Get a forensic audit of your finances, costs, and growth levers. CRAB.AI diagnoses what's leaking value and
-              tells you exactly how to fix it — prioritized by savings and urgency.
+              tells you exactly how to fix it — prioritised by savings and urgency.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="bg-gradient-primary shadow-elegant hover:shadow-glow">
@@ -95,7 +95,7 @@ const Landing = () => {
             },
             {
               icon: ListChecks,
-              title: "Prioritize",
+              title: "Prioritise",
               body: "Every recommendation ranked by urgency and projected annual savings — no fluff.",
             },
             {
@@ -128,7 +128,7 @@ const Landing = () => {
             {[
               { n: "01", icon: ShieldCheck, t: "Quick quiz", d: "Tell us about your industry, size, and biggest challenges." },
               { n: "02", icon: BarChart3, t: "AI analysis", d: "We benchmark you against thousands of comparable businesses." },
-              { n: "03", icon: CheckCircle2, t: "Action plan", d: "Get a prioritized list of fixes with projected annual savings." },
+              { n: "03", icon: CheckCircle2, t: "Action plan", d: "Get a prioritised list of fixes with projected annual savings." },
             ].map((s) => (
               <div key={s.n} className="relative rounded-2xl border border-border bg-card p-7 shadow-card">
                 <div className="font-display text-xs font-bold tracking-wider text-primary">{s.n}</div>

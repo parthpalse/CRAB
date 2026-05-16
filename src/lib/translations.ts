@@ -18,7 +18,7 @@ export const DICT = {
       steps: [
         { n: '01', title: 'Ask a question', sub: 'Start with your business problem', text: '"Why are sales declining?"' },
         { n: '02', title: 'Add context', sub: 'Answer a few smart follow-up questions', text: 'Synthesizing context.' },
-        { n: '03', title: 'AI analyzes', sub: 'Data + context → clear diagnosis', text: 'Identifying root causes.' },
+        { n: '03', title: 'AI analyses', sub: 'Data + context → clear diagnosis', text: 'Identifying root causes.' },
         { n: '04', title: 'Get recommendations', sub: 'What to do. What to avoid.', text: 'Actionable insights.' },
         { n: '05', title: 'View dashboard', sub: 'Key insights, KPIs, and trends', text: 'Live intelligence.' },
         { n: '06', title: 'Download report', sub: 'Consulting-style strategy report', text: 'Your plan. Ready.' },
@@ -40,7 +40,7 @@ export const DICT = {
       label: 'Services',
       title: 'Where Klarstone helps',
       imagePlaceholder: 'Image coming soon',
-      sales: { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behavior.' },
+      sales: { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behaviour.' },
       strategy: { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward with informed decisions.' },
       controlling: { title: 'Controlling', desc: 'Track KPIs, costs, margins, and business performance.' },
       operations: { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' }

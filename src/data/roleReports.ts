@@ -77,7 +77,7 @@ export const roleReports: Record<Role, RoleReport> = {
       { title: "Manager span of control too wide", detail: "Average 9 direct reports vs. healthy 5–7.", metric: "9:1" },
     ],
     market: [
-      { title: "Hire-from-within program", detail: "Internal mobility cuts replacement cost by ~€18K/role.", potential: "+€36K/yr" },
+      { title: "Hire-from-within programme", detail: "Internal mobility cuts replacement cost by ~€18K/role.", potential: "+€36K/yr" },
       { title: "Apprenticeship / junior pipeline", detail: "State-subsidized in your region — covers 40% of salary year 1.", potential: "+€22K/yr" },
       { title: "Remote-first for non-core roles", detail: "Widens talent pool, reduces facility cost per head.", potential: "+€15K/yr" },
     ],
@@ -104,13 +104,13 @@ export const roleReports: Record<Role, RoleReport> = {
     ],
     market: [
       { title: "SEO investment in bottom-funnel queries", detail: "12 commercial-intent keywords reachable in 6 months.", potential: "+€140K/yr pipeline" },
-      { title: "Partner/affiliate program", detail: "Adjacent SaaS tools serve same buyer — co-marketing leverage.", potential: "+€85K/yr" },
-      { title: "Lifecycle email automation", detail: "Behavioral triggers convert 3× cold blasts.", potential: "+€48K/yr" },
+      { title: "Partner/affiliate programme", detail: "Adjacent SaaS tools serve same buyer — co-marketing leverage.", potential: "+€85K/yr" },
+      { title: "Lifecycle email automation", detail: "Behavioural triggers convert 3× cold blasts.", potential: "+€48K/yr" },
     ],
     fixes: [
       { fix: "Cap paid social at 40% of budget", why: "Concentration in declining channel destroys efficiency.", savings: "€22,000/yr", urgency: "Critical" },
       { fix: "Launch SEO content engine (8 posts/mo)", why: "Compounds for 18 months; only durable channel under current CAC.", savings: "€140K pipeline", urgency: "High" },
-      { fix: "Implement lifecycle email program", why: "Existing list of 14K is dormant — 3× lift on warm audience.", savings: "€48,000/yr", urgency: "High" },
+      { fix: "Implement lifecycle email programme", why: "Existing list of 14K is dormant — 3× lift on warm audience.", savings: "€48,000/yr", urgency: "High" },
       { fix: "Kill underperforming PPC keywords", why: "Bottom-quartile keywords spend 28% of budget for 6% of conversions.", savings: "€9,200/yr", urgency: "Medium" },
     ],
     avoid: [
