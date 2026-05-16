@@ -4,6 +4,8 @@ import { gsap } from 'gsap';
 import './MagicBento.css';
 import { useScale, scaled } from '../hooks/useScale';
 import { DICT } from '../lib/translations';
+import securityImg from '../assets/security-tile.png';
+import growthImg from '../assets/growth-tile.png';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
@@ -26,6 +28,7 @@ const updateCardGlowProperties = (card: HTMLElement, mouseX: number, mouseY: num
   card.style.setProperty('--glow-intensity', glow.toString());
   card.style.setProperty('--glow-radius', `${radius}px`);
 };
+
 
 interface ParticleCardProps {
   children: React.ReactNode;
@@ -265,8 +268,8 @@ export default function MagicBento({
   const cardData: any[] = [
     { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.sales.title, desc: t.sales.desc }] },
     { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.strategy.title, desc: t.strategy.desc }] },
-    { type: 'image', color: '#0A0A0A', glowColor: '0, 204, 255' },
-    { type: 'image', color: '#0A0A0A', glowColor: '255, 170, 0' },
+    { type: 'image', color: '#0A0A0A', glowColor: '0, 204, 255', img: securityImg, alt: "Data Security" },
+    { type: 'image', color: '#0A0A0A', glowColor: '255, 170, 0', img: growthImg, alt: "Business Growth" },
     { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.controlling.title, desc: t.controlling.desc }] },
     { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.operations.title, desc: t.operations.desc }] },
   ];
@@ -320,7 +323,7 @@ export default function MagicBento({
             if (card.type === 'image') {
               return (
                 <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                  <div style={{ color:'rgba(255,255,255,0.08)', fontFamily:"'JetBrains Mono',monospace", fontSize:10, letterSpacing:'.2em', textTransform:'uppercase' }}>{t.imagePlaceholder}</div>
+                  <img src={card.img} alt={card.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', borderRadius: 'inherit' }} />
                 </div>
               );
             }

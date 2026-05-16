@@ -88,13 +88,13 @@ export default function AntigravityHero() {
         left: 0, 
         right: 0, 
         zIndex: 40, 
-        height: scaled(64, scale), 
+        height: isMobile ? 32 : scaled(64, scale), 
         display: 'grid', 
         gridTemplateColumns: isMobile ? 'auto auto auto' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
         columnGap: isMobile ? '8px' : '0px',
         alignItems: 'center', 
-        padding: isMobile ? '0 8px' : isTablet ? '0 32px' : '0 2vw', 
-        transform: hideNav ? 'translateY(-100%)' : 'translateY(0)', 
+        padding: isMobile ? '0 6px' : isTablet ? '0 32px' : '0 2vw', 
+        transform: (!isMobile && !isTablet && hideNav) ? 'translateY(-100%)' : 'translateY(0)', 
         transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', 
         borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, 
         backdropFilter: scrolled ? 'blur(14px)' : 'none', 
@@ -157,7 +157,7 @@ export default function AntigravityHero() {
       <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10, textAlign: 'left' }}>
           <div style={{ fontFamily: "'EB Garamond', serif", fontWeight: 400, fontSize: scaled(22, scale), textTransform: 'none', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
-          <h1 style={{ color: '#fff', fontSize: isMobile ? 'clamp(36px, 4.8vw, 66px)' : isTablet ? 'clamp(52px, 6vw, 80px)' : scaled(115, scale), letterSpacing: '-0.02em', marginBottom: 32, fontFamily: "'EB Garamond', serif", fontWeight: 400, lineHeight: 1.1, textWrap: 'balance' as any }}>{lang === 'EN' ? <>Decision intelligence<br />for modern business</> : <span style={{ fontSize: isMobile ? 'clamp(22px, 5.5vw, 36px)' : 'inherit' }}>Entscheidungsintelligenz<br />für moderne Unternehmen</span>}</h1>
+          <h1 style={{ color: '#fff', fontSize: isMobile ? 'clamp(28px, 7.5vw, 38px)' : isTablet ? 'clamp(52px, 6vw, 80px)' : scaled(115, scale), letterSpacing: '-0.02em', marginBottom: 32, fontFamily: "'EB Garamond', serif", fontWeight: 400, lineHeight: 1.1, textWrap: 'balance' as any }}>{lang === 'EN' ? <>Your AI Consultant<br />for Strategic Decisions</> : <>Entscheidungsintelligenz<br />für moderne Unternehmen</>}</h1>
           <a
             href="#contact"
             style={{
@@ -506,6 +506,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
           marginBottom: 24,
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
           textTransform: 'none' as const,
+          textWrap: 'balance' as any,
         }}>
           {t.title}
         </h2>
@@ -580,7 +581,9 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
         borderTop: '1px solid rgba(255,255,255,0.06)', 
         paddingTop: 40,
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: isMobile ? 'center' : 'space-between',
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? '8px' : '0',
         alignItems: 'center'
       }}>
         <div style={{ 
@@ -596,7 +599,9 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'Inter', sans-serif", 
           fontSize: 11, 
           color: 'rgba(255,255,255,0.3)',
-          letterSpacing: '0.02em'
+          letterSpacing: '0.02em',
+          textAlign: isMobile ? 'center' : 'right',
+          whiteSpace: isMobile ? 'nowrap' : 'normal'
         }}>
           {t.copyright}
         </div>

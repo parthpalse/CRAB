@@ -45,9 +45,9 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const USABLE_H = winDim.h * 0.82;
-  const OFFSET_Y = winDim.h * 0.09;
-  const PAD_TOP  = isMobile ? 40 : 60;
+  const USABLE_H = isMobile ? winDim.h - 60 : winDim.h * 0.82;
+  const OFFSET_Y = isMobile ? 50 : winDim.h * 0.09;
+  const PAD_TOP  = isMobile ? 20 : 60;
   const PAD_BOT  = isMobile ? 40 : 60;
 
   const NX = (i: number) => {
@@ -149,7 +149,12 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
             <circle ref={cometGlowRef} r="14" fill="rgba(0,204,255,0.35)" filter="url(#nhCometGlow)" opacity="0" />
             <circle ref={cometRef}     r="6"  fill="#ffffff"              filter="url(#nhCometGlow)" opacity="0" />
           </svg>
-          <div style={{ position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none' }}>
+          <div style={{ 
+            position: 'absolute', 
+            inset: 0, 
+            zIndex: 2, 
+            pointerEvents: 'none'
+          }}>
             {ready && steps.map((step, i) => {
               const isLeft   = !isMobile && i % 2 === 0;
               const nodeY_Px = NY(i);
@@ -173,7 +178,7 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                 top: `${nodeY_Px}px`,
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
-                width: '80vw',
+                width: '70vw',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -183,28 +188,28 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
               };
               return (
                 <div key={i} style={isMobile ? mobileStyle : desktopStyle}>
-                  <div style={{ textAlign: isMobile ? 'center' : (isLeft ? 'left' : 'right'), maxWidth: '420px' }}>
+                  <div style={{ textAlign: 'center', maxWidth: isMobile ? '70vw' : '420px', margin: isMobile ? '0 auto' : '0' }}>
                     <div style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 700,
-                      fontSize: scaled(18, scale), color: '#00ccff',
+                      fontSize: isMobile ? '9px' : scaled(18, scale), color: '#00ccff',
                       letterSpacing: '0.1em', textTransform: 'uppercase',
-                      marginBottom: scaled(4, scale),
+                      marginBottom: isMobile ? scaled(2, scale) : scaled(4, scale),
                     }}>{step.n}</div>
                     <h2 style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 800,
-                      fontSize: isMobile ? 'clamp(22px, 5.5vw, 30px)' : scaled(28, scale),
-                      color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.0,
+                      fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : scaled(28, scale),
+                      color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.1,
                       textTransform: 'uppercase', marginBottom: isMobile ? 4 : scaled(10, scale),
                     }}>{step.title}</h2>
                     <p style={{
                       fontFamily: "'Inter', sans-serif", fontWeight: 300,
-                      fontSize: isMobile ? '11px' : scaled(13, scale),
-                      color: 'rgba(255,255,255,0.55)', lineHeight: 1.5,
+                      fontSize: isMobile ? '9px' : scaled(13, scale),
+                      color: 'rgba(255,255,255,0.55)', lineHeight: 1.4,
                       marginBottom: isMobile ? 4 : scaled(10, scale),
                     }}>{step.sub}</p>
                     <div style={{
                       fontFamily: "'EB Garamond', serif",
-                      fontSize: isMobile ? '12px' : scaled(14, scale),
+                      fontSize: isMobile ? '9px' : scaled(14, scale),
                       color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
                       borderLeft:   isMobile ? 'none' : (isLeft ? '3px solid #00ccff' : 'none'),
                       borderRight:  isMobile ? 'none' : (isLeft ? 'none' : '3px solid #00ccff'),
