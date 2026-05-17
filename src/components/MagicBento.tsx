@@ -269,7 +269,7 @@ export default function MagicBento({
     { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.sales.title, desc: t.sales.desc }] },
     { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.strategy.title, desc: t.strategy.desc }] },
     { type: 'image', color: '#0A0A0A', glowColor: '0, 204, 255', img: securityImg, alt: "Data Security" },
-    { type: 'image', color: '#0A0A0A', glowColor: '255, 170, 0', img: growthImg, alt: "Business Growth" },
+    { type: 'image', color: '#0A0A0A', glowColor: '255, 170, 0', img: growthImg, alt: "Business Growth", imgFit: 'fill' },
     { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.controlling.title, desc: t.controlling.desc }] },
     { type: 'usecase', color: '#0A0A0A', glowColor: '255, 170, 0', items: [{ title: t.operations.title, desc: t.operations.desc }] },
   ];
@@ -323,7 +323,7 @@ export default function MagicBento({
             if (card.type === 'image') {
               return (
                 <div style={{ position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center' }}>
-                  <img src={card.img} alt={card.alt} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', borderRadius: 'inherit' }} />
+                  <img src={card.img} alt={card.alt} style={{ width: '100%', height: '100%', objectFit: card.imgFit || 'cover', ...(card.imgPosition ? { objectPosition: card.imgPosition } : {}), ...(card.imgTransform ? { transform: card.imgTransform } : {}), borderRadius: 'inherit' }} />
                 </div>
               );
             }
