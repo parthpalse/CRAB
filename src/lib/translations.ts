@@ -59,7 +59,7 @@ export const DICT = {
       title: 'Turn business questions into clear action',
       sub: 'Ask. Understand. Get recommendations. Move forward with clarity.',
       cta: 'Get started',
-      copyright: '© 2024 KLARSTONE. Intelligence for modern business.'
+      copyright: '© 2026 KLARSTONE. Intelligence for modern business.'
     }
   },
   DE: {
@@ -119,7 +119,7 @@ export const DICT = {
       title: 'Geschäftsfragen in klare Taten verwandeln',
       sub: 'Fragen. Verstehen. Empfehlungen erhalten. Mit Klarheit vorankommen.',
       cta: 'Jetzt loslegen',
-      copyright: '© 2024 KLARSTONE. Intelligenz für moderne Unternehmen.'
+      copyright: '© 2026 KLARSTONE. Intelligenz für moderne Unternehmen.'
     }
   }
 };
