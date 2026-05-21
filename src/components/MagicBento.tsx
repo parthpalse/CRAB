@@ -286,6 +286,8 @@ const GrowthChartTile = () => {
       chartRef.current.destroy();
     }
 
+    Chart.defaults.font.family = "'EB Garamond', serif";
+
     // Vertical gradient fill for the Klarstone area
     const gradient = ctx.createLinearGradient(0, 0, 0, 200);
     gradient.addColorStop(0,    'rgba(0, 204, 255, 0.32)');
