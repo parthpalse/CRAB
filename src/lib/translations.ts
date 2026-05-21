@@ -43,7 +43,20 @@ export const DICT = {
       sales: { title: 'Sales', desc: 'Understand declining sales, weak conversion, channel issues, and customer behaviour.' },
       strategy: { title: 'Strategy', desc: 'Identify what to focus on, what to avoid, and how to move forward with informed decisions.' },
       controlling: { title: 'Controlling', desc: 'Track KPIs, costs, margins, and business performance.' },
-      operations: { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' }
+      operations: { title: 'Operations', desc: 'Spot inefficiencies, bottlenecks, and improvement areas.' },
+      growthChart: {
+        heading: 'Revenue Growth',
+        subtitle: 'Last 12 months · After Klarstone diagnostic',
+        withKlarstone: 'With Klarstone',
+        baseline: 'Industry baseline',
+        sampleData: 'Sample data · illustrative',
+        incremental: '+€189K incremental revenue'
+      },
+      security: {
+        headline: 'Your data, sealed',
+        headlineItalic: 'in light.',
+        kicker: 'Aegis · Data Integrity'
+      }
     },
     contact: {
       title: 'Contact us',
@@ -103,7 +116,20 @@ export const DICT = {
       sales: { title: 'Vertrieb', desc: 'Verstehen Sie rückläufige Umsätze, schwache Konversionsraten, Kanalprobleme und Kundenverhalten.' },
       strategy: { title: 'Strategie', desc: 'Identifizieren Sie, worauf Sie sich konzentrieren sollten, was Sie vermeiden sollten und wie Sie mit informierten Entscheidungen vorankommen.' },
       controlling: { title: 'Controlling', desc: 'Verfolgen Sie KPIs, Kosten, Margen und Geschäftsleistung.' },
-      operations: { title: 'Betrieb', desc: 'Erkennen Sie Ineffizienzen, Engpässe und Verbesserungsbereiche.' }
+      operations: { title: 'Betrieb', desc: 'Erkennen Sie Ineffizienzen, Engpässe und Verbesserungsbereiche.' },
+      growthChart: {
+        heading: 'Umsatzwachstum',
+        subtitle: 'Letzte 12 Monate · Nach Klarstone-Diagnose',
+        withKlarstone: 'Mit Klarstone',
+        baseline: 'Branchendurchschnitt',
+        sampleData: 'Beispieldaten · illustrativ',
+        incremental: '+€189K zusätzlicher Umsatz'
+      },
+      security: {
+        headline: 'Ihre Daten, versiegelt',
+        headlineItalic: 'im Licht.',
+        kicker: 'Aegis · Datenintegrität'
+      }
     },
     contact: {
       title: 'Kontakt',

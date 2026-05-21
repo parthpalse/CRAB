@@ -254,7 +254,8 @@ const useMobileDetection = () => {
   return { isMobile, isTablet };
 };
 
-const GrowthChartTile = () => {
+const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
+  const t = DICT[lang].magicBento.growthChart;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartRef = useRef<Chart | null>(null);
   const [activeRange, setActiveRange] = useState<'6M' | '12M' | 'YTD'>('12M');
@@ -318,7 +319,7 @@ const GrowthChartTile = () => {
         labels: labels,
         datasets: [
           {
-            label: 'With Klarstone',
+            label: t.withKlarstone,
             data: withData,
             borderColor: '#00ccff',
             backgroundColor: gradient,
@@ -332,7 +333,7 @@ const GrowthChartTile = () => {
             pointHoverBorderWidth: 3,
           },
           {
-            label: 'Industry baseline',
+            label: t.baseline,
             data: baseData,
             borderColor: '#ffaa00',
             borderWidth: 1.5,
@@ -401,12 +402,12 @@ const GrowthChartTile = () => {
     <div className="gc-wrap">
       <div className="gc-head">
         <div className="gc-left">
-          <h3>Revenue Growth</h3>
+          <h3>{t.heading}</h3>
           <div className="gc-stat-row">
             <span className="gc-stat-val">{totalVal}</span>
             <span className="gc-stat-change">{changeVal}</span>
           </div>
-          <p>Last 12 months · After Klarstone diagnostic</p>
+          <p>{t.subtitle}</p>
         </div>
         <div className="gc-toggle">
           {(['6M', '12M', 'YTD'] as const).map((range) => (
@@ -432,17 +433,17 @@ const GrowthChartTile = () => {
       <div className="gc-legend">
         <div className="gc-legend-item">
           <span className="gc-dot" style={{ backgroundColor: '#00ccff' }}></span>
-          With Klarstone
+          {t.withKlarstone}
         </div>
         <div className="gc-legend-item">
           <span className="gc-dot" style={{ backgroundColor: '#ffaa00' }}></span>
-          Industry baseline
+          {t.baseline}
         </div>
       </div>
 
       <div className="gc-footer">
-        <span className="gc-footer-left">Sample data · illustrative</span>
-        <span className="gc-footer-right">+€189K incremental revenue</span>
+        <span className="gc-footer-left">{t.sampleData}</span>
+        <span className="gc-footer-right">{t.incremental}</span>
       </div>
     </div>
   );
@@ -482,6 +483,7 @@ export default function MagicBento({
   const scale = useScale();
   const shouldDisableAnimations = disableAnimations || isMobile;
   const t = DICT[lang].magicBento;
+  const secT = t.security;
 
   const cardData: any[] = [
     { type: 'usecase', color: '#0A0A0A', glowColor: '0, 204, 255', items: [{ title: t.sales.title, desc: t.sales.desc }] },
@@ -538,8 +540,8 @@ export default function MagicBento({
                 </div>
               );
             }
-            if (card.type === 'chart') {
-              return <GrowthChartTile />;
+             if (card.type === 'chart') {
+              return <GrowthChartTile lang={lang} />;
             }
             if (card.type === 'image') {
               return (
@@ -552,7 +554,7 @@ export default function MagicBento({
               return (
                 <div className="di-tile">
                   <div className="di-composition">
-                    <span className="di-kicker">Aegis · Data Integrity</span>
+                    <span className="di-kicker">{secT.kicker}</span>
 
                     <svg className="di-emblem" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                       <defs>
@@ -671,7 +673,7 @@ export default function MagicBento({
                       </g>
                     </svg>
 
-                    <h1 className="di-headline">Your data, sealed <em>in{"\u00A0"}light.</em></h1>
+                    <h1 className="di-headline">{secT.headline} <em>{secT.headlineItalic}</em></h1>
                   </div>
                 </div>
               );

@@ -428,3 +428,11 @@
   color: #00ccff;
   font-weight: 500;
 }
+
+@media (max-width: 767px) {
+  .gc-wrap { padding: 16px 14px; }
+  .gc-stat-val { font-size: 20px; }
+  .gc-left h3 { font-size: 10px; letter-spacing: 2px; }
+  .gc-chart-wrap { height: 160px; }
+  .gc-toggle button { padding: 4px 8px; font-size: 11px; }
+}
