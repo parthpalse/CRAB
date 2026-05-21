@@ -45,10 +45,10 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const USABLE_H = isMobile ? winDim.h - 60 : winDim.h * 0.82;
-  const OFFSET_Y = isMobile ? 50 : winDim.h * 0.09;
+  const USABLE_H = isMobile ? winDim.h - 80 : winDim.h * 0.82;
+  const OFFSET_Y = isMobile ? 40 : winDim.h * 0.09;
   const PAD_TOP  = isMobile ? 20 : 60;
-  const PAD_BOT  = isMobile ? 40 : 60;
+  const PAD_BOT  = isMobile ? 60 : 60;
 
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
