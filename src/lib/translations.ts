@@ -11,7 +11,7 @@ export const DICT = {
     whatWeDo: {
       label: 'What we do',
       title: 'AI-powered consulting for growing businesses',
-      p1: 'KLARSTONE acts as a micro-consultant for your company. It works with your business data, asks smart follow-up questions, and gives clear recommendations on what to do next.',
+      p1: 'Klarstone acts as a micro-consultant for your company. It works with your business data, asks smart follow-up questions, and gives clear recommendations on what to do next.',
       p2: 'It helps you move from scattered data and uncertainty to structured insights and action.'
     },
     howItWorks: {
@@ -37,6 +37,8 @@ export const DICT = {
       ]
     },
     magicBento: {
+      months12: ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'],
+      months6: ['Oct','Nov','Dec','Jan','Feb','Mar'],
       label: 'Services',
       title: 'Where Klarstone helps',
       imagePlaceholder: 'Image coming soon',
@@ -84,7 +86,7 @@ export const DICT = {
     whatWeDo: {
       label: 'Was wir tun',
       title: 'KI-gestützte Beratung für wachsende Unternehmen',
-      p1: 'KLARSTONE fungiert als Mikro-Berater für Ihr Unternehmen. Es arbeitet mit Ihren Geschäftsdaten, stellt intelligente Rückfragen und gibt klare Empfehlungen für die nächsten Schritte.',
+      p1: 'Klarstone fungiert als Mikro-Berater für Ihr Unternehmen. Es arbeitet mit Ihren Geschäftsdaten, stellt intelligente Rückfragen und gibt klare Empfehlungen für die nächsten Schritte.',
       p2: 'Es hilft Ihnen, von verstreuten Daten und Unsicherheit zu strukturierten Erkenntnissen und Taten zu gelangen.'
     },
     howItWorks: {
@@ -110,6 +112,8 @@ export const DICT = {
       ]
     },
     magicBento: {
+      months12: ['Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez','Jan','Feb','Mär'],
+      months6: ['Okt','Nov','Dez','Jan','Feb','Mär'],
       label: 'Services',
       title: 'Wo KLARSTONE hilft',
       imagePlaceholder: 'Bild folgt in Kürze',

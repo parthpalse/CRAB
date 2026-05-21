@@ -100,15 +100,19 @@ export default function AntigravityHero() {
         backdropFilter: scrolled ? 'blur(14px)' : 'none', 
         background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' 
       }}>
-        <div style={{ 
-          fontFamily: "'EB Garamond', serif", 
-          letterSpacing: isMobile ? '.12em' : '.18em', 
-          fontSize: isMobile ? 8 : 10, 
-          fontWeight: 400, 
-          color: '#e6e6e6', 
-          display: 'flex', 
-          alignItems: 'baseline' 
-        }}>
+        <div 
+          onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
+          style={{ 
+            fontFamily: "'EB Garamond', serif", 
+            letterSpacing: isMobile ? '.12em' : '.18em', 
+            fontSize: isMobile ? 8 : 10, 
+            fontWeight: 400, 
+            color: '#e6e6e6', 
+            display: 'flex', 
+            alignItems: 'baseline',
+            cursor: 'pointer'
+          }}
+        >
           KLARSTONE
         </div>
         <div style={{ 

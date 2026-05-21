@@ -261,8 +261,8 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
   const [activeRange, setActiveRange] = useState<'6M' | '12M' | 'YTD'>('12M');
 
   // Datasets
-  const months12 = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
-  const months6  = ['Oct','Nov','Dec','Jan','Feb','Mar'];
+  const months12 = DICT[lang].magicBento.months12;
+  const months6  = DICT[lang].magicBento.months6;
 
   const withK_12  = [298, 305, 312, 326, 348, 372, 395, 410, 428, 445, 466, 487];
   const withK_6   = withK_12.slice(6);
@@ -304,7 +304,7 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
       withData = withK_6;
       baseData = base_6;
     } else if (activeRange === 'YTD') {
-      labels = ['Jan','Feb','Mar'];
+      labels = months12.slice(9);
       withData = [445, 466, 487];
       baseData = [322, 319, 325];
     } else {
