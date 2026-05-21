@@ -526,11 +526,8 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
           {t.sub}
         </p>
         <a
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
-          }}
+          href="#"
+          onClick={(e) => e.preventDefault()}
           style={{
             display: 'flex',
             justifyContent: 'center',
