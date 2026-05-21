@@ -370,14 +370,14 @@ const GrowthChartTile = () => {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: '#6B8377', font: { size: 11 } },
+            ticks: { color: '#6B8377', font: { size: 15 } },
             border: { color: 'rgba(255, 255, 255, 0.08)' }
           },
           y: {
             grid: { color: 'rgba(255, 170, 0, 0.25)', drawTicks: false },
             ticks: {
               color: '#6B8377',
-              font: { size: 11 },
+              font: { size: 15 },
               callback: (value: any) => '€' + value + 'K',
               stepSize: 50
             },

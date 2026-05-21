@@ -224,7 +224,7 @@
   left: 50%;
   top: calc(50% - 33%);
   transform: translateX(-50%);
-  font-size: clamp(8px, 1.35cqi, 11px);
+  font-size: 12px;
   letter-spacing: 0.42em;
   text-transform: uppercase;
   color: var(--di-cyan-soft);
@@ -242,7 +242,7 @@
   white-space: nowrap;
   font-family: 'EB Garamond', serif;
   font-weight: 300;
-  font-size: clamp(18px, 5.2cqi, 56px);
+  font-size: 24px;
   line-height: 0.98;
   letter-spacing: -0.005em;
   color: var(--di-bone);
@@ -312,7 +312,7 @@
 }
 
 .gc-left h3 {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 3px;
   color: #00ccff;
@@ -321,7 +321,7 @@
 }
 
 .gc-left p {
-  font-size: 12px;
+  font-size: 15px;
   color: #6B8377;
   margin: 0;
 }
@@ -334,7 +334,7 @@
 }
 
 .gc-stat-val {
-  font-size: clamp(24px, 3.5vw, 36px); /* Reduced to 36px */
+  font-size: 24px;
   font-weight: 600;
   color: #FFFFFF;
   line-height: 1;
@@ -342,7 +342,7 @@
 }
 
 .gc-stat-change {
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
   color: #00ccff;
   background: rgba(0, 204, 255, 0.1);
@@ -363,7 +363,7 @@
   background: transparent;
   border: none;
   color: #6B8377;
-  font-size: 11px;
+  font-size: 15px;
   padding: 4px 8px;
   border-radius: 6px;
   cursor: pointer;
@@ -394,7 +394,7 @@
   align-items: center;
   padding-top: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 11px;
+  font-size: 15px;
 }
 
 .gc-legend-item {
@@ -419,12 +419,12 @@
 }
 
 .gc-footer-left {
-  font-size: 10px;
+  font-size: 15px;
   color: #4A5C52;
 }
 
 .gc-footer-right {
-  font-size: 10px;
+  font-size: 15px;
   color: #00ccff;
   font-weight: 500;
 }
