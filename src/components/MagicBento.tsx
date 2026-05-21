@@ -288,9 +288,9 @@ const GrowthChartTile = () => {
 
     // Vertical gradient fill for the Klarstone area
     const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-    gradient.addColorStop(0,    'rgba(74, 222, 128, 0.32)');
-    gradient.addColorStop(0.5,  'rgba(74, 222, 128, 0.10)');
-    gradient.addColorStop(1,    'rgba(74, 222, 128, 0)');
+    gradient.addColorStop(0,    'rgba(0, 204, 255, 0.32)');
+    gradient.addColorStop(0.5,  'rgba(0, 204, 255, 0.10)');
+    gradient.addColorStop(1,    'rgba(0, 204, 255, 0)');
 
     let labels: string[];
     let withData: number[];
@@ -318,28 +318,28 @@ const GrowthChartTile = () => {
           {
             label: 'With Klarstone',
             data: withData,
-            borderColor: '#4ADE80',
+            borderColor: '#00ccff',
             backgroundColor: gradient,
             borderWidth: 2.5,
             fill: true,
             tension: 0.4,
             pointRadius: 0,
             pointHoverRadius: 6,
-            pointHoverBackgroundColor: '#4ADE80',
-            pointHoverBorderColor: '#0A0E0B',
+            pointHoverBackgroundColor: '#00ccff',
+            pointHoverBorderColor: '#0A0A0A',
             pointHoverBorderWidth: 3,
           },
           {
             label: 'Industry baseline',
             data: baseData,
-            borderColor: '#3A4D43',
+            borderColor: '#ffaa00',
             borderWidth: 1.5,
             borderDash: [4, 4],
             fill: false,
             tension: 0.3,
             pointRadius: 0,
             pointHoverRadius: 4,
-            pointHoverBackgroundColor: '#3A4D43',
+            pointHoverBackgroundColor: '#ffaa00',
           }
         ]
       },
@@ -351,7 +351,7 @@ const GrowthChartTile = () => {
           legend: { display: false },
           tooltip: {
             backgroundColor: '#131913',
-            borderColor: '#1A2820',
+            borderColor: 'rgba(255, 255, 255, 0.08)',
             borderWidth: 1,
             titleColor: '#FFFFFF',
             bodyColor: '#E8F4EC',
@@ -369,10 +369,10 @@ const GrowthChartTile = () => {
           x: {
             grid: { display: false },
             ticks: { color: '#6B8377', font: { size: 11 } },
-            border: { color: '#1A2820' }
+            border: { color: 'rgba(255, 255, 255, 0.08)' }
           },
           y: {
-            grid: { color: 'rgba(58, 77, 67, 0.25)', drawTicks: false },
+            grid: { color: 'rgba(255, 170, 0, 0.25)', drawTicks: false },
             ticks: {
               color: '#6B8377',
               font: { size: 11 },
@@ -429,11 +429,11 @@ const GrowthChartTile = () => {
 
       <div className="gc-legend">
         <div className="gc-legend-item">
-          <span className="gc-dot" style={{ backgroundColor: '#4ADE80' }}></span>
+          <span className="gc-dot" style={{ backgroundColor: '#00ccff' }}></span>
           With Klarstone
         </div>
         <div className="gc-legend-item">
-          <span className="gc-dot" style={{ backgroundColor: '#3A4D43' }}></span>
+          <span className="gc-dot" style={{ backgroundColor: '#ffaa00' }}></span>
           Industry baseline
         </div>
       </div>
