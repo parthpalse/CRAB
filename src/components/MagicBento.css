@@ -334,7 +334,7 @@
 }
 
 .gc-stat-val {
-  font-size: clamp(24px, 3.5vw, 36px);
+  font-size: clamp(24px, 3.5vw, 36px); /* Reduced to 36px */
   font-weight: 600;
   color: #FFFFFF;
   line-height: 1;
