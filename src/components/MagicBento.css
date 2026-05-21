@@ -435,7 +435,7 @@
   .gc-left h3 { font-size: 9px; letter-spacing: 1.5px; margin-bottom: 4px; }
   .gc-stat-change { font-size: 11px; padding: 2px 6px; }
   .gc-left p { font-size: 10px; line-height: 1.3; }
-  .gc-chart-wrap { height: 140px; margin: 4px 0 8px; }
+  .gc-chart-wrap { height: 100px; margin: 4px 0 8px; }
   .gc-toggle button { padding: 3px 7px; font-size: 10px; }
   .gc-toggle { padding: 3px; }
   .gc-legend { gap: 10px; font-size: 10px; padding-top: 8px; flex-wrap: nowrap; }
