@@ -57,7 +57,7 @@ const AddData = () => {
               Add this month's data
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Update figures and context — CRAB.AI will regenerate your role-tailored report.
+              Update figures and context — KLARSTONE will regenerate your role-tailored report.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-8 space-y-5">

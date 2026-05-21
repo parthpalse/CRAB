@@ -93,7 +93,7 @@ const LogoMark = ({
           lineHeight: 1,
         }}
       >
-        C
+        K
       </span>
     </div>
 
@@ -107,7 +107,7 @@ const LogoMark = ({
           lineHeight: 1,
         }}
       >
-        CRAB<span style={{ color: subColor }}>.AI</span>
+        KLARSTONE
       </div>
       <div
         style={{

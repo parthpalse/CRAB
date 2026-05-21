@@ -1,0 +1,183 @@
+
+<style>
+  .wrap { background: #0A0E0B; padding: 32px 28px; border-radius: 14px; border: 1px solid #1A2820; font-family: -apple-system, system-ui, sans-serif; color: #E8F4EC; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 24px; }
+  .left h3 { font-size: 11px; font-weight: 600; letter-spacing: 3px; color: #4ADE80; margin: 0 0 10px; text-transform: uppercase; }
+  .left h2 { font-size: 22px; font-weight: 500; color: #FFFFFF; margin: 0 0 4px; }
+  .left p { font-size: 13px; color: #6B8377; margin: 0; }
+  .stat-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .stat-val { font-size: 38px; font-weight: 600; color: #FFFFFF; line-height: 1; letter-spacing: -0.5px; }
+  .stat-change { font-size: 13px; font-weight: 500; color: #4ADE80; background: rgba(74, 222, 128, 0.1); padding: 4px 8px; border-radius: 6px; }
+  .stat-label { font-size: 11px; color: #6B8377; text-transform: uppercase; letter-spacing: 1.5px; }
+  .toggle { display: flex; gap: 4px; background: #131913; padding: 4px; border-radius: 8px; border: 1px solid #1A2820; }
+  .toggle button { background: transparent; border: none; color: #6B8377; font-size: 12px; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s; }
+  .toggle button.active { background: #1A4D32; color: #4ADE80; }
+  .toggle button:hover:not(.active) { color: #E8F4EC; }
+  .chart-wrap { position: relative; height: 220px; margin: 8px 0 16px; }
+  .legend { display: flex; gap: 20px; align-items: center; padding-top: 14px; border-top: 1px solid #1A2820; font-size: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; color: #8FA398; }
+  .dot { width: 8px; height: 8px; border-radius: 2px; }
+  .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; }
+  .footer-left { font-size: 11px; color: #4A5C52; }
+  .footer-right { font-size: 11px; color: #4ADE80; font-weight: 500; }
+</style>
+
+<div class="wrap">
+  <div class="head">
+    <div class="left">
+      <h3>Revenue Growth</h3>
+      <div class="stat-row">
+        <span class="stat-val" id="totalVal">€487K</span>
+        <span class="stat-change" id="changeVal">↑ 38.2%</span>
+      </div>
+      <p>Last 12 months · After Klarstone diagnostic</p>
+    </div>
+    <div class="toggle">
+      <button data-range="6M">6M</button>
+      <button data-range="12M" class="active">12M</button>
+      <button data-range="YTD">YTD</button>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <canvas id="growthChart" role="img" aria-label="Revenue growth line chart showing monthly revenue before and after Klarstone implementation">Revenue grew from €298K to €487K over 12 months after Klarstone diagnostic.</canvas>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="dot" style="background:#4ADE80"></span>With Klarstone</div>
+    <div class="legend-item"><span class="dot" style="background:#3A4D43"></span>Industry baseline</div>
+  </div>
+
+  <div class="footer">
+    <span class="footer-left">Sample data · illustrative</span>
+    <span class="footer-right">+€189K incremental revenue</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+  const months12 = ['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+  const months6  = ['Oct','Nov','Dec','Jan','Feb','Mar'];
+
+  // With Klarstone: starts modest, gentle climb, then steeper after onboarding
+  const withK_12  = [298, 305, 312, 326, 348, 372, 395, 410, 428, 445, 466, 487];
+  const withK_6   = withK_12.slice(6);
+
+  // Industry baseline: roughly flat with seasonal wobble
+  const base_12   = [298, 301, 296, 305, 312, 315, 308, 314, 318, 322, 319, 325];
+  const base_6    = base_12.slice(6);
+
+  const ctx = document.getElementById('growthChart').getContext('2d');
+
+  // Vertical gradient fill for the Klarstone area
+  const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+  gradient.addColorStop(0,    'rgba(74, 222, 128, 0.32)');
+  gradient.addColorStop(0.5,  'rgba(74, 222, 128, 0.10)');
+  gradient.addColorStop(1,    'rgba(74, 222, 128, 0)');
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months12,
+      datasets: [
+        {
+          label: 'With Klarstone',
+          data: withK_12,
+          borderColor: '#4ADE80',
+          backgroundColor: gradient,
+          borderWidth: 2.5,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#4ADE80',
+          pointHoverBorderColor: '#0A0E0B',
+          pointHoverBorderWidth: 3,
+        },
+        {
+          label: 'Industry baseline',
+          data: base_12,
+          borderColor: '#3A4D43',
+          borderWidth: 1.5,
+          borderDash: [4, 4],
+          fill: false,
+          tension: 0.3,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          pointHoverBackgroundColor: '#3A4D43',
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#131913',
+          borderColor: '#1A2820',
+          borderWidth: 1,
+          titleColor: '#FFFFFF',
+          bodyColor: '#E8F4EC',
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: true,
+          boxWidth: 8,
+          boxHeight: 8,
+          callbacks: {
+            label: (ctx) => `  ${ctx.dataset.label}: €${ctx.parsed.y}K`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#6B8377', font: { size: 11 } },
+          border: { color: '#1A2820' }
+        },
+        y: {
+          grid: { color: 'rgba(58, 77, 67, 0.25)', drawTicks: false },
+          ticks: {
+            color: '#6B8377',
+            font: { size: 11 },
+            callback: (v) => '€' + v + 'K',
+            stepSize: 50
+          },
+          border: { display: false },
+          min: 270,
+          max: 510
+        }
+      }
+    }
+  });
+
+  // Time-range toggle
+  document.querySelectorAll('.toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const range = btn.dataset.range;
+
+      let labels, withData, baseData, total, change;
+      if (range === '6M') {
+        labels = months6; withData = withK_6; baseData = base_6;
+        total = '€487K'; change = '↑ 24.1%';
+      } else if (range === 'YTD') {
+        labels = ['Jan','Feb','Mar']; withData = [445, 466, 487]; baseData = [322, 319, 325];
+        total = '€487K'; change = '↑ 9.4%';
+      } else {
+        labels = months12; withData = withK_12; baseData = base_12;
+        total = '€487K'; change = '↑ 38.2%';
+      }
+
+      chart.data.labels = labels;
+      chart.data.datasets[0].data = withData;
+      chart.data.datasets[1].data = baseData;
+      chart.update('active');
+
+      document.getElementById('totalVal').textContent = total;
+      document.getElementById('changeVal').textContent = change;
+    });
+  });
+</script>

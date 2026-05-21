@@ -207,7 +207,7 @@ const Dashboard = () => {
                 <CardContent className="flex h-full flex-col justify-between gap-6 p-8">
                   <div>
                     <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
-                      <Sparkles className="h-3.5 w-3.5" /> CRAB.AI verdict for {roleLabel}
+                      <Sparkles className="h-3.5 w-3.5" /> KLARSTONE verdict for {roleLabel}
                     </div>
                     <p className="mt-4 font-display text-2xl font-semibold leading-snug md:text-3xl">
                       {healthScore.summary}
@@ -423,7 +423,7 @@ const Dashboard = () => {
         </Tabs>
 
         <div className="py-6 text-center text-xs text-[#555555]">
-          Powered by CRAB.AI · Report tailored for {roleLabel} · {monthLabel(month)}
+          Powered by KLARSTONE · Report tailored for {roleLabel} · {monthLabel(month)}
         </div>
       </main>
     </div>

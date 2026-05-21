@@ -99,7 +99,7 @@ export const HeroTile = ({ scrollYProgress }: HeroTileProps) => {
           }}
         >
           Get a forensic audit of your finances, costs, and growth levers.
-          CRAB.AI diagnoses what's leaking value and tells you exactly how to fix it —
+          KLARSTONE diagnoses what's leaking value and tells you exactly how to fix it —
           prioritized by savings and urgency.
         </p>
 

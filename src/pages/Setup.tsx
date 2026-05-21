@@ -105,9 +105,9 @@ const Setup = () => {
               onMouseOver={(e) => e.currentTarget.style.opacity = "0.85"}
               onMouseOut={(e) => e.currentTarget.style.opacity = "1"}
             >
-              <img src="/crab-logo.png" alt="CRAB.AI" style={{ height: "44px", width: "auto", filter: "brightness(0) invert(1)" }} />
+              <img src="/crab-logo.png" alt="KLARSTONE" style={{ height: "44px", width: "auto", filter: "brightness(0) invert(1)" }} />
               <div style={{ fontFamily: "'Orbitron', sans-serif", fontSize: "16px", color: "#FFFFFF" }}>
-                CRAB.AI
+                KLARSTONE
               </div>
             </div>
             <Link to="/" className="text-[13px] font-medium text-[#888888] hover:text-white transition-colors">
@@ -239,7 +239,7 @@ const Setup = () => {
                       id="prompt"
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      placeholder="Tell us about pressing situations, recent changes, or what you'd like CRAB.AI to focus on…"
+                      placeholder="Tell us about pressing situations, recent changes, or what you'd like KLARSTONE to focus on…"
                       className="min-h-[100px] bg-[#161616] text-white border-[#2A2A2A] rounded-[8px] focus-visible:ring-0 focus-visible:border-[#444444] px-4 py-3 outline-none resize-none"
                     />
                   </div>

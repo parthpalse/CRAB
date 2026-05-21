@@ -479,7 +479,7 @@ export const SectionOnboarding = ({ onBack }: SectionOnboardingProps) => {
                       value={prompt}
                       onChange={setPrompt}
                       rows={3}
-                      placeholder="Tell us about pressing situations or what you'd like CRAB.AI to focus on…"
+                      placeholder="Tell us about pressing situations or what you'd like KLARSTONE to focus on…"
                     />
                   </div>
                   <div
