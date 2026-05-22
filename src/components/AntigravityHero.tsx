@@ -226,11 +226,11 @@ export default function AntigravityHero() {
         </div>
       </nav>
 
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: isDark ? 'radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%)' : 'radial-gradient(80% 60% at 50% 50%, #e8f0f5 0%, #f0f4f8 60%, #fff 100%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: isDark ? 'radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%)' : 'radial-gradient(80% 60% at 50% 50%, #F5F5F5 0%, #F5F5F5 60%, #F5F5F5 100%)', pointerEvents: 'none' }} />
 
       <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: scrolled ? 0 : 1, transition: 'opacity 0.25s ease' }}>
         <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
-        <div style={{ position: 'absolute', inset: 0, background: isDark ? 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%)' : 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(255,255,255,0.3) 75%, rgba(255,255,255,0.6) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: isDark ? 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%)' : 'none' }} />
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
       </div>
 
