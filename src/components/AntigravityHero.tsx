@@ -13,7 +13,24 @@ import { DICT } from '../lib/translations';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AntigravityHero() {
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') !== 'light';
+    }
+    return true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  }, [isDark]);
+
   const [lang, setLang] = useState<'EN' | 'DE'>('EN');
+  const bg = isDark ? '#0A0A0A' : '#F2F0EB';
+  const fg = isDark ? '#ffffff' : '#0A0A0A';
+  const muted = isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)';
+  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const navBg = isDark ? 'rgba(10,10,10,0.78)' : 'rgba(235,232,225,0.85)';
   const t = DICT[lang];
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [revealed, setRevealed] = useState(false);
@@ -67,15 +84,44 @@ export default function AntigravityHero() {
       <style>{`
         @import url('https://use.typekit.net/jho4afd.css');
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        :root{--bg:#0A0A0A;--fg:#fff;--muted:rgba(255,255,255,0.55);--dim:rgba(255,255,255,0.32);--line:rgba(255,255,255,0.08);--line-2:rgba(255,255,255,0.16)}
+        
+        [data-theme='dark'] {
+          --bg: #0A0A0A;
+          --fg: #ffffff;
+          --muted: rgba(255,255,255,0.55);
+          --card-bg: #0d1117;
+          --border: rgba(255,255,255,0.08);
+          --nav-bg: rgba(10,10,10,0.78);
+          --section-bg: #0A0A0A;
+        }
+
+        [data-theme='light'] {
+          --bg: #F2F0EB;
+          --fg: #0A0A0A;
+          --muted: rgba(0,0,0,0.55);
+          --card-bg: #E8E5DE;
+          --border: rgba(0,0,0,0.08);
+          --nav-bg: rgba(235,232,225,0.85);
+          --section-bg: #F2F0EB;
+        }
+
+        :root{--bg:#0A0A0A;--fg:#ffffff;--muted:rgba(255,255,255,0.55);--dim:rgba(255,255,255,0.32);--line:rgba(255,255,255,0.08);--line-2:rgba(255,255,255,0.16);--card-bg:#0d1117;--border:rgba(255,255,255,0.08);--nav-bg:rgba(10,10,10,0.78);--section-bg:#0A0A0A}
         *{box-sizing:border-box;margin:0;padding:0}
         html,body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
         ::-webkit-scrollbar{width:6px;background:#000}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
         @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(280%)}}
+        
+        /* Override index.css static background color dynamic */
+        html, body, #root {
+          background-color: var(--bg) !important;
+        }
+        section, footer, div[style] {
+          transition: background 0.3s ease, color 0.3s ease;
+        }
       `}</style>
 
       {/* Splash Screen */}
-      <div id="splash" style={{ position: 'fixed', inset: 0, zIndex: 200, background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 18, transition: 'opacity .8s ease', pointerEvents: 'none', opacity: revealed ? 0 : 1 }}>
+      <div id="splash" style={{ position: 'fixed', inset: 0, zIndex: 200, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 18, transition: 'opacity .8s ease, background 0.3s ease, color 0.3s ease', pointerEvents: 'none', opacity: revealed ? 0 : 1 }}>
         <div style={{ fontFamily: "'EB Garamond', serif", fontSize: 10, color: 'rgba(255,255,255,.45)', letterSpacing: '.3em' }}>{t.splash}</div>
         <div style={{ width: 160, height: 1, background: 'rgba(255,255,255,.1)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', inset: 0, width: '40%', background: '#fff', animation: 'load 1.2s ease-in-out infinite', boxShadow: '0 0 12px rgba(255,255,255,.4)' }} />
@@ -95,10 +141,10 @@ export default function AntigravityHero() {
         alignItems: 'center', 
         padding: isMobile ? '0 6px' : isTablet ? '0 32px' : '0 2vw', 
         transform: 'translateY(0)', 
-        transition: 'transform 0.4s ease, backdrop-filter .3s ease, background .3s ease, border-color .3s ease', 
-        borderBottom: `1px solid ${scrolled ? 'rgba(255,255,255,0.08)' : 'transparent'}`, 
+        transition: 'transform 0.4s ease, backdrop-filter .3s ease, background 0.3s ease, border-color 0.3s ease', 
+        borderBottom: `1px solid ${scrolled ? border : 'transparent'}`, 
         backdropFilter: scrolled ? 'blur(14px)' : 'none', 
-        background: scrolled ? 'rgba(10,10,10,.78)' : 'transparent' 
+        background: scrolled ? navBg : 'transparent' 
       }}>
         <div 
           onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
@@ -107,10 +153,11 @@ export default function AntigravityHero() {
             letterSpacing: isMobile ? '.12em' : '.18em', 
             fontSize: isMobile ? 8 : 10, 
             fontWeight: 400, 
-            color: '#e6e6e6', 
+            color: fg, 
             display: 'flex', 
             alignItems: 'baseline',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            transition: 'background 0.3s ease, color 0.3s ease'
           }}
         >
           KLARSTONE
@@ -121,15 +168,16 @@ export default function AntigravityHero() {
           gap: isMobile ? '10px' : isTablet ? '24px' : '48px', 
           alignItems: 'center', 
           fontSize: isMobile ? 8 : isTablet ? 12 : 13, 
-          color: 'rgba(255,255,255,0.5)', 
+          color: muted, 
           fontFamily: 'Inter, sans-serif', 
           fontWeight: 300, 
-          letterSpacing: '0.03em' 
+          letterSpacing: '0.03em',
+          transition: 'background 0.3s ease, color 0.3s ease'
         }}>
 
-          <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[1]}</a>
-          <a href="#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[2]}</a>
-          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[3]}</a>
+          <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[1]}</a>
+          <a href="#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[2]}</a>
+          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[3]}</a>
         </div>
         <div style={{ 
           display: 'flex', 
@@ -137,61 +185,89 @@ export default function AntigravityHero() {
           alignItems: 'center', 
           justifyContent: 'flex-end', 
           fontSize: isMobile ? 8 : 13, 
-          color: 'rgba(255,255,255,0.5)', 
+          color: muted, 
           fontFamily: 'Inter, sans-serif', 
-          fontWeight: 300 
+          fontWeight: 300,
+          transition: 'background 0.3s ease, color 0.3s ease'
         }}>
-          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = '#fff'} onMouseOut={e => e.currentTarget.style.color = 'rgba(255,255,255,0.5)'}>{t.nav[4]}</a>
+          <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[4]}</a>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: isMobile ? 8 : 11, letterSpacing: '0.05em' }}>
-            <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? '#fff' : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
+            <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? fg : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
             <span style={{ opacity: 0.2 }}>|</span>
-            <span onClick={() => setLang('DE')} style={{ cursor: 'pointer', color: lang === 'DE' ? '#fff' : 'inherit', fontWeight: lang === 'DE' ? 500 : 300, transition: 'color .2s' }}>DE</span>
+            <span onClick={() => setLang('DE')} style={{ cursor: 'pointer', color: lang === 'DE' ? fg : 'inherit', fontWeight: lang === 'DE' ? 500 : 300, transition: 'color .2s' }}>DE</span>
           </div>
+          {!isMobile && (
+            <div
+              onClick={() => setIsDark(!isDark)}
+              style={{
+                width: 36,
+                height: 20,
+                borderRadius: 10,
+                background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)',
+                position: 'relative',
+                cursor: 'pointer',
+                transition: 'background 0.3s ease',
+                flexShrink: 0,
+              }}
+            >
+              <div style={{
+                position: 'absolute',
+                top: 2,
+                left: isDark ? 18 : 2,
+                width: 16,
+                height: 16,
+                borderRadius: '50%',
+                background: '#ffffff',
+                transition: 'left 0.3s ease',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+              }} />
+            </div>
+          )}
         </div>
       </nav>
 
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: 'radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: isDark ? 'radial-gradient(80% 60% at 50% 50%, #1a1a1a 0%, #0a0a0a 60%, #000 100%)' : 'radial-gradient(80% 60% at 50% 50%, #e8f0f5 0%, #f0f4f8 60%, #fff 100%)', pointerEvents: 'none' }} />
 
       <div style={{ position: 'fixed', inset: 0, zIndex: 1, pointerEvents: 'none', opacity: scrolled ? 0 : 1, transition: 'opacity 0.25s ease' }}>
         <canvas ref={canvasRef} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%)' }} />
+        <div style={{ position: 'absolute', inset: 0, background: isDark ? 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.55) 75%, rgba(0,0,0,0.95) 100%), linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.8) 100%)' : 'radial-gradient(70% 60% at 50% 50%, transparent 0%, rgba(255,255,255,0.3) 75%, rgba(255,255,255,0.6) 100%)' }} />
         <div style={{ position: 'absolute', inset: 0, opacity: .07, mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")" }} />
       </div>
 
       <section id="home" style={{ position: 'relative', height: '100vh', width: '100%', overflow: 'hidden', background: 'transparent', display: 'flex', alignItems: 'center', padding: isMobile ? '0 24px' : `0 ${scaled(109, scale)}`, pointerEvents: 'none' }}>
         <div style={{ maxWidth: 1400, pointerEvents: 'auto', opacity: revealed && !scrolled ? 1 : 0, transition: 'opacity 0.8s ease', zIndex: 10, textAlign: 'left' }}>
           <div style={{ fontFamily: "'EB Garamond', serif", fontWeight: 400, fontSize: scaled(22, scale), textTransform: 'none', letterSpacing: '0.1em', color: 'rgba(0,204,255,0.9)', marginBottom: 20 }}>{t.heroTitle}</div>
-          <h1 style={{ color: '#fff', fontSize: isMobile ? 'clamp(28px, 7.5vw, 38px)' : isTablet ? 'clamp(52px, 6vw, 80px)' : scaled(115, scale), letterSpacing: '-0.02em', marginBottom: 32, fontFamily: "'EB Garamond', serif", fontWeight: 400, lineHeight: 1.1, textWrap: 'balance' as any }}>{lang === 'EN' ? <>Your AI Consultant<br />for Strategic Decisions</> : <>Entscheidungsintelligenz<br />für moderne Unternehmen</>}</h1>
+          <h1 style={{ color: fg, fontSize: isMobile ? 'clamp(28px, 7.5vw, 38px)' : isTablet ? 'clamp(52px, 6vw, 80px)' : scaled(115, scale), letterSpacing: '-0.02em', marginBottom: 32, fontFamily: "'EB Garamond', serif", fontWeight: 400, lineHeight: 1.1, textWrap: 'balance' as any, transition: 'background 0.3s ease, color 0.3s ease' }}>{lang === 'EN' ? <>Your AI Consultant<br />for Strategic Decisions</> : <>Entscheidungsintelligenz<br />für moderne Unternehmen</>}</h1>
           <a
             href="#contact"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: 10,
-              background: 'transparent',
-              color: '#fff',
+              background: isDark ? 'transparent' : 'rgba(235,232,225,0.5)',
+              color: fg,
               padding: '14px 28px',
               borderRadius: 8,
               fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
               fontSize: scaled(14, scale),
               textDecoration: 'none',
-              border: '1px solid rgba(255,255,255,0.25)',
+              border: isDark ? `1px solid ${border}` : '1px solid rgba(0,0,0,0.15)',
               cursor: 'pointer',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s ease, background 0.3s ease, color 0.3s ease',
               letterSpacing: '0.02em',
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
               (e.currentTarget as HTMLAnchorElement).style.borderColor = '#00ccff';
               (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-              (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+              (e.currentTarget as HTMLAnchorElement).style.color = fg;
             }}
             onMouseLeave={e => {
               (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none';
-              (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.25)';
-              (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-              (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+              (e.currentTarget as HTMLAnchorElement).style.borderColor = isDark ? border : 'rgba(0,0,0,0.15)';
+              (e.currentTarget as HTMLAnchorElement).style.background = isDark ? 'transparent' : 'rgba(235,232,225,0.5)';
+              (e.currentTarget as HTMLAnchorElement).style.color = fg;
             }}
             onMouseDown={e => {
               (e.currentTarget as HTMLAnchorElement).style.background = '#00ccff';
@@ -210,12 +286,12 @@ export default function AntigravityHero() {
         </div>
       </section>
 
-      <WhatWeDo lang={lang} />
-      <HowItWorks lang={lang} />
-      <KeyBenefits lang={lang} />
+      <WhatWeDo lang={lang} isDark={isDark} />
+      <HowItWorks lang={lang} isDark={isDark} />
+      <KeyBenefits lang={lang} isDark={isDark} />
 
-      <div id="services" style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: '#0A0A0A', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      <div id="services" style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: isDark ? '#0A0A0A' : '#F2F0EB', overflow: 'hidden', transition: 'background 0.3s ease, color 0.3s ease' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: isDark ? 1 : 0, transition: 'opacity 0.3s ease' }}>
           <DarkVeil
             scanlineIntensity={0.47}
             speed={1.5}
@@ -229,6 +305,7 @@ export default function AntigravityHero() {
         }}>
           <MagicBento
             lang={lang}
+            isDark={isDark}
             textAutoHide={true}
             enableStars={true}
             enableSpotlight={true}
@@ -243,17 +320,23 @@ export default function AntigravityHero() {
         </div>
       </div>
 
-      <ContactUs lang={lang} />
-      <Footer lang={lang} />
+      <ContactUs lang={lang} isDark={isDark} />
+      <Footer lang={lang} isDark={isDark} />
     </>
   );
 }
 
-function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
+function WhatWeDo({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
   const t = DICT[lang].whatWeDo;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+
+  const bg = isDark ? '#0A0A0A' : '#F2F0EB';
+  const fg = isDark ? '#ffffff' : '#0A0A0A';
+  const muted = isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)';
+  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const navBg = isDark ? 'rgba(10,10,10,0.78)' : 'rgba(235,232,225,0.85)';
 
   useEffect(() => {
     const check = () => {
@@ -298,9 +381,10 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
       style={{
         position: 'relative',
         zIndex: 8,
-        background: '#0A0A0A',
+        background: bg,
         width: '100%',
         padding: isMobile ? '60px 24px' : isTablet ? '80px 48px' : `${scaled(120, scale)} ${scaled(109, scale)}`,
+        transition: 'background 0.3s ease, color 0.3s ease',
       }}
     >
       <div style={{ width: '100%', maxWidth: '100%', overflow: 'hidden' }}>
@@ -319,11 +403,12 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'EB Garamond', serif",
           fontWeight: 600,
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : scaled(51, scale),
-          color: '#fff',
+          color: fg,
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
           textTransform: 'none' as const,
           marginBottom: 32,
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.title}
         </h2>
@@ -331,9 +416,10 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
           fontSize: isMobile ? '15px' : scaled(16, scale),
-          color: 'rgba(255,255,255,0.55)',
+          color: muted,
           lineHeight: 1.8,
           marginBottom: scaled(16, scale),
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.p1}
         </p>
@@ -341,8 +427,9 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'Inter', sans-serif",
           fontWeight: 300,
           fontSize: isMobile ? '15px' : scaled(16, scale),
-          color: 'rgba(255,255,255,0.55)',
+          color: muted,
           lineHeight: 1.8,
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.p2}
         </p>
@@ -351,11 +438,17 @@ function WhatWeDo({ lang }: { lang: 'EN' | 'DE' }) {
   );
 }
 
-function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
+function KeyBenefits({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
   const t = DICT[lang].keyBenefits;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+
+  const bg = isDark ? '#0A0A0A' : '#F2F0EB';
+  const fg = isDark ? '#ffffff' : '#0A0A0A';
+  const muted = isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)';
+  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const navBg = isDark ? 'rgba(10,10,10,0.78)' : 'rgba(235,232,225,0.85)';
 
   useEffect(() => {
     const check = () => {
@@ -401,13 +494,14 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
       style={{
         position: 'relative',
         zIndex: 8,
-        background: '#0A0A0A',
+        background: bg,
         width: '100%',
         paddingTop: isMobile ? '60px' : isTablet ? '80px' : '120px',
         paddingBottom: isMobile ? '60px' : isTablet ? '80px' : '120px',
         paddingLeft: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
         paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
         boxSizing: 'border-box' as const,
+        transition: 'background 0.3s ease, color 0.3s ease',
       }}
     >
       <div style={{ width: '100%' }}>
@@ -426,12 +520,13 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'EB Garamond', serif",
           fontWeight: 600,
           fontSize: isMobile ? 'clamp(28px, 3.2vw, 42px)' : scaled(52, scale),
-          color: '#fff',
+          color: fg,
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
           textTransform: 'none' as const,
           marginBottom: scaled(60, scale),
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.title}
         </h2>
@@ -454,8 +549,9 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
                 fontFamily: "'Inter', sans-serif", 
                 fontWeight: 300, 
                 fontSize: 'clamp(14px, 1.2vw, 18px)', 
-                color: 'rgba(255,255,255,0.7)', 
-                lineHeight: 1.4 
+                color: muted, 
+                lineHeight: 1.4,
+                transition: 'background 0.3s ease, color 0.3s ease',
               }}>
                 {benefit}
               </p>
@@ -467,11 +563,17 @@ function KeyBenefits({ lang }: { lang: 'EN' | 'DE' }) {
   );
 }
 
-function Footer({ lang }: { lang: 'EN' | 'DE' }) {
+function Footer({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
   const t = DICT[lang].footer;
   const scale = useScale();
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+
+  const bg = isDark ? '#0A0A0A' : '#F2F0EB';
+  const fg = isDark ? '#ffffff' : '#0A0A0A';
+  const muted = isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)';
+  const border = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+  const navBg = isDark ? 'rgba(10,10,10,0.78)' : 'rgba(235,232,225,0.85)';
 
   useEffect(() => {
     const check = () => {
@@ -488,7 +590,7 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
     <footer style={{ 
       position: 'relative', 
       width: '100%', 
-      background: '#0A0A0A', 
+      background: bg, 
       zIndex: 10, 
       display: 'flex', 
       flexDirection: 'column', 
@@ -498,19 +600,21 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
       paddingLeft: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
       paddingRight: isMobile ? '24px' : isTablet ? '48px' : scaled(109, scale),
       boxSizing: 'border-box' as const,
+      transition: 'background 0.3s ease, color 0.3s ease',
     }}>
       <div style={{ textAlign: 'left', marginBottom: 80, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <h2 style={{ 
           fontFamily: "'EB Garamond', serif", 
           fontWeight: 600, 
           fontSize: isMobile ? 'clamp(24px, 6vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : 'clamp(28px, 3.5vw, 56px)', 
-          color: '#fff', 
+          color: fg, 
           letterSpacing: '-0.02em', 
           lineHeight: 1.1, 
           marginBottom: 24,
           whiteSpace: isMobile ? 'normal' : isTablet ? 'normal' : 'nowrap',
           textTransform: 'none' as const,
           textWrap: 'balance' as any,
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.title}
         </h2>
@@ -518,10 +622,11 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
           fontFamily: "'Inter', sans-serif", 
           fontWeight: 300, 
           fontSize: 'clamp(16px, 1.4vw, 22px)', 
-          color: 'rgba(255,255,255,0.6)', 
+          color: muted, 
           marginBottom: 48,
           lineHeight: 1.6,
-          maxWidth: 700
+          maxWidth: 700,
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.sub}
         </p>
@@ -533,17 +638,17 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             justifyContent: 'center',
             alignItems: 'center',
             gap: 10,
-            background: 'transparent',
-            color: '#fff',
+            background: isDark ? 'transparent' : 'rgba(235,232,225,0.5)',
+            color: fg,
             padding: '14px 28px',
             borderRadius: 8,
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
             fontSize: scaled(16, scale),
             textDecoration: 'none',
-            border: '1px solid rgba(255,255,255,0.25)',
+            border: isDark ? `1px solid ${border}` : '1px solid rgba(0,0,0,0.15)',
             cursor: 'pointer',
-            transition: 'all 0.3s ease',
+            transition: 'all 0.3s ease, background 0.3s ease, color 0.3s ease',
             letterSpacing: '0.02em',
             width: '100%',
             marginTop: scaled(12, scale),
@@ -552,13 +657,13 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
             (e.currentTarget as HTMLAnchorElement).style.borderColor = '#00ccff';
             (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-            (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+            (e.currentTarget as HTMLAnchorElement).style.color = fg;
           }}
           onMouseLeave={e => {
             (e.currentTarget as HTMLAnchorElement).style.boxShadow = 'none';
-            (e.currentTarget as HTMLAnchorElement).style.borderColor = 'rgba(255,255,255,0.25)';
-            (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-            (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
+            (e.currentTarget as HTMLAnchorElement).style.borderColor = isDark ? border : 'rgba(0,0,0,0.15)';
+            (e.currentTarget as HTMLAnchorElement).style.background = isDark ? 'transparent' : 'rgba(235,232,225,0.5)';
+            (e.currentTarget as HTMLAnchorElement).style.color = fg;
           }}
           onMouseDown={e => {
             (e.currentTarget as HTMLAnchorElement).style.background = '#00ccff';
@@ -579,30 +684,33 @@ function Footer({ lang }: { lang: 'EN' | 'DE' }) {
       <div style={{ 
         width: '100%', 
         maxWidth: 1600, 
-        borderTop: '1px solid rgba(255,255,255,0.06)', 
+        borderTop: `1px solid ${border}`, 
         paddingTop: 40,
         display: 'flex',
         justifyContent: isMobile ? 'center' : 'space-between',
         flexDirection: isMobile ? 'column' : 'row',
         gap: isMobile ? '8px' : '0',
-        alignItems: 'center'
+        alignItems: 'center',
+        transition: 'background 0.3s ease, color 0.3s ease',
       }}>
         <div style={{ 
           fontFamily: "'EB Garamond', serif", 
           letterSpacing: '.18em', 
           fontSize: 10, 
           fontWeight: 700, 
-          color: 'rgba(255,255,255,0.4)' 
+          color: muted,
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           KLARSTONE
         </div>
         <div style={{ 
           fontFamily: "'Inter', sans-serif", 
           fontSize: 11, 
-          color: 'rgba(255,255,255,0.3)',
+          color: muted,
           letterSpacing: '0.02em',
           textAlign: isMobile ? 'center' : 'right',
-          whiteSpace: isMobile ? 'nowrap' : 'normal'
+          whiteSpace: isMobile ? 'nowrap' : 'normal',
+          transition: 'background 0.3s ease, color 0.3s ease',
         }}>
           {t.copyright}
         </div>

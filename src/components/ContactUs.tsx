@@ -4,7 +4,7 @@ import { useScale, scaled } from '../hooks/useScale';
 import { supabase } from '../lib/supabase';
 import { DICT } from '../lib/translations';
 
-export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
+export default function ContactUs({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: boolean }) {
   const t = DICT[lang].contact;
   const scale = useScale();
   const [submitted, setSubmitted] = useState(false);
@@ -56,9 +56,10 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
       id="contact"
       style={{
         padding: isMobile ? '80px 24px' : isTablet ? '100px 48px' : `120px ${scaled(109, scale)}`,
-        background: '#0A0A0A',
+        background: isDark ? '#0A0A0A' : '#F2F0EB',
         position: 'relative',
         zIndex: 10,
+        transition: 'background 0.3s ease, color 0.3s ease',
       }}
     >
       <div style={{ width: '100%' }}>
@@ -67,10 +68,11 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             fontFamily: "'EB Garamond', serif",
             fontWeight: 700,
             fontSize: 'clamp(32px, 4vw, 48px)',
-            color: '#fff',
+            color: isDark ? '#fff' : '#0A0A0A',
             marginBottom: 16,
             textTransform: 'none' as const,
-            letterSpacing: '-0.02em'
+            letterSpacing: '-0.02em',
+            transition: 'background 0.3s ease, color 0.3s ease',
           }}>
             {t.title}
           </h2>
@@ -78,8 +80,9 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             fontFamily: "'Inter', sans-serif",
             fontWeight: 300,
             fontSize: '18px',
-            color: 'rgba(255,255,255,0.6)',
-            lineHeight: 1.6
+            color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)',
+            lineHeight: 1.6,
+            transition: 'background 0.3s ease, color 0.3s ease',
           }}>
             {t.subtitle}
           </p>
@@ -91,54 +94,55 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
             border: '1px solid rgba(0,204,255,0.3)',
             borderRadius: 12,
             textAlign: 'center',
-            background: 'rgba(0,204,255,0.05)'
+            background: 'rgba(0,204,255,0.05)',
+            transition: 'background 0.3s ease, color 0.3s ease',
           }}>
-            <h3 style={{ color: '#00ccff', marginBottom: 12, fontFamily: "'Inter', sans-serif" }}>{t.successTitle}</h3>
-            <p style={{ color: 'rgba(255,255,255,0.7)', fontFamily: "'Inter', sans-serif" }}>{t.successText}</p>
+            <h3 style={{ color: '#00ccff', marginBottom: 12, fontFamily: "'Inter', sans-serif", transition: 'background 0.3s ease, color 0.3s ease' }}>{t.successTitle}</h3>
+            <p style={{ color: isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.7)', fontFamily: "'Inter', sans-serif", transition: 'background 0.3s ease, color 0.3s ease' }}>{t.successText}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '1fr 1fr', gap: 24 }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.name}</label>
+                <label style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif", transition: 'background 0.3s ease, color 0.3s ease' }}>{t.name}</label>
                 <input
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   required
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                    border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
                     borderRadius: 8,
                     padding: '14px',
-                    color: '#fff',
+                    color: isDark ? '#fff' : '#0A0A0A',
                     fontFamily: "'Inter', sans-serif",
                     outline: 'none',
-                    transition: 'border-color 0.3s'
+                    transition: 'background 0.3s ease, color 0.3s ease, border-color 0.3s ease'
                   }}
                   onFocus={e => e.currentTarget.style.borderColor = 'rgba(0,204,255,0.5)'}
-                  onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+                  onBlur={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}
                 />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.email}</label>
+                <label style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif", transition: 'background 0.3s ease, color 0.3s ease' }}>{t.email}</label>
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   required
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                    border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
                     borderRadius: 8,
                     padding: '14px',
-                    color: '#fff',
+                    color: isDark ? '#fff' : '#0A0A0A',
                     fontFamily: "'Inter', sans-serif",
                     outline: 'none',
-                    transition: 'border-color 0.3s'
+                    transition: 'background 0.3s ease, color 0.3s ease, border-color 0.3s ease'
                   }}
                   onFocus={e => e.currentTarget.style.borderColor = 'rgba(0,204,255,0.5)'}
-                  onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+                  onBlur={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}
                 />
               </div>
             </div>
@@ -149,25 +153,25 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
               width: '100%',
               margin: '0 auto'
             }}>
-              <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif" }}>{t.message}</label>
+              <label style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.5)', fontSize: 13, fontFamily: "'Inter', sans-serif", transition: 'background 0.3s ease, color 0.3s ease' }}>{t.message}</label>
               <textarea
                 value={message}
                 onChange={e => setMessage(e.target.value)}
                 required
                 rows={5}
                 style={{
-                  background: 'rgba(255,255,255,0.03)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)',
+                  border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)',
                   borderRadius: 8,
                   padding: '14px',
-                  color: '#fff',
+                  color: isDark ? '#fff' : '#0A0A0A',
                   fontFamily: "'Inter', sans-serif",
                   outline: 'none',
                   resize: 'none',
-                  transition: 'border-color 0.3s'
+                  transition: 'background 0.3s ease, color 0.3s ease, border-color 0.3s ease'
                 }}
                 onFocus={e => e.currentTarget.style.borderColor = 'rgba(0,204,255,0.5)'}
-                onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
+                onBlur={e => e.currentTarget.style.borderColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}
               />
             </div>
             <button
@@ -177,17 +181,17 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: 10,
-                background: 'transparent',
-                color: '#fff',
+                background: isDark ? 'transparent' : 'rgba(235,232,225,0.5)',
+                color: isDark ? '#fff' : '#0A0A0A',
                 padding: '14px 28px',
                 borderRadius: 8,
                 fontFamily: "'Inter', sans-serif",
                 fontWeight: 300,
                 fontSize: scaled(14, scale),
                 textDecoration: 'none',
-                border: '1px solid rgba(255,255,255,0.25)',
+                border: isDark ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(0,0,0,0.15)',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.3s ease, background 0.3s ease, color 0.3s ease, border-color 0.3s ease',
                 letterSpacing: '0.02em',
                 width: '100%',
                 marginTop: scaled(12, scale),
@@ -196,13 +200,13 @@ export default function ContactUs({ lang }: { lang: 'EN' | 'DE' }) {
                 (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 0 20px rgba(0,204,255,0.5)';
                 (e.currentTarget as HTMLButtonElement).style.borderColor = '#00ccff';
                 (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-                (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
+                (e.currentTarget as HTMLButtonElement).style.color = isDark ? '#ffffff' : '#0A0A0A';
               }}
               onMouseLeave={e => {
                 (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
-                (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(255,255,255,0.25)';
-                (e.currentTarget as HTMLButtonElement).style.background = 'transparent';
-                (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
+                (e.currentTarget as HTMLButtonElement).style.borderColor = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)';
+                (e.currentTarget as HTMLButtonElement).style.background = isDark ? 'transparent' : 'rgba(235,232,225,0.5)';
+                (e.currentTarget as HTMLButtonElement).style.color = isDark ? '#fff' : '#0A0A0A';
               }}
               onMouseDown={e => {
                 (e.currentTarget as HTMLButtonElement).style.background = '#00ccff';

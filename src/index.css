@@ -154,7 +154,31 @@ All colors MUST be HSL.
 
 /* Fix background zoom by pinning a static grey base */
 html, body, #root {
-  background-color: #111111 !important;
+  background-color: var(--bg) !important;
+}
+
+body {
+  background: var(--bg) !important;
+}
+
+[data-theme='dark'] {
+  --bg: #0A0A0A;
+  --fg: #ffffff;
+  --muted: rgba(255,255,255,0.55);
+  --card-bg: #0d1117;
+  --border: rgba(255,255,255,0.08);
+  --nav-bg: rgba(10,10,10,0.78);
+  --section-bg: #0A0A0A;
+}
+
+[data-theme='light'] {
+  --bg: #F2F0EB;
+  --fg: #0A0A0A;
+  --muted: rgba(0,0,0,0.55);
+  --card-bg: #E8E5DE;
+  --border: rgba(0,0,0,0.08);
+  --nav-bg: rgba(235,232,225,0.85);
+  --section-bg: #F2F0EB;
 }
 
 [class*="world"],

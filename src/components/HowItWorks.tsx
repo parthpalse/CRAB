@@ -5,7 +5,7 @@ import DarkVeil from './DarkVeil';
 import { useScale, scaled } from '../hooks/useScale';
 import { DICT } from '../lib/translations';
 
-export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
+export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: boolean }) {
   const steps = DICT[lang].howItWorks.steps;
   const sectionRef   = useRef<HTMLDivElement>(null);
   const drawnPathRef = useRef<SVGPathElement | null>(null);
@@ -107,9 +107,9 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: '#0A0A0A', width: '100%', height: '100dvh', zIndex: 5 }}
+      style={{ position: 'relative', background: isDark ? '#0A0A0A' : '#F2F0EB', width: '100%', height: '100dvh', zIndex: 5, transition: 'background 0.3s ease, color 0.3s ease' }}
     >
-      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: isDark ? 1 : 0, transition: 'opacity 0.3s ease' }}>
         <DarkVeil />
       </div>
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
@@ -198,14 +198,16 @@ export default function HowItWorks({ lang }: { lang: 'EN' | 'DE' }) {
                     <h2 style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 800,
                       fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : scaled(28, scale),
-                      color: '#fff', letterSpacing: '-0.01em', lineHeight: 1.1,
+                      color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
                       textTransform: 'uppercase', marginBottom: isMobile ? 4 : scaled(10, scale),
+                      transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.title}</h2>
                     <p style={{
                       fontFamily: "'Inter', sans-serif", fontWeight: 300,
                       fontSize: isMobile ? '9px' : scaled(13, scale),
-                      color: 'rgba(255,255,255,0.55)', lineHeight: 1.4,
+                      color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.4,
                       marginBottom: isMobile ? 4 : scaled(10, scale),
+                      transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.sub}</p>
                     <div style={{
                       fontFamily: "'EB Garamond', serif",

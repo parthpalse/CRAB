@@ -254,7 +254,7 @@ const useMobileDetection = () => {
   return { isMobile, isTablet };
 };
 
-const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
+const GrowthChartTile = ({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: boolean }) => {
   const t = DICT[lang].magicBento.growthChart;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const chartRef = useRef<Chart | null>(null);
@@ -329,7 +329,7 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
             pointRadius: 0,
             pointHoverRadius: 6,
             pointHoverBackgroundColor: '#00ccff',
-            pointHoverBorderColor: '#0A0A0A',
+            pointHoverBorderColor: isDark ? '#0A0E0B' : '#ffffff',
             pointHoverBorderWidth: 3,
           },
           {
@@ -353,11 +353,11 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: '#131913',
-            borderColor: 'rgba(255, 255, 255, 0.08)',
+            backgroundColor: isDark ? '#131913' : '#ffffff',
+            borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
             borderWidth: 1,
-            titleColor: '#FFFFFF',
-            bodyColor: '#E8F4EC',
+            titleColor: isDark ? '#FFFFFF' : '#0A0A0A',
+            bodyColor: isDark ? '#E8F4EC' : '#0A0A0A',
             padding: 12,
             cornerRadius: 8,
             displayColors: true,
@@ -371,13 +371,13 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
         scales: {
           x: {
             grid: { display: false },
-            ticks: { color: '#6B8377', font: { size: 15 } },
-            border: { color: 'rgba(255, 255, 255, 0.08)' }
+            ticks: { color: isDark ? '#6B8377' : '#4A5C52', font: { size: 15 } },
+            border: { color: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)' }
           },
           y: {
-            grid: { color: 'rgba(255, 170, 0, 0.25)', drawTicks: false },
+            grid: { color: isDark ? 'rgba(255, 170, 0, 0.25)' : 'rgba(255, 170, 0, 0.15)', drawTicks: false },
             ticks: {
-              color: '#6B8377',
+              color: isDark ? '#6B8377' : '#4A5C52',
               font: { size: 15 },
               callback: (value: any) => '€' + value + 'K',
               stepSize: 50
@@ -396,25 +396,26 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
         chartRef.current = null;
       }
     };
-  }, [activeRange]);
+  }, [activeRange, isDark]);
 
   return (
-    <div className="gc-wrap">
+    <div className="gc-wrap" style={{ background: isDark ? '#0A0E0B' : '#E8E5DE', color: isDark ? '#E8F4EC' : '#0A0A0A', transition: 'background 0.3s ease, color 0.3s ease' }}>
       <div className="gc-head">
         <div className="gc-left">
           <h3>{t.heading}</h3>
           <div className="gc-stat-row">
-            <span className="gc-stat-val">{totalVal}</span>
+            <span className="gc-stat-val" style={{ color: isDark ? '#FFFFFF' : '#0A0A0A', transition: 'color 0.3s ease' }}>{totalVal}</span>
             <span className="gc-stat-change">{changeVal}</span>
           </div>
-          <p>{t.subtitle}</p>
+          <p style={{ color: isDark ? '#6B8377' : '#555555', transition: 'color 0.3s ease' }}>{t.subtitle}</p>
         </div>
-        <div className="gc-toggle">
+        <div className="gc-toggle" style={{ background: isDark ? '#131913' : '#f0f0f0', border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', transition: 'background 0.3s ease, border-color 0.3s ease' }}>
           {(['6M', '12M', 'YTD'] as const).map((range) => (
             <button
               key={range}
               onClick={() => setActiveRange(range)}
               className={activeRange === range ? 'active' : ''}
+              style={activeRange === range ? {} : { color: isDark ? '#6B8377' : '#4A5C52', transition: 'color 0.3s ease' }}
             >
               {range}
             </button>
@@ -430,19 +431,19 @@ const GrowthChartTile = ({ lang }: { lang: 'EN' | 'DE' }) => {
         />
       </div>
 
-      <div className="gc-legend">
-        <div className="gc-legend-item">
+      <div className="gc-legend" style={{ borderTop: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', transition: 'border-color 0.3s ease' }}>
+        <div className="gc-legend-item" style={{ color: isDark ? '#8FA398' : '#4A5C52', transition: 'color 0.3s ease' }}>
           <span className="gc-dot" style={{ backgroundColor: '#00ccff' }}></span>
           {t.withKlarstone}
         </div>
-        <div className="gc-legend-item">
+        <div className="gc-legend-item" style={{ color: isDark ? '#8FA398' : '#4A5C52', transition: 'color 0.3s ease' }}>
           <span className="gc-dot" style={{ backgroundColor: '#ffaa00' }}></span>
           {t.baseline}
         </div>
       </div>
 
-      <div className="gc-footer">
-        <span className="gc-footer-left">{t.sampleData}</span>
+      <div className="gc-footer" style={{ borderTop: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)', transition: 'border-color 0.3s ease' }}>
+        <span className="gc-footer-left" style={{ color: isDark ? '#6B8377' : '#4A5C52', transition: 'color 0.3s ease' }}>{t.sampleData}</span>
         <span className="gc-footer-right">{t.incremental}</span>
       </div>
     </div>
@@ -462,6 +463,7 @@ interface MagicBentoProps {
   clickEffect?: boolean;
   enableMagnetism?: boolean;
   lang: 'EN' | 'DE';
+  isDark?: boolean;
 }
 
 export default function MagicBento({
@@ -476,7 +478,8 @@ export default function MagicBento({
   glowColor = DEFAULT_GLOW_COLOR,
   clickEffect = true,
   enableMagnetism = true,
-  lang
+  lang,
+  isDark = true
 }: MagicBentoProps) {
   const gridRef = useRef<HTMLDivElement>(null);
   const { isMobile, isTablet } = useMobileDetection();
@@ -497,11 +500,11 @@ export default function MagicBento({
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: scaled(64, scale), userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: 'rgba(0,204,255,0.6)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale) }}>{t.label}</div>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,150,200,0.8)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale), transition: 'color 0.3s ease' }}>{t.label}</div>
         <div style={{ 
           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : scaled(52, scale), 
-          color: '#fff', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'none' 
+          color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.02em', lineHeight: 1.05, textTransform: 'none', transition: 'color 0.3s ease' 
         }}>{t.title}</div>
       </div>
       {enableSpotlight && <GlobalSpotlight gridRef={gridRef} disableAnimations={shouldDisableAnimations} enabled={enableSpotlight} spotlightRadius={spotlightRadius} glowColor={glowColor} />}
@@ -510,11 +513,12 @@ export default function MagicBento({
           const baseClassName = `magic-bento-card${card.type === 'image' || card.type === 'security' || card.type === 'chart' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' && card.type !== 'security' && card.type !== 'chart' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
           const cardStyle = { 
-            backgroundColor: card.color, 
+            backgroundColor: isDark ? '#0A0A0A' : '#E8E5DE', 
             '--glow-color': itemGlowColor, 
             borderColor: `rgba(${itemGlowColor}, 0.18)`,
             borderRadius: scaled(24, scale),
-            padding: (card.type === 'security' || card.type === 'chart') ? 0 : scaled(27, scale)
+            padding: (card.type === 'security' || card.type === 'chart') ? 0 : scaled(27, scale),
+            transition: 'background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease'
           } as React.CSSProperties;
 
           const cardContent = () => {
@@ -527,12 +531,14 @@ export default function MagicBento({
                         <div style={{ 
                           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
                           fontSize: isMobile ? 'clamp(19px, 4vw, 23px)' : isTablet ? 'clamp(21px, 2.5vw, 25px)' : scaled(24, scale), 
-                          textTransform: 'none', letterSpacing: '0.02em', color: '#fff', marginBottom: scaled(12, scale), position:'relative', zIndex:1 
+                          textTransform: 'none', letterSpacing: '0.02em', color: isDark ? '#fff' : '#0A0A0A', marginBottom: scaled(12, scale), position:'relative', zIndex:1,
+                          transition: 'color 0.3s ease' 
                         }}>{item.title}</div>
                         <div style={{ 
                           fontFamily: "'Inter', sans-serif", fontWeight: 300, 
                           fontSize: isMobile ? '13px' : isTablet ? '14px' : scaled(15, scale), 
-                          color: 'rgba(255,255,255,0.65)', lineHeight: 1.4, position:'relative', zIndex:1 
+                          color: isDark ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,0.65)', lineHeight: 1.4, position:'relative', zIndex:1,
+                          transition: 'color 0.3s ease' 
                         }}>{item.desc}</div>
                       </div>
                     ))}
@@ -541,7 +547,7 @@ export default function MagicBento({
               );
             }
              if (card.type === 'chart') {
-              return <GrowthChartTile lang={lang} />;
+              return <GrowthChartTile lang={lang} isDark={isDark} />;
             }
             if (card.type === 'image') {
               return (
@@ -552,9 +558,22 @@ export default function MagicBento({
             }
             if (card.type === 'security') {
               return (
-                <div className="di-tile">
+                <div 
+                  className="di-tile" 
+                  style={{ 
+                    background: isDark 
+                      ? undefined 
+                      : 'linear-gradient(180deg, #E8E5DE 0%, #EDEAD4 50%, #F2F0EB 100%)',
+                    color: isDark ? undefined : '#0A0A0A'
+                  }}
+                >
                   <div className="di-composition">
-                    <span className="di-kicker">{secT.kicker}</span>
+                    <span 
+                      className="di-kicker"
+                      style={{ color: isDark ? undefined : 'rgba(0,150,200,0.8)' }}
+                    >
+                      {secT.kicker}
+                    </span>
 
                     <svg className="di-emblem" viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
                       <defs>
@@ -673,7 +692,12 @@ export default function MagicBento({
                       </g>
                     </svg>
 
-                    <h1 className="di-headline">{secT.headline} <em>{secT.headlineItalic}</em></h1>
+                    <h1 
+                      className="di-headline"
+                      style={{ color: isDark ? undefined : '#0A0A0A' }}
+                    >
+                      {secT.headline} <em>{secT.headlineItalic}</em>
+                    </h1>
                   </div>
                 </div>
               );
