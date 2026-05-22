@@ -148,19 +148,17 @@ export default function AntigravityHero() {
       }}>
         <div 
           onClick={() => document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' })}
-          style={{ 
-            fontFamily: "'EB Garamond', serif", 
-            letterSpacing: isMobile ? '.12em' : '.18em', 
-            fontSize: isMobile ? 8 : 10, 
-            fontWeight: 400, 
-            color: fg, 
-            display: 'flex', 
-            alignItems: 'baseline',
-            cursor: 'pointer',
-            transition: 'background 0.3s ease, color 0.3s ease'
-          }}
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
         >
-          KLARSTONE
+          <img 
+            src="/Klarstone_logo_.svg" 
+            alt="Klarstone" 
+            style={{ 
+              height: isMobile ? '24px' : scaled(44, scale),
+              width: 'auto',
+              filter: isDark ? 'brightness(0) invert(1)' : 'brightness(0)'
+            }} 
+          />
         </div>
         <div style={{ 
           display: 'flex', 
