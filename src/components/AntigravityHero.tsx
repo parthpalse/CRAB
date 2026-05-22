@@ -270,9 +270,9 @@ export default function AntigravityHero() {
               (e.currentTarget as HTMLAnchorElement).style.color = fg;
             }}
             onMouseDown={e => {
-              (e.currentTarget as HTMLAnchorElement).style.background = isDark ? '#00ccff' : 'rgba(0,120,180,0.9)';
+              (e.currentTarget as HTMLAnchorElement).style.background = isDark ? '#00ccff' : 'rgba(0,204,255,0.8)';
               (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
-              (e.currentTarget as HTMLAnchorElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,120,180,0.9)';
+              (e.currentTarget as HTMLAnchorElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,204,255,0.8)';
               (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.96)';
             }}
             onMouseUp={e => {
@@ -392,7 +392,7 @@ function WhatWeDo({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
           fontFamily: "'EB Garamond', serif",
           fontWeight: 400,
           fontSize: '16px',
-          color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,120,180,0.9)',
+          color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,204,255,0.8)',
           letterSpacing: '0.3em',
           textTransform: 'uppercase' as const,
           marginBottom: 20,
@@ -509,7 +509,7 @@ function KeyBenefits({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
           fontFamily: "'EB Garamond', serif",
           fontWeight: 400,
           fontSize: scaled(16, scale),
-          color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,120,180,0.9)',
+          color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,204,255,0.8)',
           letterSpacing: '0.3em',
           textTransform: 'uppercase' as const,
           marginBottom: scaled(20, scale),
@@ -539,7 +539,7 @@ function KeyBenefits({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
         }}>
           {benefits.map((benefit, i) => (
             <div key={i} style={{ 
-              borderLeft: isDark ? (isMobile ? '2px solid rgba(0,204,255,0.6)' : '2px solid rgba(0,204,255,0.3)') : (isMobile ? '2px solid rgba(0,120,180,0.9)' : '2px solid rgba(0,120,180,0.45)'), 
+              borderLeft: isDark ? (isMobile ? '2px solid rgba(0,204,255,0.6)' : '2px solid rgba(0,204,255,0.3)') : (isMobile ? '2px solid rgba(0,204,255,0.8)' : '2px solid rgba(0,204,255,0.4)'), 
               paddingLeft: 20,
               display: 'flex',
               alignItems: 'flex-start',
@@ -666,9 +666,9 @@ function Footer({ lang, isDark }: { lang: 'EN' | 'DE'; isDark: boolean }) {
             (e.currentTarget as HTMLAnchorElement).style.color = fg;
           }}
           onMouseDown={e => {
-            (e.currentTarget as HTMLAnchorElement).style.background = isDark ? '#00ccff' : 'rgba(0,120,180,0.9)';
+            (e.currentTarget as HTMLAnchorElement).style.background = isDark ? '#00ccff' : 'rgba(0,204,255,0.8)';
             (e.currentTarget as HTMLAnchorElement).style.color = '#ffffff';
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,120,180,0.9)';
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,204,255,0.8)';
             (e.currentTarget as HTMLAnchorElement).style.transform = 'scale(0.96)';
           }}
           onMouseUp={e => {

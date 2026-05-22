@@ -233,12 +233,12 @@
 [data-theme='light'] .di-ring-b circle,
 [data-theme='light'] .di-ring-c circle,
 [data-theme='light'] .di-ring-c line {
-  stroke: #0056b3 !important;
+  stroke: #00ccff !important;
 }
 
 [data-theme='light'] .di-ring-b g,
 [data-theme='light'] .di-emblem text {
-  fill: #0056b3 !important;
+  fill: #00ccff !important;
 }
 
 .di-kicker {

@@ -500,7 +500,7 @@ export default function MagicBento({
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: scaled(64, scale), userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,120,180,0.9)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale), transition: 'color 0.3s ease' }}>{t.label}</div>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,204,255,0.8)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale), transition: 'color 0.3s ease' }}>{t.label}</div>
         <div style={{ 
           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : scaled(52, scale), 
@@ -570,7 +570,7 @@ export default function MagicBento({
                   <div className="di-composition">
                     <span 
                       className="di-kicker"
-                      style={{ color: isDark ? undefined : 'rgba(0,120,180,0.9)' }}
+                      style={{ color: isDark ? undefined : 'rgba(0,204,255,0.8)' }}
                     >
                       {secT.kicker}
                     </span>

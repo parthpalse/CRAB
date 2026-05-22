@@ -209,9 +209,9 @@ export default function ContactUs({ lang, isDark = true }: { lang: 'EN' | 'DE'; 
                 (e.currentTarget as HTMLButtonElement).style.color = isDark ? '#fff' : '#0A0A0A';
               }}
               onMouseDown={e => {
-                (e.currentTarget as HTMLButtonElement).style.background = isDark ? '#00ccff' : 'rgba(0,120,180,0.9)';
+                (e.currentTarget as HTMLButtonElement).style.background = isDark ? '#00ccff' : 'rgba(0,204,255,0.8)';
                 (e.currentTarget as HTMLButtonElement).style.color = '#ffffff';
-                (e.currentTarget as HTMLButtonElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,120,180,0.9)';
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = isDark ? '0 0 30px rgba(0,204,255,0.6)' : '0 0 30px rgba(0,204,255,0.8)';
                 (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.96)';
               }}
               onMouseUp={e => {
