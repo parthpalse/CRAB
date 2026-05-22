@@ -399,7 +399,7 @@ const GrowthChartTile = ({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: 
   }, [activeRange, isDark]);
 
   return (
-    <div className="gc-wrap" style={{ background: isDark ? '#0A0E0B' : '#E8E5DE', color: isDark ? '#E8F4EC' : '#0A0A0A', transition: 'background 0.3s ease, color 0.3s ease' }}>
+    <div className="gc-wrap" style={{ background: isDark ? '#0A0E0B' : '#ffffff', color: isDark ? '#E8F4EC' : '#0A0A0A', transition: 'background 0.3s ease, color 0.3s ease' }}>
       <div className="gc-head">
         <div className="gc-left">
           <h3>{t.heading}</h3>
@@ -500,7 +500,7 @@ export default function MagicBento({
   return (
     <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
       <div style={{ width: '100%', padding: '0', marginBottom: scaled(64, scale), userSelect: 'none', zIndex: 10 }}>
-        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,150,200,0.8)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale), transition: 'color 0.3s ease' }}>{t.label}</div>
+        <div style={{ fontFamily: "'EB Garamond', serif", fontSize: scaled(16, scale), color: isDark ? 'rgba(0,204,255,0.6)' : 'rgba(0,120,180,0.9)', letterSpacing: '.3em', textTransform: 'uppercase', marginBottom: scaled(20, scale), transition: 'color 0.3s ease' }}>{t.label}</div>
         <div style={{ 
           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
           fontSize: isMobile ? 'clamp(24px, 7vw, 36px)' : isTablet ? 'clamp(28px, 4vw, 44px)' : scaled(52, scale), 
@@ -513,7 +513,7 @@ export default function MagicBento({
           const baseClassName = `magic-bento-card${card.type === 'image' || card.type === 'security' || card.type === 'chart' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' && card.type !== 'security' && card.type !== 'chart' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
           const cardStyle = { 
-            backgroundColor: isDark ? '#0A0A0A' : '#E8E5DE', 
+            backgroundColor: isDark ? '#0A0A0A' : '#ffffff', 
             '--glow-color': itemGlowColor, 
             borderColor: `rgba(${itemGlowColor}, 0.18)`,
             borderRadius: scaled(24, scale),
@@ -563,14 +563,14 @@ export default function MagicBento({
                   style={{ 
                     background: isDark 
                       ? undefined 
-                      : 'linear-gradient(180deg, #E8E5DE 0%, #EDEAD4 50%, #F2F0EB 100%)',
+                      : 'linear-gradient(180deg, #e8f0f5 0%, #f0f4f8 50%, #f5f8fa 100%)',
                     color: isDark ? undefined : '#0A0A0A'
                   }}
                 >
                   <div className="di-composition">
                     <span 
                       className="di-kicker"
-                      style={{ color: isDark ? undefined : 'rgba(0,150,200,0.8)' }}
+                      style={{ color: isDark ? undefined : 'rgba(0,120,180,0.9)' }}
                     >
                       {secT.kicker}
                     </span>
