@@ -203,7 +203,7 @@ export default function AntigravityHero() {
                 width: 36,
                 height: 20,
                 borderRadius: 10,
-                background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)',
+                background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)', // brand cyan #00ccff in dark mode
                 position: 'relative',
                 cursor: 'pointer',
                 transition: 'background 0.3s ease',
