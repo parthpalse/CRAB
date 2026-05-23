@@ -136,7 +136,7 @@ export default function AntigravityHero() {
         zIndex: 40, 
         height: isMobile ? 32 : scaled(64, scale), 
         display: 'grid', 
-        gridTemplateColumns: isMobile ? 'auto auto auto' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
+        gridTemplateColumns: isMobile ? 'auto 1fr auto' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
         columnGap: isMobile ? '8px' : '0px',
         alignItems: 'center', 
         padding: isMobile ? '0 6px' : isTablet ? '0 32px' : '0 2vw', 
@@ -194,33 +194,31 @@ export default function AntigravityHero() {
             <span style={{ opacity: 0.2 }}>|</span>
             <span onClick={() => setLang('DE')} style={{ cursor: 'pointer', color: lang === 'DE' ? fg : 'inherit', fontWeight: lang === 'DE' ? 500 : 300, transition: 'color .2s' }}>DE</span>
           </div>
-          {!isMobile && (
-            <div
-              onClick={() => setIsDark(!isDark)}
-              style={{
-                width: 36,
-                height: 20,
-                borderRadius: 10,
-                background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)', // brand cyan #00ccff in dark mode
-                position: 'relative',
-                cursor: 'pointer',
-                transition: 'background 0.3s ease',
-                flexShrink: 0,
-              }}
-            >
-              <div style={{
-                position: 'absolute',
-                top: 2,
-                left: isDark ? 18 : 2,
-                width: 16,
-                height: 16,
-                borderRadius: '50%',
-                background: '#ffffff',
-                transition: 'left 0.3s ease',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
-              }} />
-            </div>
-          )}
+          <div
+            onClick={() => setIsDark(!isDark)}
+            style={{
+              width: isMobile ? 28 : 36,
+              height: isMobile ? 16 : 20,
+              borderRadius: isMobile ? 8 : 10,
+              background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)', // brand cyan #00ccff in dark mode
+              position: 'relative',
+              cursor: 'pointer',
+              transition: 'background 0.3s ease',
+              flexShrink: 0,
+            }}
+          >
+            <div style={{
+              position: 'absolute',
+              top: 2,
+              left: isDark ? (isMobile ? 14 : 18) : 2,
+              width: isMobile ? 12 : 16,
+              height: isMobile ? 12 : 16,
+              borderRadius: '50%',
+              background: '#ffffff',
+              transition: 'left 0.3s ease',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
+            }} />
+          </div>
         </div>
       </nav>
 
