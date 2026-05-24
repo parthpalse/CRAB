@@ -76,8 +76,8 @@ void main(){
     } else {
         // Light mode colors: very soft cyan and soft gold/orange on a light-gray base (#F5F5F5 is vec3(0.96, 0.96, 0.95))
         vec3 base = vec3(0.96, 0.96, 0.95);
-        vec3 softCyan = vec3(0.85, 0.94, 0.97); // very subtle baby cyan
-        vec3 softGold = vec3(0.98, 0.93, 0.86); // very subtle warm cream/gold
+        vec3 softCyan = vec3(0.62, 0.88, 0.95); // visible soft cyan
+        vec3 softGold = vec3(0.98, 0.82, 0.60); // visible soft gold/orange
         finalCol = mix(base, softCyan, smoothstep(0.0, 0.6, val));
         finalCol = mix(finalCol, softGold, smoothstep(0.7, 1.0, val));
     }
