@@ -162,9 +162,10 @@ export default function AntigravityHero() {
         </div>
         <div style={{ 
           display: 'flex', 
-          justifyContent: 'center',
+          justifyContent: isMobile ? 'space-between' : 'center',
           gap: isMobile ? '10px' : isTablet ? '24px' : '48px', 
           alignItems: 'center', 
+          padding: isMobile ? '0 8px' : '0',
           fontSize: isMobile ? 8 : isTablet ? 12 : 13, 
           color: muted, 
           fontFamily: 'Inter, sans-serif', 
