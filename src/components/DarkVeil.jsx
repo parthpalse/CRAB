@@ -18,6 +18,7 @@ uniform float uNoise;
 uniform float uScan;
 uniform float uScanFreq;
 uniform float uWarp;
+uniform float uIsDark;
 #define iTime uTime
 #define iResolution uResolution
 
@@ -67,20 +68,35 @@ void main(){
     vec3 cyan = vec3(0.0, 0.8, 1.0);
     vec3 gold = vec3(1.0, 0.66, 0.0);
     
-    // Create a custom gradient: Black -> Cyan -> Gold
-    vec3 finalCol = mix(vec3(0.0), cyan, smoothstep(0.0, 0.6, val));
-    finalCol = mix(finalCol, gold, smoothstep(0.7, 1.0, val));
+    // Create a custom gradient: Black/Light-Gray -> Cyan -> Gold
+    vec3 finalCol;
+    if (uIsDark > 0.5) {
+        finalCol = mix(vec3(0.0), cyan, smoothstep(0.0, 0.6, val));
+        finalCol = mix(finalCol, gold, smoothstep(0.7, 1.0, val));
+    } else {
+        // Light mode colors: very soft cyan and soft gold/orange on a light-gray base (#F5F5F5 is vec3(0.96, 0.96, 0.95))
+        vec3 base = vec3(0.96, 0.96, 0.95);
+        vec3 softCyan = vec3(0.85, 0.94, 0.97); // very subtle baby cyan
+        vec3 softGold = vec3(0.98, 0.93, 0.86); // very subtle warm cream/gold
+        finalCol = mix(base, softCyan, smoothstep(0.0, 0.6, val));
+        finalCol = mix(finalCol, softGold, smoothstep(0.7, 1.0, val));
+    }
     
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     finalCol*=1.-(scanline_val*scanline_val)*uScan;
     finalCol+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
     
     // Keep it dim to act as a background
-    gl_FragColor=vec4(clamp(finalCol * 0.4, 0.0, 1.0), 1.0);
+    if (uIsDark > 0.5) {
+        gl_FragColor=vec4(clamp(finalCol * 0.4, 0.0, 1.0), 1.0);
+    } else {
+        gl_FragColor=vec4(clamp(finalCol, 0.0, 1.0), 1.0);
+    }
 }
 `;
 
 export default function DarkVeil({
+  isDark = true,
   hueShift = 0,
   noiseIntensity = 0,
   scanlineIntensity = 0,
@@ -105,7 +121,8 @@ export default function DarkVeil({
         uNoise: { value: noiseIntensity },
         uScan: { value: scanlineIntensity },
         uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount }
+        uWarp: { value: warpAmount },
+        uIsDark: { value: isDark ? 1.0 : 0.0 }
       }
     });
     const mesh = new Mesh(gl, { geometry, program });
@@ -125,6 +142,7 @@ export default function DarkVeil({
       program.uniforms.uScan.value = scanlineIntensity;
       program.uniforms.uScanFreq.value = scanlineFrequency;
       program.uniforms.uWarp.value = warpAmount;
+      program.uniforms.uIsDark.value = isDark ? 1.0 : 0.0;
       renderer.render({ scene: mesh });
       frame = requestAnimationFrame(loop);
     };
@@ -133,6 +151,6 @@ export default function DarkVeil({
       cancelAnimationFrame(frame);
       window.removeEventListener('resize', resize);
     };
-  }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+  }, [isDark, hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
   return <canvas ref={ref} className="darkveil-canvas" />;
 }

@@ -288,9 +288,10 @@ export default function AntigravityHero() {
       <KeyBenefits lang={lang} isDark={isDark} />
 
       <div id="services" style={{ position: 'relative', zIndex: 8, width: '100%', padding: '80px 0 120px', background: isDark ? '#0A0A0A' : '#F5F5F5', overflow: 'hidden', transition: 'background 0.3s ease, color 0.3s ease' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: isDark ? 1 : 0, transition: 'opacity 0.3s ease' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 1, transition: 'opacity 0.3s ease' }}>
           <DarkVeil
-            scanlineIntensity={0.47}
+            isDark={isDark}
+            scanlineIntensity={isDark ? 0.47 : 0.15}
             speed={1.5}
             scanlineFrequency={4.5}
             warpAmount={1.7}
