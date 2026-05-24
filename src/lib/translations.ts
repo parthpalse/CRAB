@@ -57,7 +57,7 @@ export const DICT = {
       security: {
         headline: 'Your data, sealed',
         headlineItalic: 'in light.',
-        kicker: 'Aegis · Data Integrity'
+        kicker: 'Data Integrity'
       }
     },
     contact: {
@@ -132,7 +132,7 @@ export const DICT = {
       security: {
         headline: 'Ihre Daten, versiegelt',
         headlineItalic: 'im Licht.',
-        kicker: 'Aegis · Datenintegrität'
+        kicker: 'Datenintegrität'
       }
     },
     contact: {
