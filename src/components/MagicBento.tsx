@@ -329,7 +329,7 @@ const GrowthChartTile = ({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: 
             pointRadius: 0,
             pointHoverRadius: 6,
             pointHoverBackgroundColor: '#00ccff',
-            pointHoverBorderColor: isDark ? '#0A0E0B' : '#ffffff',
+            pointHoverBorderColor: isDark ? '#0A0E0B' : '#FAF9F6',
             pointHoverBorderWidth: 3,
           },
           {
@@ -353,7 +353,7 @@ const GrowthChartTile = ({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: 
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: isDark ? '#131913' : '#ffffff',
+            backgroundColor: isDark ? '#131913' : '#FAF9F6',
             borderColor: isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.08)',
             borderWidth: 1,
             titleColor: isDark ? '#FFFFFF' : '#0A0A0A',
@@ -399,7 +399,7 @@ const GrowthChartTile = ({ lang, isDark = true }: { lang: 'EN' | 'DE'; isDark?: 
   }, [activeRange, isDark]);
 
   return (
-    <div className="gc-wrap" style={{ background: isDark ? '#0A0E0B' : '#ffffff', color: isDark ? '#E8F4EC' : '#0A0A0A', transition: 'background 0.3s ease, color 0.3s ease' }}>
+    <div className="gc-wrap" style={{ background: isDark ? '#0A0E0B' : '#FAF9F6', color: isDark ? '#E8F4EC' : '#0A0A0A', transition: 'background 0.3s ease, color 0.3s ease' }}>
       <div className="gc-head">
         <div className="gc-left">
           <h3>{t.heading}</h3>
@@ -513,7 +513,7 @@ export default function MagicBento({
           const baseClassName = `magic-bento-card${card.type === 'image' || card.type === 'security' || card.type === 'chart' ? ' magic-bento-card--image' : ''}${enableBorderGlow && card.type !== 'image' && card.type !== 'security' && card.type !== 'chart' ? ' magic-bento-card--border-glow' : ''}`;
           const itemGlowColor = card.glowColor || glowColor;
           const cardStyle = { 
-            backgroundColor: isDark ? '#0A0A0A' : '#ffffff', 
+            backgroundColor: isDark ? '#0A0A0A' : '#FAF9F6', 
             '--glow-color': itemGlowColor, 
             borderColor: `rgba(${itemGlowColor}, 0.18)`,
             borderRadius: scaled(24, scale),
@@ -563,7 +563,7 @@ export default function MagicBento({
                   style={{ 
                     background: isDark 
                       ? undefined 
-                      : 'linear-gradient(180deg, #e8f0f5 0%, #f0f4f8 50%, #f5f8fa 100%)',
+                      : 'linear-gradient(180deg, #e8f0f5 0%, #f0f4f8 50%, #FAF9F6 100%)',
                     color: isDark ? undefined : '#0A0A0A'
                   }}
                 >

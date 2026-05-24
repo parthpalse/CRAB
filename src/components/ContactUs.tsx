@@ -56,7 +56,7 @@ export default function ContactUs({ lang, isDark = true }: { lang: 'EN' | 'DE'; 
       id="contact"
       style={{
         padding: isMobile ? '80px 24px' : isTablet ? '100px 48px' : `120px ${scaled(109, scale)}`,
-        background: isDark ? '#0A0A0A' : '#FAF9F6',
+        background: isDark ? '#0A0A0A' : '#F5F5F5',
         position: 'relative',
         zIndex: 10,
         transition: 'background 0.3s ease, color 0.3s ease',
@@ -181,7 +181,7 @@ export default function ContactUs({ lang, isDark = true }: { lang: 'EN' | 'DE'; 
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: 10,
-                background: isDark ? 'transparent' : 'rgba(250,249,246,0.5)',
+                background: isDark ? 'transparent' : 'rgba(245,245,245,0.5)',
                 color: isDark ? '#fff' : '#0A0A0A',
                 padding: '14px 28px',
                 borderRadius: 8,
@@ -205,7 +205,7 @@ export default function ContactUs({ lang, isDark = true }: { lang: 'EN' | 'DE'; 
               onMouseLeave={e => {
                 (e.currentTarget as HTMLButtonElement).style.boxShadow = 'none';
                 (e.currentTarget as HTMLButtonElement).style.borderColor = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)';
-                (e.currentTarget as HTMLButtonElement).style.background = isDark ? 'transparent' : 'rgba(250,249,246,0.5)';
+                (e.currentTarget as HTMLButtonElement).style.background = isDark ? 'transparent' : 'rgba(245,245,245,0.5)';
                 (e.currentTarget as HTMLButtonElement).style.color = isDark ? '#fff' : '#0A0A0A';
               }}
               onMouseDown={e => {

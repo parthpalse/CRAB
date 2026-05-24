@@ -172,13 +172,13 @@ body {
 }
 
 [data-theme='light'] {
-  --bg: #FAF9F6;
+  --bg: #F5F5F5;
   --fg: #0A0A0A;
   --muted: rgba(0,0,0,0.55);
-  --card-bg: #FFFFFF;
+  --card-bg: #FAF9F6;
   --border: rgba(0,0,0,0.08);
-  --nav-bg: rgba(250,249,246,0.85);
-  --section-bg: #FAF9F6;
+  --nav-bg: rgba(245,245,245,0.85);
+  --section-bg: #F5F5F5;
 }
 
 [class*="world"],
