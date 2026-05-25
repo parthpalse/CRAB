@@ -583,12 +583,12 @@ export default function MagicBento({
                           <stop offset="70%" stopColor="#00CCFF" stopOpacity="0"/>
                         </radialGradient>
                         <linearGradient id="di-glass" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#BFF3FF" stopOpacity="0.20"/>
+                          <stop offset="0%" stopColor="#00CCFF" stopOpacity="0.20"/>
                           <stop offset="50%" stopColor="#00CCFF" stopOpacity="0.08"/>
                           <stop offset="100%" stopColor="#0091B8" stopOpacity="0.18"/>
                         </linearGradient>
                         <linearGradient id="di-edge" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#BFF3FF"/>
+                          <stop offset="0%" stopColor="#00CCFF"/>
                           <stop offset="100%" stopColor="#0091B8"/>
                         </linearGradient>
                         <linearGradient id="di-shield" x1="0" y1="0" x2="0" y2="1">
@@ -637,7 +637,7 @@ export default function MagicBento({
                         </g>
                       </g>
 
-                      <g fontFamily="Geist Mono, monospace" fontSize="9" fill="#7FE5FF" letterSpacing="2">
+                      <g fontFamily="Geist Mono, monospace" fontSize="9" fill="#00CCFF" letterSpacing="2">
                         <text x="360" y="86" textAnchor="middle">N · 00°</text>
                         <text x="640" y="364" textAnchor="middle">E · 90°</text>
                         <text x="360" y="650" textAnchor="middle">S · 180°</text>
@@ -665,13 +665,13 @@ export default function MagicBento({
                           <polygon points="360,348 410,348 360,418" fill="#00CCFF" fillOpacity="0.04"/>
                         </g>
 
-                        <circle cx="360" cy="348" r="3.2" fill="#BFF3FF" filter="url(#di-glow)"/>
+                        <circle cx="360" cy="348" r="3.2" fill="#00CCFF" filter="url(#di-glow)"/>
                         <circle cx="360" cy="348" r="8" fill="none" stroke="#00CCFF" strokeOpacity="0.5"/>
 
-                        <text fontFamily="Geist Mono, monospace" fontSize="9" fill="#7FE5FF" letterSpacing="6">
+                        <text fontFamily="Geist Mono, monospace" fontSize="9" fill="#00CCFF" letterSpacing="6">
                           <textPath href="#di-arcTop" startOffset="50%" textAnchor="middle">INTEGRITAS · CUSTODITA · IN · LUCE</textPath>
                         </text>
-                        <text fontFamily="Geist Mono, monospace" fontSize="8" fill="#7FE5FF" fillOpacity="0.7" letterSpacing="6">
+                        <text fontFamily="Geist Mono, monospace" fontSize="8" fill="#00CCFF" fillOpacity="0.7" letterSpacing="6">
                           <textPath href="#di-arcBot" startOffset="50%" textAnchor="middle">SHA · 256 · VERIFIED · MMXXVI</textPath>
                         </text>
 
@@ -688,7 +688,7 @@ export default function MagicBento({
                       </g>
 
                       <g className="di-pulse">
-                        <circle cx="360" cy="60" r="2.5" fill="#BFF3FF" filter="url(#di-glowL)"/>
+                        <circle cx="360" cy="60" r="2.5" fill="#00CCFF" filter="url(#di-glowL)"/>
                       </g>
                     </svg>
 

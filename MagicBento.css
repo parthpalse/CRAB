@@ -185,7 +185,7 @@
 /* Aegis Data Integrity Tile Styles */
 .di-tile {
   --di-cyan: #00CCFF;
-  --di-cyan-soft: #7FE5FF;
+  --di-cyan-soft: #00CCFF;
   --di-bone: #E8ECEF;
   container-type: size;
   position: absolute;
@@ -274,7 +274,7 @@
   font-style: italic;
   font-weight: 300;
   color: transparent;
-  background: linear-gradient(180deg, #BFF3FF 0%, #00CCFF 60%, #0091B8 100%);
+  background: linear-gradient(180deg, #00CCFF 0%, #00CCFF 60%, #0091B8 100%);
   -webkit-background-clip: text;
   background-clip: text;
 }
