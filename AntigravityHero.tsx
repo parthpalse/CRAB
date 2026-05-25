@@ -134,12 +134,12 @@ export default function AntigravityHero() {
         left: 0, 
         right: 0, 
         zIndex: 40, 
-        height: isMobile ? 32 : scaled(64, scale), 
+        height: scaled(64, scale), 
         display: 'grid', 
         gridTemplateColumns: isMobile ? 'auto 1fr auto' : isTablet ? 'auto 1fr auto' : '1fr auto 1fr', 
-        columnGap: isMobile ? '8px' : '0px',
+        columnGap: isMobile ? scaled(8, scale) : '0px',
         alignItems: 'center', 
-        padding: isMobile ? '0 6px' : isTablet ? '0 32px' : '0 2vw', 
+        padding: isMobile ? `0 ${scaled(8, scale)}` : isTablet ? '0 32px' : '0 2vw', 
         transform: 'translateY(0)', 
         transition: 'transform 0.4s ease, backdrop-filter .3s ease, background 0.3s ease, border-color 0.3s ease', 
         borderBottom: `1px solid ${scrolled ? border : 'transparent'}`, 
@@ -154,7 +154,7 @@ export default function AntigravityHero() {
             src="/Klarstone_logo_.svg" 
             alt="Klarstone" 
             style={{ 
-              height: isMobile ? '24px' : scaled(44, scale),
+              height: scaled(44, scale),
               width: 'auto',
               filter: isDark ? 'brightness(0) invert(1)' : 'brightness(0)'
             }} 
@@ -163,10 +163,10 @@ export default function AntigravityHero() {
         <div style={{ 
           display: 'flex', 
           justifyContent: isMobile ? 'space-between' : 'center',
-          gap: isMobile ? '10px' : isTablet ? '24px' : '48px', 
+          gap: isMobile ? scaled(16, scale) : isTablet ? '24px' : '48px', 
           alignItems: 'center', 
-          padding: isMobile ? '0 8px' : '0',
-          fontSize: isMobile ? 8 : isTablet ? 12 : 13, 
+          padding: isMobile ? `0 ${scaled(4, scale)}` : '0',
+          fontSize: isMobile ? scaled(13, scale) : isTablet ? '12px' : '13px', 
           color: muted, 
           fontFamily: 'Inter, sans-serif', 
           fontWeight: 300, 
@@ -180,17 +180,17 @@ export default function AntigravityHero() {
         </div>
         <div style={{ 
           display: 'flex', 
-          gap: isMobile ? 8 : isTablet ? 32 : 32, 
+          gap: isMobile ? scaled(12, scale) : '32px', 
           alignItems: 'center', 
           justifyContent: 'flex-end', 
-          fontSize: isMobile ? 8 : 13, 
+          fontSize: isMobile ? scaled(13, scale) : '13px', 
           color: muted, 
           fontFamily: 'Inter, sans-serif', 
           fontWeight: 300,
           transition: 'background 0.3s ease, color 0.3s ease'
         }}>
           <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[4]}</a>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: isMobile ? 8 : 11, letterSpacing: '0.05em' }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', fontSize: isMobile ? scaled(11, scale) : '11px', letterSpacing: '0.05em' }}>
             <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? fg : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s' }}>EN</span>
             <span style={{ opacity: 0.2 }}>|</span>
             <span onClick={() => setLang('DE')} style={{ cursor: 'pointer', color: lang === 'DE' ? fg : 'inherit', fontWeight: lang === 'DE' ? 500 : 300, transition: 'color .2s' }}>DE</span>
@@ -198,9 +198,9 @@ export default function AntigravityHero() {
           <div
             onClick={() => setIsDark(!isDark)}
             style={{
-              width: isMobile ? 28 : 36,
-              height: isMobile ? 16 : 20,
-              borderRadius: isMobile ? 8 : 10,
+              width: isMobile ? scaled(36, scale) : '36px',
+              height: isMobile ? scaled(20, scale) : '20px',
+              borderRadius: isMobile ? scaled(10, scale) : '10px',
               background: isDark ? '#00ccff' : 'rgba(255,255,255,0.2)', // brand cyan #00ccff in dark mode
               position: 'relative',
               cursor: 'pointer',
@@ -210,10 +210,10 @@ export default function AntigravityHero() {
           >
             <div style={{
               position: 'absolute',
-              top: 2,
-              left: isDark ? (isMobile ? 14 : 18) : 2,
-              width: isMobile ? 12 : 16,
-              height: isMobile ? 12 : 16,
+              top: isMobile ? scaled(2, scale) : '2px',
+              left: isDark ? (isMobile ? scaled(18, scale) : '18px') : (isMobile ? scaled(2, scale) : '2px'),
+              width: isMobile ? scaled(16, scale) : '16px',
+              height: isMobile ? scaled(16, scale) : '16px',
               borderRadius: '50%',
               background: '#ffffff',
               transition: 'left 0.3s ease',

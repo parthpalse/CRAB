@@ -195,7 +195,7 @@
   background:
     radial-gradient(120% 80% at 50% 55%, rgba(0,58,107,0.12) 0%, rgba(0,58,107,0.06) 35%, transparent 60%),
     radial-gradient(90% 60% at 50% 100%, rgba(0,58,107,0.10) 0%, transparent 55%),
-    #0A0E0B;
+    linear-gradient(180deg, #06090F 0%, #04070D 50%, #02040A 100%);
   color: var(--di-bone);
   font-family: 'EB Garamond', serif;
   overflow: hidden;

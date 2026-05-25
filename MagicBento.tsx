@@ -527,7 +527,7 @@ export default function MagicBento({
                 <div style={{ display:'flex', flexDirection:'column', height:'100%', justifyContent:'space-between' }}>
                   <div style={{ display:'flex', flexDirection:'column', gap: scaled(24, scale), flex:1, justifyContent:'center' }}>
                     {card.items?.map((item: any, i: number) => (
-                      <div key={i} style={{ borderLeft:`2px solid rgba(${itemGlowColor},0.3)`, paddingLeft: scaled(27, scale), position:'relative', zIndex:1 }}>
+                      <div key={i} style={{ borderLeft: isDark ? `2px solid rgba(${itemGlowColor},0.3)` : '2px solid rgba(0,0,0,0.15)', paddingLeft: scaled(27, scale), position:'relative', zIndex:1 }}>
                         <div style={{ 
                           fontFamily: "'EB Garamond', serif", fontWeight: 700, 
                           fontSize: isMobile ? 'clamp(19px, 4vw, 23px)' : isTablet ? 'clamp(21px, 2.5vw, 25px)' : scaled(24, scale), 
