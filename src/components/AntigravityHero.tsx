@@ -163,7 +163,7 @@ export default function AntigravityHero() {
         <div style={{ 
           display: 'flex', 
           justifyContent: isMobile ? 'space-between' : 'center',
-          gap: isMobile ? scaled(10, scale) : isTablet ? '24px' : '48px', 
+          gap: isMobile ? '0px' : isTablet ? '24px' : '48px', 
           alignItems: 'center', 
           padding: '0',
           fontSize: isMobile ? scaled(10, scale) : isTablet ? '12px' : '13px', 
@@ -172,12 +172,14 @@ export default function AntigravityHero() {
           fontWeight: 300, 
           letterSpacing: '0.03em',
           transition: 'background 0.3s ease, color 0.3s ease',
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          width: '100%'
         }}>
 
-          <a href="#about" style={{ color: 'inherit', textDecoration: isMobile ? 'underline' : 'none', textUnderlineOffset: '3px', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[1]}</a>
-          <a href="#services" style={{ color: 'inherit', textDecoration: isMobile ? 'underline' : 'none', textUnderlineOffset: '3px', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[2]}</a>
-          <a href="#contact" style={{ color: 'inherit', textDecoration: isMobile ? 'underline' : 'none', textUnderlineOffset: '3px', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[3]}</a>
+          <a href="#about" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[1]}</a>
+          <a href="#services" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[2]}</a>
+          <a href="#contact" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[3]}</a>
+          {isMobile && <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[4]}</a>}
         </div>
         <div style={{ 
           display: 'flex', 
@@ -191,7 +193,7 @@ export default function AntigravityHero() {
           transition: 'background 0.3s ease, color 0.3s ease',
           whiteSpace: 'nowrap'
         }}>
-          <a href="#" style={{ color: 'inherit', textDecoration: isMobile ? 'underline' : 'none', textUnderlineOffset: '3px', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[4]}</a>
+          {!isMobile && <a href="#" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s', whiteSpace: 'nowrap' }} onMouseOver={e => e.currentTarget.style.color = fg} onMouseOut={e => e.currentTarget.style.color = muted}>{t.nav[4]}</a>}
           <div style={{ display: 'flex', gap: isMobile ? scaled(4, scale) : '8px', alignItems: 'center', fontSize: isMobile ? scaled(9, scale) : '11px', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>
             <span onClick={() => setLang('EN')} style={{ cursor: 'pointer', color: lang === 'EN' ? fg : 'inherit', fontWeight: lang === 'EN' ? 500 : 300, transition: 'color .2s', whiteSpace: 'nowrap' }}>EN</span>
             <span style={{ opacity: 0.2 }}>|</span>
