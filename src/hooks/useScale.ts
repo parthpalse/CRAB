@@ -9,7 +9,7 @@ export function useScale() {
   useEffect(() => {
     const calculate = () => {
       if (window.innerWidth < 768) {
-        setScale(Math.min(1, window.innerWidth / 320, window.innerHeight / 568));
+        setScale(Math.min(window.innerWidth / 320, window.innerHeight / 568));
         return;
       }
       const scaleX = window.innerWidth / BASE_W;
