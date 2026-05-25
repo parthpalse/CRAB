@@ -106,8 +106,8 @@ export default function AntigravityHero() {
         }
 
         :root{--bg:#0A0A0A;--fg:#ffffff;--muted:rgba(255,255,255,0.55);--dim:rgba(255,255,255,0.32);--line:rgba(255,255,255,0.08);--line-2:rgba(255,255,255,0.16);--card-bg:#0d1117;--border:rgba(255,255,255,0.08);--nav-bg:rgba(10,10,10,0.78);--section-bg:#0A0A0A}
-        *{box-sizing:border-box;margin:0;padding:0}
-        html,body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+        *{box-sizing:border-box;margin:0;padding:0;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+        html,body{background:var(--bg);color:var(--fg);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:hidden}
         ::-webkit-scrollbar{width:6px;background:#000}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
         @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(280%)}}
         

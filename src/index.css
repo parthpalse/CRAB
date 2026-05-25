@@ -155,6 +155,8 @@ All colors MUST be HSL.
 /* Fix background zoom by pinning a static grey base */
 html, body, #root {
   background-color: var(--bg) !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
