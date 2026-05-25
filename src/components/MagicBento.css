@@ -193,8 +193,8 @@
   width: 100%;
   height: 100%;
   background:
-    radial-gradient(120% 80% at 50% 55%, rgba(0,204,255,0.08) 0%, rgba(0,204,255,0.02) 35%, transparent 60%),
-    radial-gradient(90% 60% at 50% 100%, rgba(0,145,184,0.08) 0%, transparent 55%),
+    radial-gradient(120% 80% at 50% 55%, rgba(0,58,107,0.12) 0%, rgba(0,58,107,0.06) 35%, transparent 60%),
+    radial-gradient(90% 60% at 50% 100%, rgba(0,58,107,0.10) 0%, transparent 55%),
     linear-gradient(180deg, #06090F 0%, #04070D 50%, #02040A 100%);
   color: var(--di-bone);
   font-family: 'EB Garamond', serif;
@@ -216,7 +216,7 @@
   width: 100%;
   height: 100%;
   display: block;
-  filter: drop-shadow(0 30px 80px rgba(0,150,200,0.18));
+  filter: drop-shadow(0 30px 80px rgba(0,58,107,0.25));
 }
 
 [data-theme='light'] .di-tile .di-emblem {
@@ -233,12 +233,12 @@
 [data-theme='light'] .di-ring-b circle,
 [data-theme='light'] .di-ring-c circle,
 [data-theme='light'] .di-ring-c line {
-  stroke: #00ccff !important;
+  stroke: #003A6B !important;
 }
 
 [data-theme='light'] .di-ring-b g,
 [data-theme='light'] .di-emblem text {
-  fill: #00ccff !important;
+  fill: #003A6B !important;
 }
 
 .di-kicker {

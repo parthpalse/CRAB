@@ -45,7 +45,7 @@ const renderTicks = () => {
         y1={y1}
         x2={x2}
         y2={y2}
-        stroke="#00CCFF"
+        stroke="#003A6B"
         strokeOpacity={M ? 0.7 : 0.25}
         strokeWidth={M ? 1 : 0.5}
       />
@@ -588,8 +588,8 @@ export default function MagicBento({
                           <stop offset="100%" stopColor="#0091B8" stopOpacity="0.18"/>
                         </linearGradient>
                         <linearGradient id="di-edge" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#00CCFF"/>
-                          <stop offset="100%" stopColor="#0091B8"/>
+                          <stop offset="0%" stopColor="#003A6B"/>
+                          <stop offset="100%" stopColor="#002850"/>
                         </linearGradient>
                         <linearGradient id="di-shield" x1="0" y1="0" x2="0" y2="1">
                           <stop offset="0%" stopColor="#0B1B22" stopOpacity="0.9"/>
@@ -615,7 +615,7 @@ export default function MagicBento({
 
                       <circle cx="360" cy="360" r="340" fill="url(#di-halo)"/>
 
-                      <g className="di-ring-c" stroke="#00CCFF" strokeOpacity="0.35" fill="none">
+                      <g className="di-ring-c" stroke="#003A6B" strokeOpacity="0.6" fill="none">
                         <circle cx="360" cy="360" r="330" strokeWidth="0.5"/>
                         <g id="di-ticks">
                           {renderTicks()}
@@ -623,13 +623,13 @@ export default function MagicBento({
                       </g>
 
                       <g className="di-ring-a" fill="none">
-                        <circle cx="360" cy="360" r="280" stroke="#00CCFF" strokeOpacity="0.55" strokeWidth="0.7" strokeDasharray="2 6"/>
-                        <circle cx="360" cy="360" r="280" stroke="#00CCFF" strokeOpacity="0.18" strokeWidth="0.5" strokeDasharray="40 320"/>
+                        <circle cx="360" cy="360" r="280" stroke="#003A6B" strokeOpacity="0.8" strokeWidth="0.7" strokeDasharray="2 6"/>
+                        <circle cx="360" cy="360" r="280" stroke="#003A6B" strokeOpacity="0.5" strokeWidth="0.5" strokeDasharray="40 320"/>
                       </g>
 
                       <g className="di-ring-b" fill="none">
-                        <circle cx="360" cy="360" r="230" stroke="#00CCFF" strokeOpacity="0.40" strokeWidth="0.6"/>
-                        <g fill="#00CCFF" filter="url(#di-glow)">
+                        <circle cx="360" cy="360" r="230" stroke="#003A6B" strokeOpacity="0.7" strokeWidth="0.6"/>
+                        <g fill="#003A6B" filter="url(#di-glow)">
                           <circle cx="360" cy="130" r="3"/><circle cx="590" cy="360" r="3"/>
                           <circle cx="360" cy="590" r="3"/><circle cx="130" cy="360" r="3"/>
                           <circle cx="522" cy="198" r="2"/><circle cx="522" cy="522" r="2"/>
@@ -637,7 +637,7 @@ export default function MagicBento({
                         </g>
                       </g>
 
-                      <g fontFamily="Geist Mono, monospace" fontSize="9" fill="#00CCFF" letterSpacing="2">
+                      <g fontFamily="Geist Mono, monospace" fontSize="9" fill="#003A6B" letterSpacing="2">
                         <text x="360" y="86" textAnchor="middle">N · 00°</text>
                         <text x="640" y="364" textAnchor="middle">E · 90°</text>
                         <text x="360" y="650" textAnchor="middle">S · 180°</text>
@@ -648,14 +648,14 @@ export default function MagicBento({
                         <polygon points="360,140 540,240 540,440 360,540 180,440 180,240"
                           fill="none" stroke="url(#di-edge)" strokeWidth="1.2" opacity="0.9"/>
                         <polygon points="360,164 522,254 522,430 360,520 198,430 198,254"
-                          fill="url(#di-glass)" stroke="#00CCFF" strokeOpacity="0.45" strokeWidth="0.6"/>
+                          fill="url(#di-glass)" stroke="#003A6B" strokeOpacity="0.7" strokeWidth="0.6"/>
 
                         <path d="M360 220 C 420 220, 460 232, 470 244 L 470 348 C 470 408, 420 452, 360 478
                                  C 300 452, 250 408, 250 348 L 250 244 C 260 232, 300 220, 360 220 Z"
                               fill="url(#di-shield)" stroke="url(#di-edge)" strokeWidth="1"/>
                         <path d="M360 240 C 412 240, 446 250, 454 260 L 454 346 C 454 396, 412 436, 360 460
                                  C 308 436, 266 396, 266 346 L 266 260 C 274 250, 308 240, 360 240 Z"
-                              fill="none" stroke="#00CCFF" strokeOpacity="0.35" strokeWidth="0.6"/>
+                              fill="none" stroke="#003A6B" strokeOpacity="0.6" strokeWidth="0.6"/>
 
                         <g filter="url(#di-glow)">
                           <polygon points="360,278 410,348 360,418 310,348" fill="#02080C" stroke="#00CCFF" strokeWidth="1"/>
@@ -668,10 +668,10 @@ export default function MagicBento({
                         <circle cx="360" cy="348" r="3.2" fill="#00CCFF" filter="url(#di-glow)"/>
                         <circle cx="360" cy="348" r="8" fill="none" stroke="#00CCFF" strokeOpacity="0.5"/>
 
-                        <text fontFamily="Geist Mono, monospace" fontSize="9" fill="#00CCFF" letterSpacing="6">
+                        <text fontFamily="Geist Mono, monospace" fontSize="9" fill="#003A6B" letterSpacing="6">
                           <textPath href="#di-arcTop" startOffset="50%" textAnchor="middle">INTEGRITAS · CUSTODITA · IN · LUCE</textPath>
                         </text>
-                        <text fontFamily="Geist Mono, monospace" fontSize="8" fill="#00CCFF" fillOpacity="0.7" letterSpacing="6">
+                        <text fontFamily="Geist Mono, monospace" fontSize="8" fill="#003A6B" fillOpacity="0.9" letterSpacing="6">
                           <textPath href="#di-arcBot" startOffset="50%" textAnchor="middle">SHA · 256 · VERIFIED · MMXXVI</textPath>
                         </text>
 
@@ -682,13 +682,13 @@ export default function MagicBento({
                         </g>
                       </g>
 
-                      <g stroke="#00CCFF" strokeOpacity="0.10">
+                      <g stroke="#003A6B" strokeOpacity="0.25">
                         <line x1="20" y1="360" x2="700" y2="360" strokeWidth="0.5"/>
                         <line x1="360" y1="20" x2="360" y2="700" strokeWidth="0.5"/>
                       </g>
 
                       <g className="di-pulse">
-                        <circle cx="360" cy="60" r="2.5" fill="#00CCFF" filter="url(#di-glowL)"/>
+                        <circle cx="360" cy="60" r="2.5" fill="#003A6B" filter="url(#di-glowL)"/>
                       </g>
                     </svg>
 
