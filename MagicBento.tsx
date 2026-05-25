@@ -563,7 +563,7 @@ export default function MagicBento({
                   style={{ 
                     background: isDark 
                       ? undefined 
-                      : 'linear-gradient(180deg, #e8f0f5 0%, #f0f4f8 50%, #FAF9F6 100%)',
+                      : '#FAF9F6',
                     color: isDark ? undefined : '#0A0A0A'
                   }}
                 >
