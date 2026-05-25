@@ -162,7 +162,7 @@ export default function AntigravityHero() {
         </div>
         <div style={{ 
           display: 'flex', 
-          justifyContent: isMobile ? 'space-between' : 'center',
+          justifyContent: isMobile ? 'space-evenly' : 'center',
           gap: isMobile ? '0px' : isTablet ? '24px' : '48px', 
           alignItems: 'center', 
           padding: '0',
