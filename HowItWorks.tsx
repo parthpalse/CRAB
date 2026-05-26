@@ -122,7 +122,7 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: isDark ? '#0A0A0A' : '#F5F5F5', width: '100%', height: '100dvh', zIndex: 5, transition: 'background 0.3s ease, color 0.3s ease' }}
+      style={{ position: 'relative', background: isDark ? '#0A0A0A' : '#F5F5F5', width: '100%', height: '100vh', overflow: 'hidden', zIndex: 5, transition: 'background 0.3s ease, color 0.3s ease' }}
     >
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 1, transition: 'opacity 0.3s ease' }}>
         <DarkVeil isDark={isDark} />
