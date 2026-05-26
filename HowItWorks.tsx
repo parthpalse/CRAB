@@ -45,17 +45,21 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
     return () => clearTimeout(timer);
   }, []);
 
-  const USABLE_H = isMobile ? winDim.h - 130 : winDim.h * 0.82;
-  const OFFSET_Y = isMobile ? 70 : winDim.h * 0.09;
-  const PAD_TOP  = isMobile ? 20 : 60;
-  const PAD_BOT  = isMobile ? 90 : 60;
-
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
   };
-  const NY = (i: number) =>
-    OFFSET_Y + PAD_TOP + (i / (steps.length - 1)) * (USABLE_H - PAD_TOP - PAD_BOT);
+  const NY = (i: number) => {
+    if (isMobile) {
+      const startY = 120;
+      const endY = winDim.h - 110;
+      return startY + (i / (steps.length - 1)) * (endY - startY);
+    } else {
+      const startY = winDim.h * 0.09 + 60;
+      const endY = startY + (winDim.h * 0.82) - 120;
+      return startY + (i / (steps.length - 1)) * (endY - startY);
+    }
+  };
 
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
@@ -191,27 +195,27 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
                   <div style={{ textAlign: 'center', maxWidth: isMobile ? '70vw' : '420px', margin: isMobile ? '0 auto' : '0' }}>
                     <div style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 700,
-                      fontSize: isMobile ? '9px' : scaled(18, scale), color: '#00ccff',
+                      fontSize: isMobile ? 'clamp(9px, 2vh, 12px)' : scaled(18, scale), color: '#00ccff',
                       letterSpacing: '0.1em', textTransform: 'uppercase',
                       marginBottom: isMobile ? '2px' : scaled(4, scale),
                     }}>{step.n}</div>
                     <h2 style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 800,
-                      fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : scaled(28, scale),
+                      fontSize: isMobile ? 'clamp(11px, 2.5vh, 16px)' : scaled(28, scale),
                       color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
                       textTransform: 'uppercase', marginBottom: isMobile ? '2px' : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.title}</h2>
                     <p style={{
                       fontFamily: "'Inter', sans-serif", fontWeight: 300,
-                      fontSize: isMobile ? '9px' : scaled(13, scale),
+                      fontSize: isMobile ? 'clamp(9px, 2vh, 13px)' : scaled(13, scale),
                       color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.3,
                       marginBottom: isMobile ? '2px' : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.sub}</p>
                     <div style={{
                       fontFamily: "'EB Garamond', serif",
-                      fontSize: isMobile ? '9px' : scaled(14, scale),
+                      fontSize: isMobile ? 'clamp(9px, 2vh, 14px)' : scaled(14, scale),
                       color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
                       borderLeft:   isMobile ? 'none' : (isLeft ? '3px solid #00ccff' : 'none'),
                       borderRight:  isMobile ? 'none' : (isLeft ? 'none' : '3px solid #00ccff'),
