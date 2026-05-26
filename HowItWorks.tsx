@@ -45,10 +45,10 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
     return () => clearTimeout(timer);
   }, []);
 
-  const USABLE_H = isMobile ? winDim.h - 80 : winDim.h * 0.82;
-  const OFFSET_Y = isMobile ? 55 : winDim.h * 0.09;
+  const USABLE_H = isMobile ? winDim.h - 130 : winDim.h * 0.82;
+  const OFFSET_Y = isMobile ? 70 : winDim.h * 0.09;
   const PAD_TOP  = isMobile ? 20 : 60;
-  const PAD_BOT  = isMobile ? 40 : 60;
+  const PAD_BOT  = isMobile ? 90 : 60;
 
   const NX = (i: number) => {
     if (isMobile) return winDim.w * 0.5;
@@ -193,20 +193,20 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
                       fontFamily: "'EB Garamond', serif", fontWeight: 700,
                       fontSize: isMobile ? '9px' : scaled(18, scale), color: '#00ccff',
                       letterSpacing: '0.1em', textTransform: 'uppercase',
-                      marginBottom: isMobile ? scaled(2, scale) : scaled(4, scale),
+                      marginBottom: isMobile ? '2px' : scaled(4, scale),
                     }}>{step.n}</div>
                     <h2 style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 800,
                       fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : scaled(28, scale),
                       color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
-                      textTransform: 'uppercase', marginBottom: isMobile ? 4 : scaled(10, scale),
+                      textTransform: 'uppercase', marginBottom: isMobile ? '2px' : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.title}</h2>
                     <p style={{
                       fontFamily: "'Inter', sans-serif", fontWeight: 300,
                       fontSize: isMobile ? '9px' : scaled(13, scale),
-                      color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.4,
-                      marginBottom: isMobile ? 4 : scaled(10, scale),
+                      color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.3,
+                      marginBottom: isMobile ? '2px' : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.sub}</p>
                     <div style={{
@@ -218,8 +218,8 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
                       borderBottom: isMobile ? '3px solid #00ccff' : 'none',
                       paddingLeft:  isMobile ? '0' : (isLeft ? scaled(16, scale) : '0'),
                       paddingRight: isMobile ? '0' : (isLeft ? '0' : scaled(16, scale)),
-                      paddingBottom: isMobile ? '8px' : '0',
-                      marginTop: scaled(12, scale),
+                      paddingBottom: isMobile ? '4px' : '0',
+                      marginTop: isMobile ? '4px' : scaled(12, scale),
                     }}>{step.text}</div>
                   </div>
                 </div>
