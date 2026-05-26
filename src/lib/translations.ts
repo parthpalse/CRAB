@@ -55,8 +55,8 @@ export const DICT = {
         incremental: '+€189K incremental revenue'
       },
       security: {
-        headline: 'Your data, sealed',
-        headlineItalic: 'in light.',
+        headline: 'Your data is safe',
+        headlineItalic: 'with us.',
         kicker: 'Data Integrity'
       }
     },
@@ -130,8 +130,8 @@ export const DICT = {
         incremental: '+€189K zusätzlicher Umsatz'
       },
       security: {
-        headline: 'Ihre Daten, versiegelt',
-        headlineItalic: 'im Licht.',
+        headline: 'Ihre Daten sind bei uns',
+        headlineItalic: 'sicher.',
         kicker: 'Datenintegrität'
       }
     },
