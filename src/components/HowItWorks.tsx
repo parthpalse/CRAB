@@ -54,8 +54,16 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
     if (isMobile) return winDim.w * 0.5;
     return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
   };
-  const NY = (i: number) =>
-    OFFSET_Y + PAD_TOP + (i / (steps.length - 1)) * (USABLE_H - PAD_TOP - PAD_BOT);
+  const NY = (i: number) => {
+    if (isMobile) {
+      // Use a fixed gap so it looks like a cohesive list on all phones
+      const gap = 110; 
+      const totalHeight = (steps.length - 1) * gap;
+      const startY = (winDim.h - totalHeight) / 2;
+      return startY + i * gap;
+    }
+    return OFFSET_Y + PAD_TOP + (i / (steps.length - 1)) * (USABLE_H - PAD_TOP - PAD_BOT);
+  };
 
   const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
 
@@ -191,27 +199,27 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
                   <div style={{ textAlign: 'center', maxWidth: isMobile ? '70vw' : '420px', margin: isMobile ? '0 auto' : '0' }}>
                     <div style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 700,
-                      fontSize: isMobile ? '9px' : scaled(18, scale), color: '#00ccff',
+                      fontSize: isMobile ? '13px' : scaled(18, scale), color: '#00ccff',
                       letterSpacing: '0.1em', textTransform: 'uppercase',
                       marginBottom: isMobile ? scaled(2, scale) : scaled(4, scale),
                     }}>{step.n}</div>
                     <h2 style={{
                       fontFamily: "'EB Garamond', serif", fontWeight: 800,
-                      fontSize: isMobile ? 'clamp(11px, 3vw, 14px)' : scaled(28, scale),
+                      fontSize: isMobile ? 'clamp(18px, 5vw, 22px)' : scaled(28, scale),
                       color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
-                      textTransform: 'uppercase', marginBottom: isMobile ? 4 : scaled(10, scale),
+                      textTransform: 'uppercase', marginBottom: isMobile ? 8 : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.title}</h2>
                     <p style={{
                       fontFamily: "'Inter', sans-serif", fontWeight: 300,
-                      fontSize: isMobile ? '9px' : scaled(13, scale),
+                      fontSize: isMobile ? '13px' : scaled(13, scale),
                       color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.4,
-                      marginBottom: isMobile ? 4 : scaled(10, scale),
+                      marginBottom: isMobile ? 8 : scaled(10, scale),
                       transition: 'background 0.3s ease, color 0.3s ease',
                     }}>{step.sub}</p>
                     <div style={{
                       fontFamily: "'EB Garamond', serif",
-                      fontSize: isMobile ? '9px' : scaled(14, scale),
+                      fontSize: isMobile ? '14px' : scaled(14, scale),
                       color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
                       borderLeft:   isMobile ? 'none' : (isLeft ? '3px solid #00ccff' : 'none'),
                       borderRight:  isMobile ? 'none' : (isLeft ? 'none' : '3px solid #00ccff'),
