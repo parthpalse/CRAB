@@ -45,37 +45,37 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
     return () => clearTimeout(timer);
   }, []);
 
-  const USABLE_H = isMobile ? winDim.h - 80 : winDim.h * 0.82;
-  const OFFSET_Y = isMobile ? 55 : winDim.h * 0.09;
-  const PAD_TOP  = isMobile ? 20 : 60;
-  const PAD_BOT  = isMobile ? 40 : 60;
-
-  const NX = (i: number) => {
-    if (isMobile) return winDim.w * 0.5;
-    return winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
-  };
-  const NY = (i: number) => {
-    if (isMobile) {
-      // Calculate the maximum gap that fits on the screen
-      const maxGap = (USABLE_H - PAD_TOP - PAD_BOT) / (steps.length - 1);
-      // Use a comfortable gap (135px), but shrink it if the screen is too small
-      const gap = Math.min(135, maxGap); 
-      const totalHeight = (steps.length - 1) * gap;
-      const startY = (winDim.h - totalHeight) / 2;
-      return startY + i * gap;
-    }
-    return OFFSET_Y + PAD_TOP + (i / (steps.length - 1)) * (USABLE_H - PAD_TOP - PAD_BOT);
+  /* ── Desktop positioning (unchanged) ── */
+  const NX_desktop = (i: number) => winDim.w * (i % 2 === 0 ? 0.08 : 0.92);
+  const NY_desktop = (i: number) => {
+    const startY = winDim.h * 0.09 + 60;
+    const endY = startY + (winDim.h * 0.82) - 120;
+    return startY + (i / (steps.length - 1)) * (endY - startY);
   };
 
-  const NODES: [number, number][] = steps.map((_, i) => [NX(i), NY(i)]);
-
-  const PATH_D = NODES.reduce((acc, [x, y], i) => {
+  const DESKTOP_NODES: [number, number][] = steps.map((_, i) => [NX_desktop(i), NY_desktop(i)]);
+  const DESKTOP_PATH_D = DESKTOP_NODES.reduce((acc, [x, y], i) => {
     if (i === 0) return `M ${x},${y}`;
-    const [prevX, prevY] = NODES[i - 1];
-    const midX = isMobile ? x : (prevX + x) / 2;
+    const [prevX, prevY] = DESKTOP_NODES[i - 1];
+    const midX = (prevX + x) / 2;
     return `${acc} C ${midX},${prevY} ${midX},${y} ${x},${y}`;
   }, '');
 
+  /* ── Mobile: SVG uses a fixed 100-unit tall viewBox so positions are percentages ── */
+  const MOBILE_SVG_W = 100;
+  const MOBILE_SVG_H = 100;
+  const MOBILE_Y_START = 6;   // 6% from top
+  const MOBILE_Y_END   = 94;  // 94% from top
+  const MOBILE_NODES: [number, number][] = steps.map((_, i) => [
+    MOBILE_SVG_W / 2,
+    MOBILE_Y_START + (i / (steps.length - 1)) * (MOBILE_Y_END - MOBILE_Y_START),
+  ]);
+  const MOBILE_PATH_D = MOBILE_NODES.reduce((acc, [x, y], i) => {
+    if (i === 0) return `M ${x},${y}`;
+    return `${acc} L ${x},${y}`;
+  }, '');
+
+  const PATH_D = isMobile ? MOBILE_PATH_D : DESKTOP_PATH_D;
   const activeIndex = progress === 0 ? -1 : Math.floor(progress * steps.length);
 
   useEffect(() => {
@@ -104,139 +104,198 @@ export default function HowItWorks({ lang, isDark = true }: { lang: 'EN' | 'DE';
       cometGlowRef.current.setAttribute('cy', String(point.y));
       cometGlowRef.current.setAttribute('opacity', visible);
     }
-  }, [progress, winDim]);
+  }, [progress, winDim, isMobile]);
 
   useEffect(() => {
     if (!cometGlowRef.current) return;
     const tween = gsap.to(cometGlowRef.current, {
-      attr: { r: 22 }, duration: 1.0, repeat: -1, yoyo: true, ease: 'sine.inOut',
+      attr: { r: isMobile ? 4 : 22 }, duration: 1.0, repeat: -1, yoyo: true, ease: 'sine.inOut',
     });
     return () => tween.kill();
-  }, []);
+  }, [isMobile]);
+
+  /* ── SVG viewBox depends on mode ── */
+  const svgViewBox = isMobile
+    ? `0 0 ${MOBILE_SVG_W} ${MOBILE_SVG_H}`
+    : `0 0 ${winDim.w} ${winDim.h}`;
 
   return (
     <section
       ref={sectionRef}
-      style={{ position: 'relative', background: isDark ? '#0A0A0A' : '#F5F5F5', width: '100%', height: '100dvh', zIndex: 5, transition: 'background 0.3s ease, color 0.3s ease' }}
+      style={{ position: 'relative', background: isDark ? '#0A0A0A' : '#F5F5F5', width: '100%', height: '100vh', overflow: 'hidden', zIndex: 5, transition: 'background 0.3s ease, color 0.3s ease' }}
     >
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, opacity: 1, transition: 'opacity 0.3s ease' }}>
         <DarkVeil isDark={isDark} />
       </div>
       <div style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'hidden', pointerEvents: 'none' }}>
-        <div style={{ position: 'relative', width: '100%', height: `${winDim.h}px` }}>
-          <svg
-            width="100%"
-            height="100%"
-            viewBox={`0 0 ${winDim.w} ${winDim.h}`}
-            preserveAspectRatio="none"
-            style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
-          >
-            <defs>
-              <linearGradient id="nhPathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%"   stopColor="#00ccff" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#ffaa00" stopOpacity="0.95" />
-              </linearGradient>
-              <filter id="nhPathGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="4" result="b" />
-                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-              </filter>
-              <filter id="nhCometGlow" x="-100%" y="-100%" width="300%" height="300%">
-                <feGaussianBlur stdDeviation="6" result="b" />
-                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-              </filter>
-            </defs>
-            <path d={PATH_D} stroke="rgba(255,255,255,0)" strokeWidth={isMobile ? "2" : scaled(1.5, scale)} fill="none" strokeLinecap="round" strokeLinejoin="round" />
-            <path
-              ref={drawnPathRef}
-              d={PATH_D}
-              stroke="url(#nhPathGrad)"
-              strokeWidth={isMobile ? "5" : scaled(3, scale)}
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              filter="url(#nhPathGlow)"
-            />
-            <circle ref={cometGlowRef} r="14" fill="rgba(0,204,255,0.35)" filter="url(#nhCometGlow)" opacity="0" />
-            <circle ref={cometRef}     r="6"  fill="#ffffff"              filter="url(#nhCometGlow)" opacity="0" />
-          </svg>
-          <div style={{ 
-            position: 'absolute', 
-            inset: 0, 
-            zIndex: 2, 
-            pointerEvents: 'none'
+        {/* ── SVG layer ── */}
+        <svg
+          width="100%"
+          height="100%"
+          viewBox={svgViewBox}
+          preserveAspectRatio="none"
+          style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1 }}
+        >
+          <defs>
+            <linearGradient id="nhPathGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%"   stopColor="#00ccff" stopOpacity="0.95" />
+              <stop offset="100%" stopColor="#ffaa00" stopOpacity="0.95" />
+            </linearGradient>
+            <filter id="nhPathGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation={isMobile ? '0.5' : '4'} result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+            <filter id="nhCometGlow" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation={isMobile ? '1' : '6'} result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <path d={PATH_D} stroke="rgba(255,255,255,0)" strokeWidth={isMobile ? '0.3' : scaled(1.5, scale)} fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            ref={drawnPathRef}
+            d={PATH_D}
+            stroke="url(#nhPathGrad)"
+            strokeWidth={isMobile ? '0.8' : scaled(3, scale)}
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#nhPathGlow)"
+          />
+          <circle ref={cometGlowRef} r={isMobile ? 2 : 14} fill="rgba(0,204,255,0.35)" filter="url(#nhCometGlow)" opacity="0" />
+          <circle ref={cometRef}     r={isMobile ? 1 : 6}  fill="#ffffff"              filter="url(#nhCometGlow)" opacity="0" />
+        </svg>
+
+        {/* ── Step labels layer ── */}
+        {isMobile ? (
+          /* ══════════════════════════════════════════════════════
+             MOBILE: Flexbox layout — items distribute naturally
+             within the actual rendered container height.
+             No pixel guessing, works on every screen.
+             ══════════════════════════════════════════════════════ */
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '4% 0 4% 0',
           }}>
             {ready && steps.map((step, i) => {
-              const isLeft   = !isMobile && i % 2 === 0;
-              const nodeY_Px = NY(i);
               const isReached = i <= activeIndex;
-              const desktopStyle = {
-                position: 'absolute' as const,
-                top: `${nodeY_Px}px`,
-                transform: 'translateY(-50%)',
-                left:  isLeft ? scaled(90, scale) : 'auto',
-                right: isLeft ? 'auto' : scaled(90, scale),
-                width: scaled(420, scale),
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: isLeft ? 'flex-start' : 'flex-end',
-                opacity: isReached ? 1 : 0,
-                transition: 'opacity 0.45s ease',
-                pointerEvents: 'auto' as const,
-              };
-              const mobileStyle = {
-                position: 'absolute' as const,
-                top: `${nodeY_Px}px`,
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '70vw',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                opacity: isReached ? 1 : 0,
-                transition: 'opacity 0.45s ease',
-                pointerEvents: 'auto' as const,
-              };
               return (
-                <div key={i} style={isMobile ? mobileStyle : desktopStyle}>
-                  <div style={{ textAlign: 'center', maxWidth: isMobile ? '70vw' : '420px', margin: isMobile ? '0 auto' : '0' }}>
-                    <div style={{
-                      fontFamily: "'EB Garamond', serif", fontWeight: 700,
-                      fontSize: isMobile ? '11px' : scaled(18, scale), color: '#00ccff',
-                      letterSpacing: '0.1em', textTransform: 'uppercase',
-                      marginBottom: isMobile ? 4 : scaled(4, scale),
-                    }}>{step.n}</div>
-                    <h2 style={{
-                      fontFamily: "'EB Garamond', serif", fontWeight: 800,
-                      fontSize: isMobile ? 'clamp(14px, 4vw, 18px)' : scaled(28, scale),
-                      color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
-                      textTransform: 'uppercase', marginBottom: isMobile ? 4 : scaled(10, scale),
-                      transition: 'background 0.3s ease, color 0.3s ease',
-                    }}>{step.title}</h2>
-                    <p style={{
-                      fontFamily: "'Inter', sans-serif", fontWeight: 300,
-                      fontSize: isMobile ? '11px' : scaled(13, scale),
-                      color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.4,
-                      marginBottom: isMobile ? 4 : scaled(10, scale),
-                      transition: 'background 0.3s ease, color 0.3s ease',
-                    }}>{step.sub}</p>
-                    <div style={{
-                      fontFamily: "'EB Garamond', serif",
-                      fontSize: isMobile ? '12px' : scaled(14, scale),
-                      color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
-                      borderLeft:   isMobile ? 'none' : (isLeft ? '3px solid #00ccff' : 'none'),
-                      borderRight:  isMobile ? 'none' : (isLeft ? 'none' : '3px solid #00ccff'),
-                      borderBottom: isMobile ? '3px solid #00ccff' : 'none',
-                      paddingLeft:  isMobile ? '0' : (isLeft ? scaled(16, scale) : '0'),
-                      paddingRight: isMobile ? '0' : (isLeft ? '0' : scaled(16, scale)),
-                      paddingBottom: isMobile ? '8px' : '0',
-                      marginTop: scaled(12, scale),
-                    }}>{step.text}</div>
-                  </div>
+                <div key={i} style={{
+                  textAlign: 'center',
+                  width: '75vw',
+                  opacity: isReached ? 1 : 0,
+                  transition: 'opacity 0.45s ease',
+                  pointerEvents: 'auto',
+                  flex: '0 1 auto',
+                }}>
+                  <div style={{
+                    fontFamily: "'EB Garamond', serif", fontWeight: 700,
+                    fontSize: 'clamp(8px, 1.5vh, 13px)', color: '#00ccff',
+                    letterSpacing: '0.1em', textTransform: 'uppercase',
+                    marginBottom: '1px',
+                  }}>{step.n}</div>
+                  <h2 style={{
+                    fontFamily: "'EB Garamond', serif", fontWeight: 800,
+                    fontSize: 'clamp(12px, 2.2vh, 18px)',
+                    color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.15,
+                    textTransform: 'uppercase', marginBottom: '1px',
+                    transition: 'color 0.3s ease',
+                  }}>{step.title}</h2>
+                  <p style={{
+                    fontFamily: "'Inter', sans-serif", fontWeight: 300,
+                    fontSize: 'clamp(8px, 1.4vh, 12px)',
+                    color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.3,
+                    marginBottom: '1px',
+                    transition: 'color 0.3s ease',
+                  }}>{step.sub}</p>
+                  <div style={{
+                    fontFamily: "'EB Garamond', serif",
+                    fontSize: 'clamp(8px, 1.4vh, 13px)',
+                    color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
+                    borderBottom: '2px solid #00ccff',
+                    paddingBottom: '3px',
+                    marginTop: '2px',
+                    display: 'inline-block',
+                  }}>{step.text}</div>
                 </div>
               );
             })}
           </div>
-        </div>
+        ) : (
+          /* ══════════════════════════════════════
+             DESKTOP: Absolute positioning (unchanged)
+             ══════════════════════════════════════ */
+          <div style={{ position: 'relative', width: '100%', height: `${winDim.h}px` }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 2,
+              pointerEvents: 'none'
+            }}>
+              {ready && steps.map((step, i) => {
+                const isLeft   = i % 2 === 0;
+                const nodeY_Px = NY_desktop(i);
+                const isReached = i <= activeIndex;
+                const desktopStyle = {
+                  position: 'absolute' as const,
+                  top: `${nodeY_Px}px`,
+                  transform: 'translateY(-50%)',
+                  left:  isLeft ? scaled(90, scale) : 'auto',
+                  right: isLeft ? 'auto' : scaled(90, scale),
+                  width: scaled(420, scale),
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: isLeft ? 'flex-start' : 'flex-end',
+                  opacity: isReached ? 1 : 0,
+                  transition: 'opacity 0.45s ease',
+                  pointerEvents: 'auto' as const,
+                };
+                return (
+                  <div key={i} style={desktopStyle}>
+                    <div style={{ textAlign: 'center', maxWidth: '420px' }}>
+                      <div style={{
+                        fontFamily: "'EB Garamond', serif", fontWeight: 700,
+                        fontSize: scaled(18, scale), color: '#00ccff',
+                        letterSpacing: '0.1em', textTransform: 'uppercase',
+                        marginBottom: scaled(4, scale),
+                      }}>{step.n}</div>
+                      <h2 style={{
+                        fontFamily: "'EB Garamond', serif", fontWeight: 800,
+                        fontSize: scaled(28, scale),
+                        color: isDark ? '#fff' : '#0A0A0A', letterSpacing: '-0.01em', lineHeight: 1.1,
+                        textTransform: 'uppercase', marginBottom: scaled(10, scale),
+                        transition: 'background 0.3s ease, color 0.3s ease',
+                      }}>{step.title}</h2>
+                      <p style={{
+                        fontFamily: "'Inter', sans-serif", fontWeight: 300,
+                        fontSize: scaled(13, scale),
+                        color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.55)', lineHeight: 1.4,
+                        marginBottom: scaled(10, scale),
+                        transition: 'background 0.3s ease, color 0.3s ease',
+                      }}>{step.sub}</p>
+                      <div style={{
+                        fontFamily: "'EB Garamond', serif",
+                        fontSize: scaled(14, scale),
+                        color: 'rgba(0,204,255,1)', fontWeight: 600, letterSpacing: '0.02em',
+                        borderLeft:  isLeft ? '3px solid #00ccff' : 'none',
+                        borderRight: isLeft ? 'none' : '3px solid #00ccff',
+                        paddingLeft:  isLeft ? scaled(16, scale) : '0',
+                        paddingRight: isLeft ? '0' : scaled(16, scale),
+                        marginTop: scaled(12, scale),
+                      }}>{step.text}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
